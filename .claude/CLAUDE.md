@@ -101,8 +101,29 @@ Prisma is installed but not yet configured. If implementing database features:
 
 - **Tailwind CSS** is configured via Nuxt UI
 - Custom global styles: `app/assets/css/main.css`
-- Component scoping: Use `<style scoped>` in `.vue` files
+- Style in the template with Tailwind utility classes, not `<style>` blocks (see Coding Standards)
 - Avoid custom CSS for simple layouts - use Tailwind utilities
+
+## Coding Standards
+
+1. **Scan before building.** Search the repo for existing functions, types, components, and utilities that already cover the task. Reuse or minimally adapt them instead of writing new ones.
+2. **Minimal, root-cause changes.** Ship the smallest safe diff that solves the requirement. Don't add layers, abstractions, or helpers unless they reduce total complexity. When fixing bugs, fix the root cause — no band-aids or temporary patches. Touch only what's necessary; don't introduce side effects while fixing something else.
+3. **Single responsibility, short functions.** Each function does one thing and is named for that thing.
+4. **No redundancy.** Consolidate duplicated logic into one reusable function; call existing utilities rather than rewriting them.
+5. **Explicit contracts.** Use typed signatures and clear input/output shapes. Validate inputs at system boundaries and fail fast with clear errors.
+6. **Readability over cleverness, minimal comments.** Use expressive names and simple control flow so the code doesn't need comments to explain itself. A one-line docstring on exported/public functions is enough — do not add full JSDoc blocks or multi-line comments.
+7. **Reuse what's installed.** Prefer already-installed packages and battle-tested libraries over new dependencies or custom implementations of solved problems.
+8. **Correctness before performance.** Don't micro-optimize before measuring.
+9. **Ask, don't assume.** If a requirement is ambiguous or you're unsure of an architectural detail, ask for clarification before implementing rather than guessing.
+10. **Keep files small.** Aim for a soft cap of ~150 lines per file; split when a file grows past that.
+11. **Always use `pnpm`**, never `npm` or `yarn`.
+12. **No unsolicited docs.** Don't create `.md` summaries, reports, or overview files unless explicitly asked to.
+13. **Consult MCP docs when available.** If a Nuxt UI or Context7 MCP server is configured in this environment, check it before using an unfamiliar Nuxt UI component or external library API.
+14. **Rely on Nuxt auto-imports.** Don't manually import `ref`, `computed`, `watch`, `useRoute`, `useRouter`, or other Nuxt/Vue auto-imports.
+15. **Never hand-edit `.sql` migration files.** Always generate and apply schema changes through Prisma Migrate (`pnpm prisma migrate dev`).
+16. **Nuxt UI first.** Use `UTable`, `UButton`, `UInput`, `USelect`, `UTextarea`, `UFormField`, `UModal`, `UBadge`, etc. instead of raw HTML controls, unless explicitly told otherwise.
+17. **Tailwind, template-first, no `<style>` blocks.** Style in the template with Tailwind utility classes and design tokens, not a separate style block. Only use `<style scoped>` when technically unavoidable (e.g. `:deep()` for a third-party component), and keep the exception minimal and commented.
+18. **No unnecessary semicolons** in TypeScript — only where syntax requires them (already enforced by `pnpm lint`).
 
 ## CI/CD Pipeline
 
