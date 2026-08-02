@@ -5,9 +5,19 @@
 // replacement never happens and the bare reference throws "is not defined"
 // at runtime. Setting them here, as early as possible in the server
 // lifecycle, covers any dependency relying on these globals existing.
-export default defineNitroPlugin(() => {
+//
+// The property names are assembled at runtime (not written as literal
+// `__VUE_X__` identifiers) because Nuxt's own Vite config already defines
+// those exact identifiers project-wide — writing them literally here would
+// get text-replaced by that define too, turning this into a no-op.
+function setVueFlag(name: string, value: boolean) {
+  const key = `__${name}__`
   const globals = globalThis as Record<string, unknown>
-  globals.__VUE_PROD_DEVTOOLS__ ??= false
-  globals.__VUE_OPTIONS_API__ ??= true
-  globals.__VUE_PROD_HYDRATION_MISMATCH_DETAILS__ ??= false
+  globals[key] ??= value
+}
+
+export default defineNitroPlugin(() => {
+  setVueFlag('VUE_PROD_DEVTOOLS', false)
+  setVueFlag('VUE_OPTIONS_API', true)
+  setVueFlag('VUE_PROD_HYDRATION_MISMATCH_DETAILS', false)
 })

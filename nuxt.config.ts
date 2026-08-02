@@ -31,18 +31,12 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2026-06-30',
 
-  // Nitro's Vercel serverless-function bundling step doesn't always inherit
-  // Vite's client-side define replacements for Vue's prod feature flags,
-  // leaving a bare `__VUE_PROD_DEVTOOLS__` reference in the server bundle
-  // that throws "is not defined" at runtime. Defining them explicitly avoids
-  // relying on that inheritance.
-  vite: {
-    define: {
-      __VUE_PROD_DEVTOOLS__: 'false',
-      __VUE_OPTIONS_API__: 'true',
-      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false'
-    }
-  },
+  // No vite.define for __VUE_PROD_DEVTOOLS__ etc. here: Vite's define does a
+  // blind text substitution of that identifier everywhere in the bundle,
+  // including inside server/plugins/vue-globals.ts's own property access
+  // (globals.__VUE_PROD_DEVTOOLS__ becomes globals.false), breaking the
+  // actual runtime fix. It also never reaches pinia's raw, externalized
+  // node_modules copy anyway — see server/plugins/vue-globals.ts.
 
   eslint: {
     config: {
