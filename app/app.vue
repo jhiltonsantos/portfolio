@@ -4,7 +4,7 @@ useHead({
     lang: 'pt-BR'
   },
   link: [
-    { rel: 'icon', href: '/favicon.ico' }
+    { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
   ]
 })
 

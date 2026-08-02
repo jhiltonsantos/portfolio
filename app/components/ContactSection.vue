@@ -17,9 +17,9 @@ const contacts: ContactEntry[] = [
 <template>
   <section
     id="contato"
-    class="relative z-10 min-h-screen"
+    class="relative z-10 flex min-h-screen flex-col"
   >
-    <div class="mx-auto flex min-h-screen max-w-(--spacing-container-max) flex-col justify-center gap-10 px-5 md:px-16">
+    <div class="mx-auto flex w-full max-w-(--spacing-container-max) flex-1 flex-col justify-center gap-10 px-5 md:px-16">
       <div class="flex max-w-xl flex-col gap-2">
         <span class="text-label-caps uppercase text-primary">Vamos conversar</span>
         <h2 class="text-headline-md text-on-surface">
@@ -54,5 +54,7 @@ const contacts: ContactEntry[] = [
         </li>
       </ul>
     </div>
+
+    <AppFooter />
   </section>
 </template>
