@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "generate": "nuxt generate",
     "dev": "nuxt dev",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -14,7 +15,7 @@
     "@iconify-json/lucide": "^1.2.120",
     "@iconify-json/simple-icons": "^1.2.92",
     "@nuxt/ui": "^4.10.0",
-    "@pinia/nuxt": "1.0.1",
+    "gsap": "^3.15.0",
     "nuxt": "^4.5.1",
     "pinia": "^4.0.2",
     "prisma": "^7.9.1",
