@@ -22,6 +22,7 @@ useSeoMeta({
 
 <template>
   <UApp>
+    <CustomCursor />
     <NuxtPage />
   </UApp>
 </template>

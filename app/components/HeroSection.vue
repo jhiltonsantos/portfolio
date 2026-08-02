@@ -3,11 +3,10 @@ const roles = ['Desenvolvedor', 'Fullstack', 'Front-end']
 </script>
 
 <template>
-  <section class="relative min-h-screen overflow-hidden bg-background">
-    <div
-      class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(34,226,134,0.16),transparent_60%)]"
-    />
-
+  <section
+    id="hero"
+    class="relative z-10 min-h-screen overflow-hidden"
+  >
     <div class="relative mx-auto flex min-h-screen max-w-(--spacing-container-max) flex-col px-5 pt-8 md:px-16 md:pt-12">
       <SiteHeader />
 
