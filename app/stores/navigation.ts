@@ -1,5 +1,6 @@
+import { defineStore } from 'pinia'
+
 export const useNavigationStore = defineStore('navigation', () => {
-  // Keep in sync with each section component's root `id` attribute.
   const sections = [
     { id: 'hero', label: 'Início' },
     { id: 'experiencias', label: 'Experiências' },

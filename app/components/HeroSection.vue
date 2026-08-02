@@ -41,7 +41,7 @@ const stackRows = [
 
         <div class="flex items-center self-center pr-12 gap-2">
           <UIcon
-            name="mdi:arrow-bottom-right-bold-outline"
+            name="i-lucide-arrow-down-right"
             class="pb-1.5 size-16 shrink-0 text-primary"
           />
           <ul class="flex flex-col gap-1 text-label-caps uppercase">
