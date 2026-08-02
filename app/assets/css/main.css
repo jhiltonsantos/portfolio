@@ -21,6 +21,8 @@ html {
   color-scheme: dark;
   scrollbar-width: thin;
   scrollbar-color: var(--color-outline-variant) var(--color-surface-container-low);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 html::-webkit-scrollbar {
@@ -41,7 +43,9 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 @media (min-width: 48rem) {
-  html {
-    cursor: none;
+  /* Overrides Tailwind/Nuxt UI's own cursor: pointer on buttons and links,
+     which otherwise wins over the inherited value above. */
+  * {
+    cursor: none !important;
   }
 }
