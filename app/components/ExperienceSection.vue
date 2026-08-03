@@ -88,14 +88,18 @@ const experiences: ExperienceEntry[] = [
               {{ experience.description }}
             </p>
             <div class="flex flex-wrap gap-2">
-              <UBadge
+              <UTooltip
                 v-for="tag in experience.tags"
                 :key="tag.name"
-                :icon="tag.icon"
-                :aria-label="tag.name"
-                color="primary"
-                variant="soft"
-              />
+                :text="tag.name"
+              >
+                <UBadge
+                  :icon="tag.icon"
+                  :aria-label="tag.name"
+                  color="primary"
+                  variant="soft"
+                />
+              </UTooltip>
             </div>
           </div>
         </li>

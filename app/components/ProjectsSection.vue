@@ -81,17 +81,21 @@ const projects: ProjectEntry[] = [
           </p>
 
           <div class="flex flex-wrap gap-2">
-            <UBadge
+            <UTooltip
               v-for="tag in project.tags"
               :key="tag.name"
-              :icon="tag.icon"
-              :aria-label="tag.name"
-              color="primary"
-              variant="soft"
-            />
+              :text="tag.name"
+            >
+              <UBadge
+                :icon="tag.icon"
+                :aria-label="tag.name"
+                color="primary"
+                variant="soft"
+              />
+            </UTooltip>
           </div>
 
-          <div class="flex items-center gap-4">
+          <div class="flex items-center justify-between">
             <UButton
               :to="project.link"
               target="_blank"
@@ -110,7 +114,7 @@ const projects: ProjectEntry[] = [
               icon="i-simple-icons-github"
               aria-label="Ver código no GitHub"
               variant="ghost"
-              color="neutral"
+              color="primary"
               square
             />
           </div>

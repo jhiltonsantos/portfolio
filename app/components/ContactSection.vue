@@ -12,11 +12,12 @@ interface ContactEntry {
 const contacts: ContactEntry[] = [
   { label: 'Email', value: 'jhilton930@gmail.com', href: 'mailto:jhilton930@gmail.com', icon: 'i-lucide-mail', external: false },
   { label: 'GitHub', value: 'github.com/jhiltonsantos', href: 'https://github.com/jhiltonsantos', icon: 'i-simple-icons-github', external: true },
-  { label: 'LinkedIn', value: 'linkedin.com/in/hiltonsantos9', href: 'www.linkedin.com/in/hiltonsantos9', icon: 'i-simple-icons-linkedin', external: true }
+  { label: 'LinkedIn', value: 'linkedin.com/in/hiltonsantos9', href: 'https://linkedin.com/in/hiltonsantos9', icon: 'i-simple-icons-linkedin', external: true }
 ]
 
 const store = useNavigationStore()
 const photoRef = ref<HTMLImageElement>()
+const photoGlowRef = ref<HTMLDivElement>()
 const isActive = computed(() => store.sections[store.currentIndex]?.id === 'contato')
 
 watch(isActive, (active) => {
@@ -28,10 +29,15 @@ watch(isActive, (active) => {
   )
 })
 
-onMounted(() => {
-  if (!photoRef.value) return
-  gsap.to(photoRef.value, { y: '+=14', duration: 2.6, ease: 'sine.inOut', yoyo: true, repeat: -1 })
-})
+function onPhotoHover(hovering: boolean) {
+  if (!photoGlowRef.value) return
+  gsap.to(photoGlowRef.value, {
+    opacity: hovering ? 1 : 0.6,
+    scale: hovering ? 1.15 : 0.9,
+    duration: 0.6,
+    ease: 'power2.out'
+  })
+}
 </script>
 
 <template>
@@ -76,13 +82,23 @@ onMounted(() => {
         </ul>
       </div>
 
-      <div class="hidden md:flex md:w-1/2 md:items-center md:justify-center">
-        <img
-          ref="photoRef"
-          src="/image/me.webp"
-          alt="Foto de Hilton Santos"
-          class="h-72 w-72 rounded-xl object-cover ring-1 ring-outline-variant shadow-glow-primary md:h-80 md:w-80"
+      <div class="hidden md:flex md:w-1/3 md:items-center md:justify-end items-end self-center-safe">
+        <div
+          class="relative w-full max-w-md"
+          @mouseenter="onPhotoHover(true)"
+          @mouseleave="onPhotoHover(false)"
         >
+          <div
+            ref="photoGlowRef"
+            class="pointer-events-none absolute inset-0 -z-10 scale-90 rounded-full bg-primary/30 opacity-60 blur-3xl"
+          />
+          <img
+            ref="photoRef"
+            src="/image/me.webp"
+            alt="Foto de Hilton Santos"
+            class="aspect-square w-full rounded-xl object-cover ring-1 ring-outline-variant shadow-glow-primary"
+          >
+        </div>
       </div>
     </div>
 
