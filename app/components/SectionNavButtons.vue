@@ -1,7 +1,3 @@
-<script setup lang="ts">
-const store = useNavigationStore()
-</script>
-
 <template>
   <div class="fixed bottom-8 right-5 z-50 flex flex-col gap-3 md:right-16">
     <UButton
@@ -26,3 +22,7 @@ const store = useNavigationStore()
     />
   </div>
 </template>
+
+<script setup lang="ts">
+const store = useNavigationStore()
+</script>

@@ -1,3 +1,17 @@
+<template>
+  <div class="pointer-events-none fixed inset-0 z-[100] hidden md:block">
+    <div
+      ref="cursorDot"
+      class="fixed left-0 top-0 size-2 rounded-full bg-primary"
+    />
+    <div
+      ref="cursorRing"
+      class="fixed left-0 top-0 rounded-full border border-primary shadow-glow-primary transition-[width,height] duration-200"
+      :class="isHovering ? 'size-12' : 'size-8'"
+    />
+  </div>
+</template>
+
 <script setup lang="ts">
 import { gsap } from 'gsap'
 
@@ -35,17 +49,3 @@ onMounted(() => {
   })
 })
 </script>
-
-<template>
-  <div class="pointer-events-none fixed inset-0 z-[100] hidden md:block">
-    <div
-      ref="cursorDot"
-      class="fixed left-0 top-0 size-2 rounded-full bg-primary"
-    />
-    <div
-      ref="cursorRing"
-      class="fixed left-0 top-0 rounded-full border border-primary shadow-glow-primary transition-[width,height] duration-200"
-      :class="isHovering ? 'size-12' : 'size-8'"
-    />
-  </div>
-</template>

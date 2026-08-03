@@ -1,3 +1,10 @@
+<template>
+  <UApp>
+    <CustomCursor />
+    <NuxtPage />
+  </UApp>
+</template>
+
 <script setup lang="ts">
 useHead({
   htmlAttrs: {
@@ -19,10 +26,3 @@ useSeoMeta({
   twitterCard: 'summary_large_image'
 })
 </script>
-
-<template>
-  <UApp>
-    <CustomCursor />
-    <NuxtPage />
-  </UApp>
-</template>

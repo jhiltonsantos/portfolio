@@ -1,58 +1,3 @@
-<script setup lang="ts">
-interface ProjectTag {
-  name: string
-  icon: string
-}
-
-interface ProjectEntry {
-  title: string
-  description: string
-  tags: ProjectTag[]
-  link: string
-  github: string
-}
-
-const projects: ProjectEntry[] = [
-  {
-    title: 'Portfólio',
-    description: 'Portfólio pessoal em Nuxt 4 e Vue 3, com navegação full-page por scroll, cursor e fundos animados em GSAP e um design system próprio construído com Tailwind CSS.',
-    tags: [
-      { name: 'Nuxt', icon: 'i-simple-icons-nuxt' },
-      { name: 'Vue.js', icon: 'i-simple-icons-vuedotjs' },
-      { name: 'TypeScript', icon: 'i-simple-icons-typescript' },
-      { name: 'GSAP', icon: 'i-simple-icons-gsap' }
-    ],
-    link: 'https://hilton-portfolio-nuxt.vercel.app',
-    github: 'https://github.com/jhiltonsantos/portfolio'
-  },
-  {
-    title: 'Subscrip',
-    description: 'Plataforma para acabar com o vazamento de dinheiro invisível: centraliza assinaturas ativas (Netflix, AWS, Vercel, academias etc.) e evita pagamentos por serviços esquecidos ou renovações inesperadas.',
-    tags: [
-      { name: 'Next.js', icon: 'i-simple-icons-nextdotjs' },
-      { name: 'React', icon: 'i-simple-icons-react' },
-      { name: 'Node.js', icon: 'i-simple-icons-nodedotjs' },
-      { name: 'Prisma ORM', icon: 'i-simple-icons-prisma' },
-      { name: 'GSAP', icon: 'i-simple-icons-gsap' },
-      { name: 'TypeScript', icon: 'i-simple-icons-typescript' }
-    ],
-    link: 'https://www.subscrip.com.br/',
-    github: 'https://github.com/jhiltonsantos/subscrip'
-  },
-  {
-    title: 'Acompanhar RA',
-    description: 'App móvel de Realidade Aumentada que usa a câmera do dispositivo e o método TEACCH para criar um ambiente estruturado e inclusivo, apoiando a independência de pessoas com TEA.',
-    tags: [
-      { name: 'Unity3D', icon: 'i-simple-icons-unity' },
-      { name: 'C#', icon: 'i-simple-icons-csharp' },
-      { name: 'ARCore', icon: 'i-lucide-scan' }
-    ],
-    link: 'https://jhiltonsantos.itch.io/acompanhar-ra',
-    github: 'https://github.com/jhiltonsantos/ACOMPANHAR-RA'
-  }
-]
-</script>
-
 <template>
   <section
     id="projetos"
@@ -123,3 +68,58 @@ const projects: ProjectEntry[] = [
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+interface ProjectTag {
+  name: string
+  icon: string
+}
+
+interface ProjectEntry {
+  title: string
+  description: string
+  tags: ProjectTag[]
+  link: string
+  github: string
+}
+
+const projects: ProjectEntry[] = [
+  {
+    title: 'Portfólio',
+    description: 'Portfólio pessoal em Nuxt 4 e Vue 3, com navegação full-page por scroll, cursor e fundos animados em GSAP e um design system próprio construído com Tailwind CSS.',
+    tags: [
+      { name: 'Nuxt', icon: 'i-simple-icons-nuxt' },
+      { name: 'Vue.js', icon: 'i-simple-icons-vuedotjs' },
+      { name: 'TypeScript', icon: 'i-simple-icons-typescript' },
+      { name: 'GSAP', icon: 'i-simple-icons-gsap' }
+    ],
+    link: 'https://hilton-portfolio-nuxt.vercel.app',
+    github: 'https://github.com/jhiltonsantos/portfolio'
+  },
+  {
+    title: 'Subscrip',
+    description: 'Plataforma para acabar com o vazamento de dinheiro invisível: centraliza assinaturas ativas (Netflix, AWS, Vercel, academias etc.) e evita pagamentos por serviços esquecidos ou renovações inesperadas.',
+    tags: [
+      { name: 'Next.js', icon: 'i-simple-icons-nextdotjs' },
+      { name: 'React', icon: 'i-simple-icons-react' },
+      { name: 'Node.js', icon: 'i-simple-icons-nodedotjs' },
+      { name: 'Prisma ORM', icon: 'i-simple-icons-prisma' },
+      { name: 'GSAP', icon: 'i-simple-icons-gsap' },
+      { name: 'TypeScript', icon: 'i-simple-icons-typescript' }
+    ],
+    link: 'https://www.subscrip.com.br/',
+    github: 'https://github.com/jhiltonsantos/subscrip'
+  },
+  {
+    title: 'Acompanhar RA',
+    description: 'App móvel de Realidade Aumentada que usa a câmera do dispositivo e o método TEACCH para criar um ambiente estruturado e inclusivo, apoiando a independência de pessoas com TEA.',
+    tags: [
+      { name: 'Unity3D', icon: 'i-simple-icons-unity' },
+      { name: 'C#', icon: 'i-simple-icons-csharp' },
+      { name: 'ARCore', icon: 'i-lucide-scan' }
+    ],
+    link: 'https://jhiltonsantos.itch.io/acompanhar-ra',
+    github: 'https://github.com/jhiltonsantos/ACOMPANHAR-RA'
+  }
+]
+</script>

@@ -1,13 +1,3 @@
-<script setup lang="ts">
-const store = useNavigationStore()
-
-const links = [
-  { label: 'Experiências', to: '#experiencias', id: 'experiencias' },
-  { label: 'Projetos', to: '#projetos', id: 'projetos' },
-  { label: 'Contate-me', to: '#contato', id: 'contato' }
-]
-</script>
-
 <template>
   <nav class="flex items-center justify-end gap-8 md:gap-10">
     <NuxtLink
@@ -21,3 +11,13 @@ const links = [
     </NuxtLink>
   </nav>
 </template>
+
+<script setup lang="ts">
+const store = useNavigationStore()
+
+const links = [
+  { label: 'Experiências', to: '#experiencias', id: 'experiencias' },
+  { label: 'Projetos', to: '#projetos', id: 'projetos' },
+  { label: 'Contate-me', to: '#contato', id: 'contato' }
+]
+</script>

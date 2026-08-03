@@ -1,27 +1,3 @@
-<script setup lang="ts">
-const roles = ['Desenvolvedor', 'Fullstack', 'Front-end']
-
-const stackRows = [
-  [
-    { name: 'Python', icon: 'i-simple-icons-python' },
-    { name: 'Django', icon: 'i-simple-icons-django' },
-    { name: 'Docker', icon: 'i-simple-icons-docker' },
-    { name: 'Kubernetes', icon: 'i-simple-icons-kubernetes' },
-    { name: 'AWS', icon: 'i-simple-icons-amazonwebservices' }
-  ],
-  [
-    { name: 'JavaScript', icon: 'i-simple-icons-javascript' },
-    { name: 'TypeScript', icon: 'i-simple-icons-typescript' },
-    { name: 'React', icon: 'i-simple-icons-react' },
-    { name: 'Next.js', icon: 'i-simple-icons-nextdotjs' },
-    { name: 'Vue.js', icon: 'i-simple-icons-vuedotjs' },
-    { name: 'Nuxt', icon: 'i-simple-icons-nuxt' },
-    { name: 'Angular', icon: 'i-simple-icons-angular' },
-    { name: 'Node.js', icon: 'i-simple-icons-nodedotjs' }
-  ]
-]
-</script>
-
 <template>
   <section
     id="hero"
@@ -82,9 +58,33 @@ const stackRows = [
 
       <div class="absolute inset-x-0 bottom-10 flex items-center justify-center gap-4">
         <span class="h-px w-10 bg-primary/60" />
-        <span class="text-label-caps text-primary">Role para explorar o trabalho</span>
+        <span class="text-label-caps text-primary">Role para explorar</span>
         <span class="h-px w-10 bg-primary/60" />
       </div>
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+const roles = ['Desenvolvedor', 'Fullstack', 'Front-end']
+
+const stackRows = [
+  [
+    { name: 'Python', icon: 'i-simple-icons-python' },
+    { name: 'Django', icon: 'i-simple-icons-django' },
+    { name: 'Docker', icon: 'i-simple-icons-docker' },
+    { name: 'Kubernetes', icon: 'i-simple-icons-kubernetes' },
+    { name: 'AWS', icon: 'i-simple-icons-amazonwebservices' }
+  ],
+  [
+    { name: 'JavaScript', icon: 'i-simple-icons-javascript' },
+    { name: 'TypeScript', icon: 'i-simple-icons-typescript' },
+    { name: 'React', icon: 'i-simple-icons-react' },
+    { name: 'Next.js', icon: 'i-simple-icons-nextdotjs' },
+    { name: 'Vue.js', icon: 'i-simple-icons-vuedotjs' },
+    { name: 'Nuxt', icon: 'i-simple-icons-nuxt' },
+    { name: 'Angular', icon: 'i-simple-icons-angular' },
+    { name: 'Node.js', icon: 'i-simple-icons-nodedotjs' }
+  ]
+]
+</script>

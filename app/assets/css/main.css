@@ -20,7 +20,7 @@ html {
   background-color: var(--color-background);
   color-scheme: dark;
   scrollbar-width: thin;
-  scrollbar-color: var(--color-outline-variant) var(--color-surface-container-low);
+  scrollbar-color: var(--color-primary-500) var(--color-surface-container-low);
   user-select: none;
   -webkit-user-select: none;
 }

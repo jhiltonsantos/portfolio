@@ -1,45 +1,3 @@
-<script setup lang="ts">
-import { gsap } from 'gsap'
-
-interface ContactEntry {
-  label: string
-  value: string
-  href: string
-  icon: string
-  external: boolean
-}
-
-const contacts: ContactEntry[] = [
-  { label: 'Email', value: 'jhilton930@gmail.com', href: 'mailto:jhilton930@gmail.com', icon: 'i-lucide-mail', external: false },
-  { label: 'GitHub', value: 'github.com/jhiltonsantos', href: 'https://github.com/jhiltonsantos', icon: 'i-simple-icons-github', external: true },
-  { label: 'LinkedIn', value: 'linkedin.com/in/hiltonsantos9', href: 'https://linkedin.com/in/hiltonsantos9', icon: 'i-simple-icons-linkedin', external: true }
-]
-
-const store = useNavigationStore()
-const photoRef = ref<HTMLImageElement>()
-const photoGlowRef = ref<HTMLDivElement>()
-const isActive = computed(() => store.sections[store.currentIndex]?.id === 'contato')
-
-watch(isActive, (active) => {
-  if (!active || !photoRef.value) return
-  gsap.fromTo(
-    photoRef.value,
-    { opacity: 0, y: 24, scale: 0.94 },
-    { opacity: 1, y: 0, scale: 1, duration: 1, ease: 'power2.inOut' }
-  )
-})
-
-function onPhotoHover(hovering: boolean) {
-  if (!photoGlowRef.value) return
-  gsap.to(photoGlowRef.value, {
-    opacity: hovering ? 1 : 0.6,
-    scale: hovering ? 1.15 : 0.9,
-    duration: 0.6,
-    ease: 'power2.out'
-  })
-}
-</script>
-
 <template>
   <section
     id="contato"
@@ -105,3 +63,45 @@ function onPhotoHover(hovering: boolean) {
     <AppFooter />
   </section>
 </template>
+
+<script setup lang="ts">
+import { gsap } from 'gsap'
+
+interface ContactEntry {
+  label: string
+  value: string
+  href: string
+  icon: string
+  external: boolean
+}
+
+const contacts: ContactEntry[] = [
+  { label: 'Email', value: 'jhilton930@gmail.com', href: 'mailto:jhilton930@gmail.com', icon: 'i-lucide-mail', external: false },
+  { label: 'GitHub', value: 'github.com/jhiltonsantos', href: 'https://github.com/jhiltonsantos', icon: 'i-simple-icons-github', external: true },
+  { label: 'LinkedIn', value: 'linkedin.com/in/hiltonsantos9', href: 'https://linkedin.com/in/hiltonsantos9', icon: 'i-simple-icons-linkedin', external: true }
+]
+
+const store = useNavigationStore()
+const photoRef = ref<HTMLImageElement>()
+const photoGlowRef = ref<HTMLDivElement>()
+const isActive = computed(() => store.sections[store.currentIndex]?.id === 'contato')
+
+watch(isActive, (active) => {
+  if (!active || !photoRef.value) return
+  gsap.fromTo(
+    photoRef.value,
+    { opacity: 0, y: 24, scale: 0.94 },
+    { opacity: 1, y: 0, scale: 1, duration: 1, ease: 'power2.inOut' }
+  )
+})
+
+function onPhotoHover(hovering: boolean) {
+  if (!photoGlowRef.value) return
+  gsap.to(photoGlowRef.value, {
+    opacity: hovering ? 1 : 0.6,
+    scale: hovering ? 1.15 : 0.9,
+    duration: 0.6,
+    ease: 'power2.out'
+  })
+}
+</script>

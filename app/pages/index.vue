@@ -1,7 +1,3 @@
-<script setup lang="ts">
-useFullpageScroll()
-</script>
-
 <template>
   <div>
     <AmbientBackground />
@@ -12,3 +8,7 @@ useFullpageScroll()
     <SectionNavButtons />
   </div>
 </template>
+
+<script setup lang="ts">
+useFullpageScroll()
+</script>
