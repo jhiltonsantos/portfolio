@@ -16,6 +16,10 @@
       ref="contactGlow"
       class="absolute inset-0 origin-center opacity-0 bg-[radial-gradient(circle_at_center,rgba(34,226,134,0.10),transparent_70%)]"
     />
+    <div
+      ref="travelGlow"
+      class="pointer-events-none absolute left-0 top-0 size-[46vmin] rounded-full opacity-0 blur-3xl bg-[radial-gradient(circle,rgba(34,226,134,0.22),transparent_70%)]"
+    />
   </div>
 </template>
 
@@ -27,16 +31,13 @@ interface GlowTransition {
   exit: gsap.TweenVars
 }
 
-// Each entry's transform-origin matches its layer's gradient anchor (set via
-// origin-* classes in the template) so scale animates from the same point
-// the glow is anchored, instead of drifting from the element center.
 const TRANSITIONS: GlowTransition[] = [
   {
     enter: {
-      from: { opacity: 0, scale: 0.94, x: -16, y: -16 },
-      to: { opacity: 1, scale: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' }
+      from: { opacity: 0, scale: 0.94 },
+      to: { opacity: 1, scale: 1, duration: 0.9, ease: 'power2.out' }
     },
-    exit: { opacity: 0, scale: 1.05, x: -20, y: -20, duration: 0.85, ease: 'power2.in' }
+    exit: { opacity: 0, scale: 1.05, duration: 0.85, ease: 'power2.in' }
   },
   {
     enter: {
@@ -47,10 +48,10 @@ const TRANSITIONS: GlowTransition[] = [
   },
   {
     enter: {
-      from: { opacity: 0, scale: 0.92, y: -18 },
-      to: { opacity: 1, scale: 1, y: 0, duration: 0.95, ease: 'expo.out' }
+      from: { opacity: 0, scale: 0.92 },
+      to: { opacity: 1, scale: 1, duration: 0.95, ease: 'expo.out' }
     },
-    exit: { opacity: 0, scale: 1.04, y: -12, duration: 0.85, ease: 'power2.in' }
+    exit: { opacity: 0, scale: 1.04, duration: 0.85, ease: 'power2.in' }
   },
   {
     enter: {
@@ -61,20 +62,39 @@ const TRANSITIONS: GlowTransition[] = [
   }
 ]
 
+const ANCHORS = [
+  { x: 0, y: 0 },
+  { x: 1, y: 1 },
+  { x: 0.5, y: 0 },
+  { x: 0.5, y: 0.5 }
+]
+
+const SCROLL_DURATION = 1
+const SCROLL_EASE = 'power2.inOut'
+const ARRIVAL_DELAY = SCROLL_DURATION * 0.55
+
 const store = useNavigationStore()
 
 const heroGlow = ref<HTMLDivElement>()
 const experienceGlow = ref<HTMLDivElement>()
 const projectsGlow = ref<HTMLDivElement>()
 const contactGlow = ref<HTMLDivElement>()
+const travelGlow = ref<HTMLDivElement>()
 
 const layers = [heroGlow, experienceGlow, projectsGlow, contactGlow]
+
+onMounted(() => {
+  if (!travelGlow.value) return
+  gsap.set(travelGlow.value, { xPercent: -50, yPercent: -50 })
+})
 
 watch(() => store.currentIndex, (next, prev) => {
   const outgoing = layers[prev]?.value
   const outgoingTransition = TRANSITIONS[prev]
+  const outgoingAnchor = ANCHORS[prev]
   const incoming = layers[next]?.value
   const incomingTransition = TRANSITIONS[next]
+  const incomingAnchor = ANCHORS[next]
 
   if (outgoing && outgoingTransition) {
     gsap.killTweensOf(outgoing)
@@ -82,7 +102,15 @@ watch(() => store.currentIndex, (next, prev) => {
   }
   if (incoming && incomingTransition) {
     gsap.killTweensOf(incoming)
-    gsap.fromTo(incoming, incomingTransition.enter.from, incomingTransition.enter.to)
+    gsap.fromTo(incoming, incomingTransition.enter.from, { ...incomingTransition.enter.to, delay: ARRIVAL_DELAY })
+  }
+  if (travelGlow.value && outgoingAnchor && incomingAnchor) {
+    const el = travelGlow.value
+    gsap.killTweensOf(el)
+    gsap.set(el, { x: `${outgoingAnchor.x * 100}vw`, y: `${outgoingAnchor.y * 100}vh`, opacity: 0 })
+    gsap.to(el, { x: `${incomingAnchor.x * 100}vw`, y: `${incomingAnchor.y * 100}vh`, duration: SCROLL_DURATION, ease: SCROLL_EASE })
+    gsap.to(el, { opacity: 1, duration: 0.18, ease: 'power1.out' })
+    gsap.to(el, { opacity: 0, duration: 0.25, delay: SCROLL_DURATION - 0.25, ease: 'power1.in' })
   }
 })
 </script>

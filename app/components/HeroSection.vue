@@ -1,7 +1,7 @@
 <template>
   <section
     id="hero"
-    class="relative min-h-screen overflow-hidden bg-background"
+    class="relative min-h-screen overflow-hidden"
   >
     <div
       class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(34,226,134,0.16),transparent_60%)]"
