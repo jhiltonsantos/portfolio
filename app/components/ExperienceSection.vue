@@ -1,33 +1,56 @@
 <script setup lang="ts">
+interface ExperienceTag {
+  name: string
+  icon: string
+}
+
 interface ExperienceEntry {
   role: string
   company: string
   period: string
   description: string
-  tags: string[]
+  tags: ExperienceTag[]
 }
 
 const experiences: ExperienceEntry[] = [
   {
-    role: 'Desenvolvedor Fullstack Sênior',
-    company: 'Empresa Exemplo Ltda.',
-    period: '2023 — Presente',
-    description: 'Responsável pelo desenvolvimento de aplicações web de ponta a ponta, com foco em performance e arquitetura escalável.',
-    tags: ['Vue', 'Nuxt', 'Node.js']
+    role: 'Desenvolvedor Fullstack',
+    company: 'Defsafe/Skill5',
+    period: '2024 — Presente',
+    description: 'Desenvolvo plataformas de ensino corporativo e integrações LMS. Atuo no desenvolvimento de APIs e arquiteturas serverless com AWS para processamento assíncrono e recursos de IA, além da evolução do front-end com Nuxt 3 e Vue.js focando em alta performance e SEO.',
+    tags: [
+      { name: 'Vue.js', icon: 'i-simple-icons-vuedotjs' },
+      { name: 'Nuxt 3', icon: 'i-simple-icons-nuxt' },
+      { name: 'Node.js', icon: 'i-simple-icons-nodedotjs' },
+      { name: 'TypeScript', icon: 'i-simple-icons-typescript' },
+      { name: 'AWS', icon: 'i-simple-icons-amazonwebservices' }
+    ]
   },
   {
     role: 'Desenvolvedor Frontend',
-    company: 'Outra Empresa',
-    period: '2021 — 2023',
-    description: 'Construção de interfaces de usuário reutilizáveis e acessíveis para produtos digitais de grande escala.',
-    tags: ['React', 'TypeScript']
+    company: 'Fido',
+    period: '2023 — 2024',
+    description: 'Desenvolvi e mantive aplicações web e mobile com foco em arquitetura de componentes, experiência do usuário (UX/UI) e gerenciamento de estado. Atuei na integração com APIs RESTful e na implementação de testes unitários automatizados para garantir entregas consistentes.',
+    tags: [
+      { name: 'React', icon: 'i-simple-icons-react' },
+      { name: 'React Native', icon: 'i-lucide-smartphone' },
+      { name: 'TypeScript', icon: 'i-simple-icons-typescript' },
+      { name: 'Redux', icon: 'i-simple-icons-redux' }
+    ]
   },
   {
-    role: 'Desenvolvedor Júnior',
-    company: 'Primeira Empresa',
-    period: '2019 — 2021',
-    description: 'Manutenção e evolução de sistemas web, aprendendo boas práticas de desenvolvimento e trabalho em equipe.',
-    tags: ['JavaScript', 'CSS']
+    role: 'Desenvolvedor Web',
+    company: 'Instituto Dom Barreto',
+    period: '2019 — 2023',
+    description: 'Desenvolvi o portal web institucional e criei painéis administrativos para automação de processos internos e gestão de dados. Responsável pela criação de APIs REST para persistência segura de dados, além de garantir acessibilidade e otimização da interface web.',
+    tags: [
+      { name: 'Python', icon: 'i-simple-icons-python' },
+      { name: 'Django REST', icon: 'i-simple-icons-django' },
+      { name: 'JavaScript', icon: 'i-simple-icons-javascript' },
+      { name: 'PostgreSQL', icon: 'i-simple-icons-postgresql' },
+      { name: 'HTML5', icon: 'i-simple-icons-html5' },
+      { name: 'CSS3', icon: 'i-simple-icons-css3' }
+    ]
   }
 ]
 </script>
@@ -67,11 +90,11 @@ const experiences: ExperienceEntry[] = [
             <div class="flex flex-wrap gap-2">
               <UBadge
                 v-for="tag in experience.tags"
-                :key="tag"
-                :label="tag"
+                :key="tag.name"
+                :icon="tag.icon"
+                :aria-label="tag.name"
                 color="primary"
                 variant="soft"
-                class="text-label-caps uppercase"
               />
             </div>
           </div>
