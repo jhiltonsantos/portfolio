@@ -4,27 +4,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a **Nuxt 4** portfolio/starter project built with:
-- **Vue 3** for component development
+This is a personal portfolio site (single scrollable page) built with:
+- **Nuxt 4** (4.5.1) + **Nitro** (2.13.4), deployed to **Vercel** as a serverless SSR function
+- **Vue 3** Composition API (`<script setup lang="ts">`)
 - **Nuxt UI** for pre-built UI components (do not build custom UI components from scratch)
 - **TypeScript** for type safety
-- **Pinia** for state management
-- **Tailwind CSS** for styling (configured via Nuxt UI)
-- **Prisma** ORM for database operations
+- **Pinia** for client-side UI state (installed manually — see State Management below)
+- **Tailwind CSS v4** for styling (configured via Nuxt UI)
+- **GSAP** (Observer + ScrollToPlugin) for the fullpage-scroll and section animations
+- **Prisma** ORM — installed but not yet configured (no `prisma/schema.prisma` exists yet)
 
-Package manager: **pnpm** (required)
+Package manager: **pnpm** (required, pinned via `packageManager` in `package.json`)
 
 ## Development Commands
 
-### Common Commands
 ```bash
 pnpm dev          # Start dev server on http://localhost:3000
 pnpm build        # Build for production
 pnpm preview      # Preview production build locally
 pnpm lint         # Run ESLint checks
-pnpm typecheck    # Run TypeScript type checking
+pnpm typecheck    # Run TypeScript type checking (nuxt typecheck)
 pnpm install      # Install dependencies
 ```
+
+There is no test suite configured. `pnpm generate` exists in principle but must not be used
+for this project's Vercel deploy — see Deployment Gotchas below.
 
 ### Before Committing
 Always run these to ensure CI passes:
@@ -36,19 +40,31 @@ pnpm lint && pnpm typecheck
 
 ```
 app/
-├── app.vue              # Root component/layout
-├── app.config.ts        # Nuxt app configuration
-├── pages/               # Auto-routed pages (file-based routing)
-│   └── index.vue       # Home page (prerendered)
-├── components/          # Reusable Vue components
-│   ├── TemplateMenu.vue
-│   └── AppLogo.vue
-└── assets/
-    └── css/
-        └── main.css    # Custom Tailwind CSS
+├── app.vue                      # Root layout: <UApp>, CustomCursor, NuxtPage, page <head>/SEO
+├── app.config.ts                # Nuxt UI theme config (primary/neutral colors)
+├── pages/index.vue              # The entire site: stacks section components, calls useFullpageScroll()
+├── components/
+│   ├── HeroSection.vue, ExperienceSection.vue, ProjectsSection.vue, ContactSection.vue
+│   │                             # The four fullpage-scroll sections, in scroll order
+│   ├── SectionNavButtons.vue     # Dot/arrow nav driven by the navigation store
+│   ├── SiteHeader.vue, AppFooter.vue, AppLogo.vue
+│   ├── AmbientBackground.vue     # Decorative background layer
+│   └── CustomCursor.vue          # Custom cursor, mounted globally in app.vue
+├── composables/useFullpageScroll.ts   # GSAP Observer wheel/touch → navigation store → scrollTo animation
+├── stores/navigation.ts          # Pinia store: section list, currentIndex, isAnimating, goTo/next/prev
+├── plugins/pinia.ts               # Manual Pinia install (see State Management)
+└── assets/css/
+    ├── main.css                   # Tailwind entry + design tokens
+    └── variables.css              # Design tokens (colors, typography, spacing — see public/DESIGN.md)
+
+server/plugins/vue-globals.ts     # Nitro-startup fix for a Vercel/Pinia SSR bug (see Deployment Gotchas)
 ```
 
-**Key Pattern**: Nuxt uses file-based routing - files in `pages/` automatically become routes.
+**Key pattern**: `pages/index.vue` is the only real page. It is not multi-route content — it's
+one page that stacks section components and hands scroll control to `useFullpageScroll()` /
+`useNavigationStore()`. When adding a new section, add it to both the component stack in
+`pages/index.vue` and the `sections` array in `app/stores/navigation.ts` (id must match the
+section root element's `id`).
 
 ## Code Style & Conventions
 
@@ -67,7 +83,6 @@ Run `pnpm lint` to check and auto-fix issues.
 ### Components
 - Use **Nuxt UI components** from `@nuxt/ui` instead of building custom UI
 - Nuxt UI provides ready-made Button, Card, Modal, etc.
-- Import from `#ui/components` or use global registration via Nuxt UI
 
 ### Vue 3 Composition API
 - Use `<script setup>` for component logic
@@ -76,19 +91,44 @@ Run `pnpm lint` to check and auto-fix issues.
 
 ## State Management with Pinia
 
-For any app-wide state:
+Pinia is installed **manually** in `app/plugins/pinia.ts` — the `@pinia/nuxt` module is
+deliberately **not** in `nuxt.config.ts`'s `modules`. Its SSR payload hook crashes on this
+Nuxt/Nitro version regardless of whether a page uses any store. Do not re-add `@pinia/nuxt`;
+see the `nuxt-vercel-deploy` skill for the full root cause.
+
+Consequences of the manual setup:
+- Auto-import of stores comes from `imports: { dirs: ['stores'] }` in `nuxt.config.ts`, not
+  from `@pinia/nuxt`.
+- Store files must `import { defineStore } from 'pinia'` explicitly.
+- Stores must hold only client-side UI state — nothing that needs SSR→client hydration, since
+  there is no payload-sync hook. `useNavigationStore` (current scroll section) fits this; a
+  store needing hydrated server data would not.
+
 ```typescript
-// stores/myStore.ts
+// app/stores/myStore.ts
+import { defineStore } from 'pinia'
+
 export const useMyStore = defineStore('myStore', () => {
   const count = ref(0)
   return { count }
 })
 ```
 
-Import and use:
-```typescript
-const store = useMyStore()
-```
+## Deployment (Vercel + Nuxt/Nitro)
+
+This project's Nuxt/Nitro/Vercel version combination has reproducible upstream bugs that shape
+several config choices in `nuxt.config.ts` and `server/plugins/vue-globals.ts`. **Before
+touching deployment config, Pinia setup, or `routeRules`/prerender, read the `nuxt-vercel-deploy`
+skill** — it documents each gotcha and why the obvious "fix" makes things worse:
+
+- No `routeRules` with `prerender: true` on any route, and don't use `nuxt generate` — Nitro's
+  prerender crawler crashes deterministically on this version, independent of this project's
+  code. The site relies on regular per-request SSR (the default), which is a separate, working
+  code path.
+- No `vite.define` for `__VUE_PROD_DEVTOOLS__` / `__VUE_OPTIONS_API__` /
+  `__VUE_PROD_HYDRATION_MISMATCH_DETAILS__` — `server/plugins/vue-globals.ts` sets these at
+  Nitro startup instead, because Vite's define does a blind text substitution that would
+  clobber that very fix.
 
 ## Database & Prisma
 
@@ -96,61 +136,47 @@ Prisma is installed but not yet configured. If implementing database features:
 1. Define schema in `prisma/schema.prisma`
 2. Run `pnpm prisma migrate dev --name <migration-name>`
 3. Use Prisma client in API routes (`server/api/`)
+4. Never hand-edit generated `.sql` migration files — always go through Prisma Migrate.
 
 ## Styling
 
-- **Tailwind CSS** is configured via Nuxt UI
-- Custom global styles: `app/assets/css/main.css`
-- Style in the template with Tailwind utility classes, not `<style>` blocks (see Coding Standards)
-- Avoid custom CSS for simple layouts - use Tailwind utilities
-
-## Coding Standards
-
-1. **Scan before building.** Search the repo for existing functions, types, components, and utilities that already cover the task. Reuse or minimally adapt them instead of writing new ones.
-2. **Minimal, root-cause changes.** Ship the smallest safe diff that solves the requirement. Don't add layers, abstractions, or helpers unless they reduce total complexity. When fixing bugs, fix the root cause — no band-aids or temporary patches. Touch only what's necessary; don't introduce side effects while fixing something else.
-3. **Single responsibility, short functions.** Each function does one thing and is named for that thing.
-4. **No redundancy.** Consolidate duplicated logic into one reusable function; call existing utilities rather than rewriting them.
-5. **Explicit contracts.** Use typed signatures and clear input/output shapes. Validate inputs at system boundaries and fail fast with clear errors.
-6. **Readability over cleverness, minimal comments.** Use expressive names and simple control flow so the code doesn't need comments to explain itself. A one-line docstring on exported/public functions is enough — do not add full JSDoc blocks or multi-line comments.
-7. **Reuse what's installed.** Prefer already-installed packages and battle-tested libraries over new dependencies or custom implementations of solved problems.
-8. **Correctness before performance.** Don't micro-optimize before measuring.
-9. **Ask, don't assume.** If a requirement is ambiguous or you're unsure of an architectural detail, ask for clarification before implementing rather than guessing.
-10. **Keep files small.** Aim for a soft cap of ~150 lines per file; split when a file grows past that.
-11. **Always use `pnpm`**, never `npm` or `yarn`.
-12. **No unsolicited docs.** Don't create `.md` summaries, reports, or overview files unless explicitly asked to.
-13. **Consult MCP docs when available.** If a Nuxt UI or Context7 MCP server is configured in this environment, check it before using an unfamiliar Nuxt UI component or external library API.
-14. **Rely on Nuxt auto-imports.** Don't manually import `ref`, `computed`, `watch`, `useRoute`, `useRouter`, or other Nuxt/Vue auto-imports.
-15. **Never hand-edit `.sql` migration files.** Always generate and apply schema changes through Prisma Migrate (`pnpm prisma migrate dev`).
-16. **Nuxt UI first.** Use `UTable`, `UButton`, `UInput`, `USelect`, `UTextarea`, `UFormField`, `UModal`, `UBadge`, etc. instead of raw HTML controls, unless explicitly told otherwise.
-17. **Tailwind, template-first, no `<style>` blocks.** Style in the template with Tailwind utility classes and design tokens, not a separate style block. Only use `<style scoped>` when technically unavoidable (e.g. `:deep()` for a third-party component), and keep the exception minimal and commented.
-18. **No unnecessary semicolons** in TypeScript — only where syntax requires them (already enforced by `pnpm lint`).
+- **Tailwind CSS v4** is configured via Nuxt UI
+- Design tokens (colors, typography, spacing, radius) live in `app/assets/css/main.css` and
+  `app/assets/css/variables.css`; the source design spec is `public/DESIGN.md`
+- Style in the `<template>` with Tailwind utility classes — no `<style>` blocks (scoped or
+  otherwise), no inline `style` attributes. See `.claude/rules/coding.md` for the full rule and
+  the rare, documented exception.
+- `<template>` must come before `<script setup lang="ts">` in every `.vue` file — see
+  `app/components/SectionNavButtons.vue` for the expected order.
 
 ## CI/CD Pipeline
 
-GitHub Actions runs on every push:
+GitHub Actions (`.github/workflows/ci.yml`) runs on every push, on Node 22:
 1. Checkout code
 2. Install pnpm & Node 22
 3. Install dependencies
 4. Run `pnpm lint`
 5. Run `pnpm typecheck`
 
-**Note**: No tests are currently configured. Add test scripts to `package.json` and CI workflow if implementing tests.
+No tests are currently configured. Add test scripts to `package.json` and the CI workflow if
+implementing tests.
 
 ## Important Notes
 
-### Home Page Prerendering
-The home page (`/`) is set to prerender in `nuxt.config.ts`. This means:
-- Static HTML is generated at build time
-- Changes to `pages/index.vue` require a rebuild to see in production
+### No prerendering
+`pages/index.vue` is rendered via regular per-request SSR, not build-time prerendering — see
+Deployment Gotchas above. Don't add a `routeRules` prerender entry for `/`; it reintroduces a
+known crawler crash.
 
 ### Devtools Enabled
-DevTools is enabled in `nuxt.config.ts` for development. Access with keyboard shortcut in dev mode.
+DevTools is enabled in `nuxt.config.ts` for development. Access with the keyboard shortcut in
+dev mode.
 
 ### Node Version
 CI runs on Node 22. Ensure local Node version matches (check with `node --version`).
 
 ## File Format Notes
 
-- Vue files: `<script setup lang="ts">` with type-safe props/emits
+- Vue files: `<template>` first, then `<script setup lang="ts">` with type-safe props/emits
 - Config files: TypeScript (`.ts`) - must be valid Node.js modules
 - Imports: Use path alias `~` for app directory (e.g., `~/components/Button.vue`)
