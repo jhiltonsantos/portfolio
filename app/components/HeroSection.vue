@@ -71,6 +71,7 @@ const roles = ['Desenvolvedor', 'Fullstack', 'Front-end']
 const stackRows = [
   [
     { name: 'Python', icon: 'i-simple-icons-python' },
+    { name: 'FastAPI', icon: 'i-simple-icons-fastapi' },
     { name: 'Django', icon: 'i-simple-icons-django' },
     { name: 'Docker', icon: 'i-simple-icons-docker' },
     { name: 'Kubernetes', icon: 'i-simple-icons-kubernetes' },

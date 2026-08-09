@@ -5,7 +5,6 @@
     <ExperienceSection />
     <ProjectsSection />
     <ContactSection />
-    <SectionNavButtons />
   </div>
 </template>
 

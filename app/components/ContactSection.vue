@@ -29,7 +29,7 @@
               color="neutral"
               size="xl"
               block
-              class="justify-start gap-4 border-outline-variant text-on-surface hover:border-primary hover:text-primary"
+              class="justify-start gap-4 border-outline-variant bg-transparent text-on-surface hover:border-primary hover:text-primary hover:bg-on-primary-fixed-variant/20"
             >
               <div class="flex flex-col items-start">
                 <span class="text-label-caps uppercase text-on-surface-variant">{{ contact.label }}</span>

@@ -40,8 +40,9 @@
             </UTooltip>
           </div>
 
-          <div class="flex items-center justify-between">
+          <div class="flex flex-row items-center justify-between">
             <UButton
+              v-if="project.link"
               :to="project.link"
               target="_blank"
               rel="noopener noreferrer"
@@ -52,16 +53,18 @@
               color="primary"
               class="w-fit px-0"
             />
-            <UButton
-              :to="project.github"
-              target="_blank"
-              rel="noopener noreferrer"
-              icon="i-simple-icons-github"
-              aria-label="Ver código no GitHub"
-              variant="ghost"
-              color="primary"
-              square
-            />
+            <div class="flex justify-end ml-auto">
+              <UButton
+                :to="project.github"
+                target="_blank"
+                rel="noopener noreferrer"
+                icon="i-simple-icons-github"
+                aria-label="Ver código no GitHub"
+                variant="ghost"
+                color="primary"
+                square
+              />
+            </div>
           </div>
         </UCard>
       </div>
@@ -79,22 +82,23 @@ interface ProjectEntry {
   title: string
   description: string
   tags: ProjectTag[]
-  link: string
+  link?: string
   github: string
 }
 
 const projects: ProjectEntry[] = [
   {
-    title: 'Portfólio',
-    description: 'Portfólio pessoal em Nuxt 4 e Vue 3, com navegação full-page por scroll, cursor e fundos animados em GSAP e um design system próprio construído com Tailwind CSS.',
+    title: 'Retriever',
+    description: 'Um agente de estudos, utilizando RAG agentico, com banco vetorial, embeddings e, se você quiser, até o LLM, pra transformar seus materiais de estudo em contexto real pras suas perguntas. ',
     tags: [
-      { name: 'Nuxt', icon: 'i-simple-icons-nuxt' },
-      { name: 'Vue.js', icon: 'i-simple-icons-vuedotjs' },
-      { name: 'TypeScript', icon: 'i-simple-icons-typescript' },
-      { name: 'GSAP', icon: 'i-simple-icons-gsap' }
+      { name: 'FastAPI', icon: 'i-simple-icons-fastapi' },
+      { name: 'Python', icon: 'i-simple-icons-python' },
+      { name: 'LangChain', icon: 'i-simple-icons-langchain' },
+      { name: 'ChromaDB', icon: 'i-lucide-database' },
+      { name: 'Svelte', icon: 'i-simple-icons-svelte' },
+      { name: 'TypeScript', icon: 'i-simple-icons-typescript' }
     ],
-    link: 'https://hilton-portfolio-nuxt.vercel.app',
-    github: 'https://github.com/jhiltonsantos/portfolio'
+    github: 'https://github.com/jhiltonsantos/retriever'
   },
   {
     title: 'Subscrip',
@@ -103,9 +107,9 @@ const projects: ProjectEntry[] = [
       { name: 'Next.js', icon: 'i-simple-icons-nextdotjs' },
       { name: 'React', icon: 'i-simple-icons-react' },
       { name: 'Node.js', icon: 'i-simple-icons-nodedotjs' },
+      { name: 'TypeScript', icon: 'i-simple-icons-typescript' },
       { name: 'Prisma ORM', icon: 'i-simple-icons-prisma' },
-      { name: 'GSAP', icon: 'i-simple-icons-gsap' },
-      { name: 'TypeScript', icon: 'i-simple-icons-typescript' }
+      { name: 'GSAP', icon: 'i-simple-icons-gsap' }
     ],
     link: 'https://www.subscrip.com.br/',
     github: 'https://github.com/jhiltonsantos/subscrip'
