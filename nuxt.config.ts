@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxt/ui'],
+  modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxtjs/i18n'],
 
   // @pinia/nuxt is intentionally not used: its app:rendered SSR-payload hook
   // crashes on every SSR render on this Nuxt version (nuxtApp.$pinia is
@@ -45,5 +45,21 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
+  },
+
+  // Unlike @pinia/nuxt (see below), @nuxtjs/i18n was verified against this
+  // project's exact Vercel serverless setup before adopting it: built with
+  // NITRO_PRESET=vercel and smoke-tested with NODE_ENV=production per the
+  // nuxt-vercel-deploy skill's recipe — 200 OK, no SSR-hook crash. locale
+  // files live at repo-root `i18n/locales/*.json` (langDir resolves against
+  // rootDir here, not the `app/` srcDir).
+  i18n: {
+    locales: [
+      { code: 'pt', iso: 'pt-BR', file: 'pt.json' },
+      { code: 'en', iso: 'en-US', file: 'en.json' }
+    ],
+    langDir: 'locales',
+    defaultLocale: 'pt',
+    strategy: 'no_prefix'
   }
 })

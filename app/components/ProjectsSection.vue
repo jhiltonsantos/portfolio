@@ -5,9 +5,9 @@
   >
     <div class="mx-auto flex min-h-screen max-w-(--spacing-container-max) flex-col justify-center gap-10 px-5 py-24 md:px-16">
       <div class="flex flex-col gap-2">
-        <span class="text-label-caps uppercase text-primary">Pessoal</span>
+        <span class="text-label-caps uppercase text-primary">{{ t('projects.eyebrow') }}</span>
         <h2 class="text-headline-md text-on-surface">
-          Projetos selecionados
+          {{ t('projects.heading') }}
         </h2>
       </div>
 
@@ -46,7 +46,7 @@
               :to="project.link"
               target="_blank"
               rel="noopener noreferrer"
-              label="Ver projeto"
+              :label="t('projects.viewProject')"
               icon="i-lucide-arrow-up-right"
               trailing
               variant="link"
@@ -59,7 +59,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 icon="i-simple-icons-github"
-                aria-label="Ver código no GitHub"
+                :aria-label="t('projects.viewCode')"
                 variant="ghost"
                 color="primary"
                 square
@@ -78,18 +78,18 @@ interface ProjectTag {
   icon: string
 }
 
-interface ProjectEntry {
+interface ProjectMeta {
   title: string
-  description: string
   tags: ProjectTag[]
   link?: string
   github: string
 }
 
-const projects: ProjectEntry[] = [
+const { t } = useI18n()
+
+const projectsMeta: ProjectMeta[] = [
   {
     title: 'Retriever',
-    description: 'Um agente de estudos, utilizando RAG agentico, com banco vetorial, embeddings e, se você quiser, até o LLM, pra transformar seus materiais de estudo em contexto real pras suas perguntas. ',
     tags: [
       { name: 'FastAPI', icon: 'i-simple-icons-fastapi' },
       { name: 'Python', icon: 'i-simple-icons-python' },
@@ -102,7 +102,6 @@ const projects: ProjectEntry[] = [
   },
   {
     title: 'Subscrip',
-    description: 'Plataforma para acabar com o vazamento de dinheiro invisível: centraliza assinaturas ativas (Netflix, AWS, Vercel, academias etc.) e evita pagamentos por serviços esquecidos ou renovações inesperadas.',
     tags: [
       { name: 'Next.js', icon: 'i-simple-icons-nextdotjs' },
       { name: 'React', icon: 'i-simple-icons-react' },
@@ -116,7 +115,6 @@ const projects: ProjectEntry[] = [
   },
   {
     title: 'Acompanhar RA',
-    description: 'App móvel de Realidade Aumentada que usa a câmera do dispositivo e o método TEACCH para criar um ambiente estruturado e inclusivo, apoiando a independência de pessoas com TEA.',
     tags: [
       { name: 'Unity3D', icon: 'i-simple-icons-unity' },
       { name: 'C#', icon: 'i-simple-icons-csharp' },
@@ -126,4 +124,9 @@ const projects: ProjectEntry[] = [
     github: 'https://github.com/jhiltonsantos/ACOMPANHAR-RA'
   }
 ]
+
+const projects = computed(() => projectsMeta.map((meta, index) => ({
+  ...meta,
+  description: t(`projects.items.${index}.description`)
+})))
 </script>

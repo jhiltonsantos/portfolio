@@ -1,0 +1,64 @@
+{
+  "seo": {
+    "title": "Hilton Santos — Fullstack Developer",
+    "description": "Fullstack developer focused on building high-performance, technically precise digital experiences."
+  },
+  "nav": {
+    "experiences": "Experience",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greetingLine1": "Hi,",
+    "greetingLine2": "I'm Hilton.",
+    "bio": "Developer focused on building high-performance digital experiences with technical precision. Specialized in modern architectures, I turn complexity into fluid, intuitive interfaces.",
+    "roles": ["Developer", "Fullstack", "Front-end"],
+    "scrollHint": "Scroll to explore"
+  },
+  "experience": {
+    "eyebrow": "Journey",
+    "heading": "Experience",
+    "items": [
+      {
+        "role": "Fullstack Developer",
+        "description": "I build corporate learning platforms and LMS integrations. I work on API development and serverless architectures with AWS for asynchronous processing and AI features, as well as evolving the front-end with Nuxt 3 and Vue.js, focusing on high performance and SEO."
+      },
+      {
+        "role": "Frontend Developer",
+        "description": "I developed and maintained web and mobile applications with a focus on component architecture, user experience (UX/UI), and state management. I worked on RESTful API integration and implemented automated unit tests to ensure consistent releases."
+      },
+      {
+        "role": "Web Developer",
+        "description": "I developed the institutional web portal and built admin dashboards to automate internal processes and data management. Responsible for building REST APIs for secure data persistence, as well as ensuring accessibility and web interface optimization."
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Personal",
+    "heading": "Selected projects",
+    "viewProject": "View project",
+    "viewCode": "View code on GitHub",
+    "items": [
+      {
+        "description": "A study agent using agentic RAG, with a vector database, embeddings and, if you want, even the LLM, to turn your study materials into real context for your questions."
+      },
+      {
+        "description": "A platform to end invisible money leaks: it centralizes active subscriptions (Netflix, AWS, Vercel, gyms, etc.) and prevents payments for forgotten services or unexpected renewals."
+      },
+      {
+        "description": "A mobile Augmented Reality app that uses the device's camera and the TEACCH method to create a structured, inclusive environment, supporting the independence of people with ASD."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Let's talk",
+    "heading": "Contact me",
+    "intro": "I'm open to new opportunities and collaborations. Send a message through any of the channels below.",
+    "photoAlt": "Photo of Hilton Santos",
+    "emailLabel": "Email"
+  },
+  "sectionNav": {
+    "prev": "Previous section",
+    "next": "Next section"
+  }
+}

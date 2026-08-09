@@ -6,12 +6,12 @@
     <div class="mx-auto flex w-full max-w-(--spacing-container-max) flex-1 flex-col justify-center gap-10 px-5 md:flex-row md:items-center md:justify-between md:gap-12 md:px-16">
       <div class="flex flex-col gap-10 md:w-1/2">
         <div class="flex max-w-xl flex-col gap-2">
-          <span class="text-label-caps uppercase text-primary">Vamos conversar</span>
+          <span class="text-label-caps uppercase text-primary">{{ t('contact.eyebrow') }}</span>
           <h2 class="text-headline-md text-on-surface">
-            Contate-me
+            {{ t('contact.heading') }}
           </h2>
           <p class="text-body-lg text-on-surface-variant">
-            Estou aberto a novas oportunidades e colaborações. Envie uma mensagem por qualquer um dos canais abaixo.
+            {{ t('contact.intro') }}
           </p>
         </div>
 
@@ -53,7 +53,7 @@
           <img
             ref="photoRef"
             src="/image/me.webp"
-            alt="Foto de Hilton Santos"
+            :alt="t('contact.photoAlt')"
             class="aspect-square w-full rounded-xl object-cover ring-1 ring-outline-variant shadow-glow-primary"
           >
         </div>
@@ -75,11 +75,13 @@ interface ContactEntry {
   external: boolean
 }
 
-const contacts: ContactEntry[] = [
-  { label: 'Email', value: 'jhilton930@gmail.com', href: 'mailto:jhilton930@gmail.com', icon: 'i-lucide-mail', external: false },
+const { t } = useI18n()
+
+const contacts = computed<ContactEntry[]>(() => [
+  { label: t('contact.emailLabel'), value: 'jhilton930@gmail.com', href: 'mailto:jhilton930@gmail.com', icon: 'i-lucide-mail', external: false },
   { label: 'GitHub', value: 'github.com/jhiltonsantos', href: 'https://github.com/jhiltonsantos', icon: 'i-simple-icons-github', external: true },
   { label: 'LinkedIn', value: 'linkedin.com/in/hiltonsantos9', href: 'https://linkedin.com/in/hiltonsantos9', icon: 'i-simple-icons-linkedin', external: true }
-]
+])
 
 const store = useNavigationStore()
 const photoRef = ref<HTMLImageElement>()

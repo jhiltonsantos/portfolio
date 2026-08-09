@@ -1,0 +1,64 @@
+{
+  "seo": {
+    "title": "Hilton Santos — Desenvolvedor Fullstack",
+    "description": "Desenvolvedor fullstack focado em criar experiências digitais de alta performance e precisão técnica."
+  },
+  "nav": {
+    "experiences": "Experiências",
+    "projects": "Projetos",
+    "contact": "Contate-me"
+  },
+  "hero": {
+    "greetingLine1": "Olá,",
+    "greetingLine2": "Eu sou o Hilton.",
+    "bio": "Desenvolvedor focado em criar experiências de alta performance e precisão técnica. Especializado em arquiteturas modernas, transformo complexidade em interfaces fluidas e intuitivas.",
+    "roles": ["Desenvolvedor", "Fullstack", "Front-end"],
+    "scrollHint": "Role para explorar"
+  },
+  "experience": {
+    "eyebrow": "Trajetória",
+    "heading": "Experiência",
+    "items": [
+      {
+        "role": "Desenvolvedor Fullstack",
+        "description": "Desenvolvo plataformas de ensino corporativo e integrações LMS. Atuo no desenvolvimento de APIs e arquiteturas serverless com AWS para processamento assíncrono e recursos de IA, além da evolução do front-end com Nuxt 3 e Vue.js focando em alta performance e SEO."
+      },
+      {
+        "role": "Desenvolvedor Frontend",
+        "description": "Desenvolvi e mantive aplicações web e mobile com foco em arquitetura de componentes, experiência do usuário (UX/UI) e gerenciamento de estado. Atuei na integração com APIs RESTful e na implementação de testes unitários automatizados para garantir entregas consistentes."
+      },
+      {
+        "role": "Desenvolvedor Web",
+        "description": "Desenvolvi o portal web institucional e criei painéis administrativos para automação de processos internos e gestão de dados. Responsável pela criação de APIs REST para persistência segura de dados, além de garantir acessibilidade e otimização da interface web."
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Pessoal",
+    "heading": "Projetos selecionados",
+    "viewProject": "Ver projeto",
+    "viewCode": "Ver código no GitHub",
+    "items": [
+      {
+        "description": "Um agente de estudos, utilizando RAG agentico, com banco vetorial, embeddings e, se você quiser, até o LLM, pra transformar seus materiais de estudo em contexto real pras suas perguntas."
+      },
+      {
+        "description": "Plataforma para acabar com o vazamento de dinheiro invisível: centraliza assinaturas ativas (Netflix, AWS, Vercel, academias etc.) e evita pagamentos por serviços esquecidos ou renovações inesperadas."
+      },
+      {
+        "description": "App móvel de Realidade Aumentada que usa a câmera do dispositivo e o método TEACCH para criar um ambiente estruturado e inclusivo, apoiando a independência de pessoas com TEA."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Vamos conversar",
+    "heading": "Contate-me",
+    "intro": "Estou aberto a novas oportunidades e colaborações. Envie uma mensagem por qualquer um dos canais abaixo.",
+    "photoAlt": "Foto de Hilton Santos",
+    "emailLabel": "Email"
+  },
+  "sectionNav": {
+    "prev": "Seção anterior",
+    "next": "Próxima seção"
+  }
+}

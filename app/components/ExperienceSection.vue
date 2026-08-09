@@ -5,9 +5,9 @@
   >
     <div class="mx-auto flex min-h-screen max-w-(--spacing-container-max) flex-col justify-center gap-10 px-5 py-24 md:px-16">
       <div class="flex flex-col gap-2">
-        <span class="text-label-caps uppercase text-primary">Trajetória</span>
+        <span class="text-label-caps uppercase text-primary">{{ t('experience.eyebrow') }}</span>
         <h2 class="text-headline-md text-on-surface">
-          Experiência
+          {{ t('experience.heading') }}
         </h2>
       </div>
 
@@ -57,20 +57,18 @@ interface ExperienceTag {
   icon: string
 }
 
-interface ExperienceEntry {
-  role: string
+interface ExperienceMeta {
   company: string
   period: string
-  description: string
   tags: ExperienceTag[]
 }
 
-const experiences: ExperienceEntry[] = [
+const { t } = useI18n()
+
+const experienceMeta: ExperienceMeta[] = [
   {
-    role: 'Desenvolvedor Fullstack',
     company: 'Defsafe/Skill5',
     period: '2024 — Presente',
-    description: 'Desenvolvo plataformas de ensino corporativo e integrações LMS. Atuo no desenvolvimento de APIs e arquiteturas serverless com AWS para processamento assíncrono e recursos de IA, além da evolução do front-end com Nuxt 3 e Vue.js focando em alta performance e SEO.',
     tags: [
       { name: 'Vue.js', icon: 'i-simple-icons-vuedotjs' },
       { name: 'Nuxt 3', icon: 'i-simple-icons-nuxt' },
@@ -80,10 +78,8 @@ const experiences: ExperienceEntry[] = [
     ]
   },
   {
-    role: 'Desenvolvedor Frontend',
     company: 'Fido',
     period: '2023 — 2024',
-    description: 'Desenvolvi e mantive aplicações web e mobile com foco em arquitetura de componentes, experiência do usuário (UX/UI) e gerenciamento de estado. Atuei na integração com APIs RESTful e na implementação de testes unitários automatizados para garantir entregas consistentes.',
     tags: [
       { name: 'React', icon: 'i-simple-icons-react' },
       { name: 'React Native', icon: 'i-lucide-smartphone' },
@@ -92,10 +88,8 @@ const experiences: ExperienceEntry[] = [
     ]
   },
   {
-    role: 'Desenvolvedor Web',
     company: 'Instituto Dom Barreto',
     period: '2019 — 2023',
-    description: 'Desenvolvi o portal web institucional e criei painéis administrativos para automação de processos internos e gestão de dados. Responsável pela criação de APIs REST para persistência segura de dados, além de garantir acessibilidade e otimização da interface web.',
     tags: [
       { name: 'Python', icon: 'i-simple-icons-python' },
       { name: 'Django REST', icon: 'i-simple-icons-django' },
@@ -106,4 +100,10 @@ const experiences: ExperienceEntry[] = [
     ]
   }
 ]
+
+const experiences = computed(() => experienceMeta.map((meta, index) => ({
+  ...meta,
+  role: t(`experience.items.${index}.role`),
+  description: t(`experience.items.${index}.description`)
+})))
 </script>

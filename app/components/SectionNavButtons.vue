@@ -7,7 +7,7 @@
       size="lg"
       :disabled="store.isFirst || store.isAnimating"
       class="rounded-full border-outline-variant text-on-surface hover:border-primary hover:text-primary disabled:opacity-30"
-      aria-label="Seção anterior"
+      :aria-label="t('sectionNav.prev')"
       @click="store.prev()"
     />
     <UButton
@@ -17,7 +17,7 @@
       size="lg"
       :disabled="store.isLast || store.isAnimating"
       class="rounded-full border-outline-variant text-on-surface hover:border-primary hover:text-primary disabled:opacity-30"
-      aria-label="Próxima seção"
+      :aria-label="t('sectionNav.next')"
       @click="store.next()"
     />
   </div>
@@ -25,4 +25,5 @@
 
 <script setup lang="ts">
 const store = useNavigationStore()
+const { t } = useI18n()
 </script>

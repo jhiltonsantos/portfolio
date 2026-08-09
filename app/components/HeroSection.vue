@@ -12,7 +12,7 @@
 
       <div class="flex flex-col gap-6 pt-10 md:gap-4 md:pt-0">
         <h1 class="text-display-lg-mobile text-on-surface md:text-display-lg">
-          Olá.<br>Eu sou o Hilton.
+          {{ t('hero.greetingLine1') }}<br>{{ t('hero.greetingLine2') }}
         </h1>
 
         <div class="flex items-center self-center pr-12 gap-2">
@@ -35,8 +35,8 @@
       <div class="flex-1" />
 
       <div class="flex flex-col gap-8 pb-24 pt-8 md:flex-row md:items-start md:justify-between md:gap-10 md:pb-32">
-        <p class="max-w-xl text-body-lg text-on-surface-variant">
-          Eu sou desenvolvedor a 6 anos, focado em criar experiências digitais de alta performance e precisão técnica. Especializado em arquiteturas modernas, transformo complexidade em interfaces fluidas e intuitivas.
+        <p class="max-w-xl text-xl text-balance text-on-surface-variant">
+          {{ t('hero.bio') }}
         </p>
 
         <div class="flex flex-col gap-3 items-end self-end">
@@ -58,7 +58,7 @@
 
       <div class="absolute inset-x-0 bottom-10 flex items-center justify-center gap-4">
         <span class="h-px w-10 bg-primary/60" />
-        <span class="text-label-caps text-primary">Role para explorar</span>
+        <span class="text-label-caps text-primary">{{ t('hero.scrollHint') }}</span>
         <span class="h-px w-10 bg-primary/60" />
       </div>
     </div>
@@ -66,7 +66,9 @@
 </template>
 
 <script setup lang="ts">
-const roles = ['Desenvolvedor', 'Fullstack', 'Front-end']
+const { t, tm, rt } = useI18n()
+
+const roles = computed(() => (tm('hero.roles') as string[]).map(role => rt(role)))
 
 const stackRows = [
   [

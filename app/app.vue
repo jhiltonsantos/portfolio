@@ -6,23 +6,23 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
+const head = useLocaleHead()
+
 useHead({
   htmlAttrs: {
-    lang: 'pt-BR'
+    lang: () => head.value.htmlAttrs?.lang
   },
   link: [
     { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
   ]
 })
 
-const title = 'Hilton Santos — Desenvolvedor Fullstack'
-const description = 'Desenvolvedor fullstack focado em criar experiências digitais de alta performance e precisão técnica.'
-
 useSeoMeta({
-  title,
-  description,
-  ogTitle: title,
-  ogDescription: description,
+  title: () => t('seo.title'),
+  description: () => t('seo.description'),
+  ogTitle: () => t('seo.title'),
+  ogDescription: () => t('seo.description'),
   twitterCard: 'summary_large_image'
 })
 </script>
