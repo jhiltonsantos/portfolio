@@ -10,7 +10,7 @@
   },
   "hero": {
     "greetingLine1": "Olá,",
-    "greetingLine2": "Eu sou o Hilton.",
+    "namePrefix": "Eu sou o",
     "bio": "Desenvolvedor focado em criar experiências de alta performance e precisão técnica. Especializado em arquiteturas modernas, transformo complexidade em interfaces fluidas e intuitivas.",
     "roles": ["Desenvolvedor", "Fullstack", "Front-end"],
     "scrollHint": "Role para explorar"

@@ -12,24 +12,8 @@
 
       <div class="flex flex-col gap-6 pt-10 md:gap-4 md:pt-0">
         <h1 class="text-display-lg-mobile text-on-surface md:text-display-lg">
-          {{ t('hero.greetingLine1') }}<br>{{ t('hero.greetingLine2') }}
+          {{ t('hero.greetingLine1') }}<br>{{ t('hero.namePrefix') }} <span class="relative inline-block">Hilton.<HeroRoleCallout /></span>
         </h1>
-
-        <div class="flex items-center self-center pr-12 gap-2">
-          <UIcon
-            name="i-lucide-arrow-down-right"
-            class="pb-1.5 size-16 shrink-0 text-primary"
-          />
-          <ul class="flex flex-col gap-1 text-label-caps uppercase">
-            <li
-              v-for="(role, index) in roles"
-              :key="role"
-              :class="index === 0 ? 'text-on-surface' : index === 1 ? 'text-on-surface-variant' : 'text-outline'"
-            >
-              {{ role }}
-            </li>
-          </ul>
-        </div>
       </div>
 
       <div class="flex-1" />
@@ -66,9 +50,7 @@
 </template>
 
 <script setup lang="ts">
-const { t, tm, rt } = useI18n()
-
-const roles = computed(() => (tm('hero.roles') as string[]).map(role => rt(role)))
+const { t } = useI18n()
 
 const stackRows = [
   [
