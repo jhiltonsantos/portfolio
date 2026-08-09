@@ -60,6 +60,17 @@ export default defineNuxtConfig({
     ],
     langDir: 'locales',
     defaultLocale: 'pt',
-    strategy: 'no_prefix'
+    strategy: 'no_prefix',
+    // Detects the visitor's browser/Accept-Language on first visit: any
+    // Portuguese variant (pt-BR, pt-PT, pt-AO, ...) matches locale "pt" via
+    // prefix match against navigator.languages; anything else falls back to
+    // "en". A manual pick via LanguageSwitch overwrites the cookie below and
+    // takes priority on every later visit.
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root',
+      fallbackLocale: 'en'
+    }
   }
 })
