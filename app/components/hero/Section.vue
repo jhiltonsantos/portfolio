@@ -8,7 +8,7 @@
     />
 
     <div class="relative mx-auto flex min-h-screen max-w-(--spacing-container-max) flex-col px-5 pt-8 md:px-16 md:pt-12">
-      <SiteHeader />
+      <UILayoutHeader />
 
       <div class="flex flex-col gap-6 pt-10 md:gap-4 md:pt-0">
         <h1 class="pb-20 text-display-lg-mobile text-on-surface md:pb-0 md:text-display-lg">

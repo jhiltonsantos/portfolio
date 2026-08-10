@@ -1,6 +1,5 @@
 <template>
   <div>
-    <AmbientBackground />
     <HeroSection />
     <ExperienceSection />
     <ProjectsSection />
@@ -9,5 +8,7 @@
 </template>
 
 <script setup lang="ts">
-useFullpageScroll()
+definePageMeta({
+  layout: 'default'
+})
 </script>

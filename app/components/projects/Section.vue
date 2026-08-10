@@ -12,7 +12,7 @@
       </div>
 
       <div class="hidden gap-4 md:grid md:grid-cols-3">
-        <ProjectCard
+        <ProjectsCard
           v-for="project in projects"
           :key="project.title"
           :project="project"
@@ -29,7 +29,7 @@
           :key="project.title"
           class="w-[85vw] shrink-0 snap-center snap-always"
         >
-          <ProjectCard
+          <ProjectsCard
             :project="project"
             class="h-full"
           />

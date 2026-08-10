@@ -9,7 +9,7 @@
     >
       {{ link.label }}
     </NuxtLink>
-    <LanguageSwitch class="z-10 hidden md:flex" />
+    <UILanguageSwitch class="z-10 hidden md:flex" />
 
     <UDropdownMenu
       :items="menuItems"
@@ -25,7 +25,7 @@
 
       <template #language>
         <div class="flex justify-center px-2 py-1.5">
-          <LanguageSwitch />
+          <UILanguageSwitch />
         </div>
       </template>
     </UDropdownMenu>

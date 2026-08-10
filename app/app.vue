@@ -1,7 +1,9 @@
 <template>
   <UApp>
-    <CustomCursor />
-    <NuxtPage />
+    <UICustomCursor />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </UApp>
 </template>
 

@@ -74,7 +74,7 @@
       </div>
     </div>
 
-    <AppFooter />
+    <UILayoutFooter />
   </section>
 </template>
 
