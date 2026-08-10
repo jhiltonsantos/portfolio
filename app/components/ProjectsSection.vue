@@ -11,63 +11,29 @@
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <UCard
+      <div class="hidden gap-4 md:grid md:grid-cols-3">
+        <ProjectCard
           v-for="project in projects"
           :key="project.title"
-          class="flex h-full flex-col bg-surface-container ring-outline-variant"
-          :ui="{ body: 'flex h-full flex-col gap-3' }"
-        >
-          <p class="text-body-lg font-semibold text-on-surface">
-            {{ project.title }}
-          </p>
-          <p class="flex-1 text-body-md text-on-surface-variant">
-            {{ project.description }}
-          </p>
-
-          <div class="flex flex-wrap gap-2">
-            <UTooltip
-              v-for="tag in project.tags"
-              :key="tag.name"
-              :text="tag.name"
-            >
-              <UBadge
-                :icon="tag.icon"
-                :aria-label="tag.name"
-                color="primary"
-                variant="soft"
-              />
-            </UTooltip>
-          </div>
-
-          <div class="flex flex-row items-center justify-between">
-            <UButton
-              v-if="project.link"
-              :to="project.link"
-              target="_blank"
-              rel="noopener noreferrer"
-              :label="t('projects.viewProject')"
-              icon="i-lucide-arrow-up-right"
-              trailing
-              variant="link"
-              color="primary"
-              class="w-fit px-0"
-            />
-            <div class="flex justify-end ml-auto">
-              <UButton
-                :to="project.github"
-                target="_blank"
-                rel="noopener noreferrer"
-                icon="i-simple-icons-github"
-                :aria-label="t('projects.viewCode')"
-                variant="ghost"
-                color="primary"
-                square
-              />
-            </div>
-          </div>
-        </UCard>
+          :project="project"
+        />
       </div>
+
+      <ul
+        data-carousel
+        class="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-5 pb-2 md:hidden"
+      >
+        <li
+          v-for="project in projects"
+          :key="project.title"
+          class="w-[85vw] shrink-0 snap-center snap-always"
+        >
+          <ProjectCard
+            :project="project"
+            class="h-full"
+          />
+        </li>
+      </ul>
     </div>
   </section>
 </template>
@@ -130,3 +96,13 @@ const projects = computed(() => projectsMeta.map((meta, index) => ({
   description: t(`projects.items.${index}.description`)
 })))
 </script>
+
+<style scoped>
+[data-carousel] {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+[data-carousel]::-webkit-scrollbar {
+  display: none;
+}
+</style>

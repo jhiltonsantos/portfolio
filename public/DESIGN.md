@@ -57,9 +57,9 @@ typography:
     letterSpacing: -0.04em
   display-lg-mobile:
     fontFamily: Sora
-    fontSize: 40px
+    fontSize: 48px
     fontWeight: '700'
-    lineHeight: 48px
+    lineHeight: 56px
     letterSpacing: -0.02em
   headline-md:
     fontFamily: Sora

@@ -11,8 +11,8 @@
       <SiteHeader />
 
       <div class="flex flex-col gap-6 pt-10 md:gap-4 md:pt-0">
-        <h1 class="text-display-lg-mobile text-on-surface md:text-display-lg">
-          {{ t('hero.greetingLine1') }}<br>{{ t('hero.namePrefix') }} <span class="relative inline-block">Hilton.<HeroRoleCallout /></span>
+        <h1 class="pb-20 text-display-lg-mobile text-on-surface md:pb-0 md:text-display-lg">
+          {{ t('hero.greetingLine1') }}<br>{{ t('hero.namePrefix') }}<br class="md:hidden"> <span class="relative inline-block">Hilton.<HeroRoleCallout /></span>
         </h1>
       </div>
 
@@ -23,7 +23,7 @@
           {{ t('hero.bio') }}
         </p>
 
-        <div class="flex flex-col gap-3 items-end self-end">
+        <div class="flex w-full flex-col items-start gap-3 md:w-auto md:items-end md:self-end">
           <div
             v-for="(row, index) in stackRows"
             :key="index"

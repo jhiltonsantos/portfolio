@@ -65,10 +65,10 @@
   --text-display-lg--letter-spacing: -0.04em;
   --text-display-lg--font-weight: 700;
 
-  --text-display-lg-mobile: 40px;
-  --text-display-lg-mobile--line-height: 48px;
+  --text-display-lg-mobile: 72px;
+  --text-display-lg-mobile--line-height: 68px;
   --text-display-lg-mobile--letter-spacing: -0.02em;
-  --text-display-lg-mobile--font-weight: 700;
+  --text-display-lg-mobile--font-weight: 500;
 
   --text-headline-md: 32px;
   --text-headline-md--line-height: 40px;

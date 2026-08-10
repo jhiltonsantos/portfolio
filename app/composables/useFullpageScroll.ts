@@ -15,6 +15,7 @@ export function useFullpageScroll() {
       type: 'wheel',
       preventDefault: true,
       tolerance: 10,
+      ignore: '[data-carousel]',
       onDown: () => store.next(),
       onUp: () => store.prev()
     })
@@ -29,6 +30,7 @@ export function useFullpageScroll() {
       type: 'touch',
       preventDefault: true,
       tolerance: 10,
+      ignore: '[data-carousel]',
       onDown: () => store.prev(),
       onUp: () => store.next()
     })

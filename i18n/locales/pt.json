@@ -6,7 +6,8 @@
   "nav": {
     "experiences": "Experiências",
     "projects": "Projetos",
-    "contact": "Contate-me"
+    "contact": "Contate-me",
+    "menu": "Abrir menu"
   },
   "hero": {
     "greetingLine1": "Olá,",
@@ -55,7 +56,10 @@
     "heading": "Contate-me",
     "intro": "Estou aberto a novas oportunidades e colaborações. Envie uma mensagem por qualquer um dos canais abaixo.",
     "photoAlt": "Foto de Hilton Santos",
-    "emailLabel": "Email"
+    "emailLabel": "Email",
+    "copy": "Copiar",
+    "copied": "Copiado!",
+    "copyError": "Não foi possível copiar"
   },
   "sectionNav": {
     "prev": "Seção anterior",

@@ -19,6 +19,7 @@
           <li
             v-for="contact in contacts"
             :key="contact.label"
+            class="flex items-stretch gap-2"
           >
             <UButton
               :to="contact.href"
@@ -28,13 +29,26 @@
               variant="outline"
               color="neutral"
               size="xl"
-              block
-              class="justify-start gap-4 border-outline-variant bg-transparent text-on-surface hover:border-primary hover:text-primary hover:bg-on-primary-fixed-variant/20"
+              class="flex-1 justify-start gap-4 border-outline-variant bg-transparent text-on-surface hover:border-primary hover:text-primary hover:bg-on-primary-fixed-variant/20"
             >
-              <div class="flex flex-col items-start">
-                <span class="text-label-caps uppercase text-on-surface-variant">{{ contact.label }}</span>
-                <span class="text-body-md">{{ contact.value }}</span>
-              </div>
+              <slot name="contact-icon">
+                <div class="flex flex-row items-center justify-between w-full">
+                  <div class="flex flex-col items-start">
+                    <span class="text-label-caps uppercase text-on-surface-variant">{{ contact.label }}</span>
+                    <span class="text-body-md">{{ contact.value }}</span>
+                  </div>
+                  <UButton
+                    icon="i-lucide-copy"
+                    variant="outline"
+                    color="neutral"
+                    size="sm"
+                    square
+                    class="border-outline-variant bg-transparent text-on-surface-variant hover:border-primary hover:text-primary"
+                    :aria-label="t('contact.copy')"
+                    @click="copyValue(contact.value)"
+                  />
+                </div>
+              </slot>
             </UButton>
           </li>
         </ul>
@@ -82,6 +96,17 @@ const contacts = computed<ContactEntry[]>(() => [
   { label: 'GitHub', value: 'github.com/jhiltonsantos', href: 'https://github.com/jhiltonsantos', icon: 'i-simple-icons-github', external: true },
   { label: 'LinkedIn', value: 'linkedin.com/in/hiltonsantos9', href: 'https://linkedin.com/in/hiltonsantos9', icon: 'i-simple-icons-linkedin', external: true }
 ])
+
+const toast = useToast()
+
+async function copyValue(value: string) {
+  try {
+    await navigator.clipboard.writeText(value)
+    toast.add({ title: t('contact.copied'), icon: 'i-lucide-check', color: 'success' })
+  } catch {
+    toast.add({ title: t('contact.copyError'), icon: 'i-lucide-x', color: 'error' })
+  }
+}
 
 const store = useNavigationStore()
 const photoRef = ref<HTMLImageElement>()

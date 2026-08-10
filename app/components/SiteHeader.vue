@@ -4,12 +4,31 @@
       v-for="link in links"
       :key="link.to"
       :to="link.to"
-      class="text-body-md text-on-surface/80 transition-colors hover:text-primary"
+      class="hidden text-body-md text-on-surface/80 transition-colors hover:text-primary md:inline"
       @click.prevent="store.goToId(link.id)"
     >
       {{ link.label }}
     </NuxtLink>
     <LanguageSwitch class="z-10 hidden md:flex" />
+
+    <UDropdownMenu
+      :items="menuItems"
+      :content="{ align: 'end' }"
+      class="md:hidden"
+    >
+      <UButton
+        icon="i-lucide-menu"
+        color="neutral"
+        variant="ghost"
+        :aria-label="t('nav.menu')"
+      />
+
+      <template #language>
+        <div class="flex justify-center px-2 py-1.5">
+          <LanguageSwitch />
+        </div>
+      </template>
+    </UDropdownMenu>
   </nav>
 </template>
 
@@ -21,5 +40,11 @@ const links = computed(() => [
   { label: t('nav.experiences'), to: '#experiencias', id: 'experiencias' },
   { label: t('nav.projects'), to: '#projetos', id: 'projetos' },
   { label: t('nav.contact'), to: '#contato', id: 'contato' }
+])
+
+const menuItems = computed(() => [
+  ...links.value.map(link => ({ label: link.label, onSelect: () => store.goToId(link.id) })),
+  { type: 'separator' as const },
+  { slot: 'language' as const }
 ])
 </script>
