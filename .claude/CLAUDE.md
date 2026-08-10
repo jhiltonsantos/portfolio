@@ -12,6 +12,7 @@ This is a personal portfolio site (single scrollable page) built with:
 - **Pinia** for client-side UI state (installed manually — see State Management below)
 - **Tailwind CSS v4** for styling (configured via Nuxt UI)
 - **GSAP** (Observer + ScrollToPlugin) for the fullpage-scroll and section animations
+- **@nuxtjs/i18n** for English/Portuguese content, with browser-language auto-detection (see i18n below)
 - **Prisma** ORM — installed but not yet configured (no `prisma/schema.prisma` exists yet)
 
 Package manager: **pnpm** (required, pinned via `packageManager` in `package.json`)
@@ -40,31 +41,104 @@ pnpm lint && pnpm typecheck
 
 ```
 app/
-├── app.vue                      # Root layout: <UApp>, CustomCursor, NuxtPage, page <head>/SEO
+├── app.vue                      # <UApp><NuxtLayout><NuxtPage/></NuxtLayout></UApp>, page <head>/SEO
 ├── app.config.ts                # Nuxt UI theme config (primary/neutral colors)
-├── pages/index.vue              # The entire site: stacks section components, calls useFullpageScroll()
+├── layouts/default.vue          # Renders UILayoutBackground + <slot>, calls useFullpageScroll()
+├── pages/index.vue              # The entire site: stacks the 4 section components
 ├── components/
-│   ├── HeroSection.vue, ExperienceSection.vue, ProjectsSection.vue, ContactSection.vue
-│   │                             # The four fullpage-scroll sections, in scroll order
-│   ├── SectionNavButtons.vue     # Dot/arrow nav driven by the navigation store
-│   ├── SiteHeader.vue, AppFooter.vue, AppLogo.vue
-│   ├── AmbientBackground.vue     # Decorative background layer
-│   └── CustomCursor.vue          # Custom cursor, mounted globally in app.vue
-├── composables/useFullpageScroll.ts   # GSAP Observer wheel/touch → navigation store → scrollTo animation
+│   ├── hero/Section.vue, experience/{Section,Card}.vue, projects/{Section,Card}.vue,
+│   │   contact/{Section,Card}.vue
+│   │                             # One folder per fullpage-scroll section, in scroll order.
+│   │                             # experience/projects/contact each split a Section (layout +
+│   │                             # data) from a Card (single-item presentation), because
+│   │                             # sections render the same Card twice — once in a desktop
+│   │                             # grid/list, once in a mobile carousel (see below).
+│   ├── hero/RoleCallout.vue      # The little role-label callout anchored to the hero name
+│   └── UI/                       # Cross-section shared components
+│       ├── AppLogo.vue, CustomCursor.vue, LanguageSwitch.vue
+│       └── layout/Background.vue, Header.vue, Footer.vue
+├── composables/
+│   ├── useFullpageScroll.ts        # GSAP Observer wheel/touch/keyboard → navigation store → scrollTo
+│   ├── useCarouselSectionSwipe.ts  # Vertical-swipe-over-a-mobile-carousel → same navigation store
+│   └── useCarouselDragHint.ts      # One-shot GSAP wiggle hinting a mobile carousel is swipeable
 ├── stores/navigation.ts          # Pinia store: section list, currentIndex, isAnimating, goTo/next/prev
 ├── plugins/pinia.ts               # Manual Pinia install (see State Management)
 └── assets/css/
     ├── main.css                   # Tailwind entry + design tokens
     └── variables.css              # Design tokens (colors, typography, spacing — see public/DESIGN.md)
 
+i18n/locales/{pt,en}.json          # Locale files (repo root, not app/ — see i18n below)
 server/plugins/vue-globals.ts     # Nitro-startup fix for a Vercel/Pinia SSR bug (see Deployment Gotchas)
 ```
 
 **Key pattern**: `pages/index.vue` is the only real page. It is not multi-route content — it's
-one page that stacks section components and hands scroll control to `useFullpageScroll()` /
-`useNavigationStore()`. When adding a new section, add it to both the component stack in
-`pages/index.vue` and the `sections` array in `app/stores/navigation.ts` (id must match the
-section root element's `id`).
+one page that stacks `<HeroSection>` / `<ExperienceSection>` / `<ProjectsSection>` /
+`<ContactSection>` and hands scroll control to `useFullpageScroll()` (called once, from
+`layouts/default.vue`) / `useNavigationStore()`. When adding a new section, add it to both the
+component stack in `pages/index.vue` and the `sections` array in `app/stores/navigation.ts` (id
+must match the section root element's `id`).
+
+**Header/Footer are not in the layout.** `layouts/default.vue` only renders the animated
+background (`UILayoutBackground`) and calls `useFullpageScroll()` — `<UILayoutHeader>` is
+rendered inside `hero/Section.vue` and `<UILayoutFooter>` inside `contact/Section.vue`. Don't
+assume a conventional header-in-layout/footer-in-layout structure when tracing header/footer
+behavior; go to those two section files instead. Also note `<NuxtPage>` **must** stay wrapped in
+`<NuxtLayout>` in `app.vue` — without that wrapper, `definePageMeta({ layout: 'default' })` on
+the page is silently ignored and nothing in the layout (background, header, footer,
+`useFullpageScroll()`) mounts at all.
+
+### Component auto-import naming (folder-prefixed)
+
+Components auto-import using Nuxt's default folder-prefixed PascalCase naming — every path
+segment under `app/components/` is PascalCased and prepended to the filename. This means the
+casing of a folder name is significant and must be typed exactly as registered:
+
+| File | Auto-imported as |
+| --- | --- |
+| `components/hero/Section.vue` | `<HeroSection>` |
+| `components/experience/Card.vue` | `<ExperienceCard>` |
+| `components/UI/CustomCursor.vue` | `<UICustomCursor>` |
+| `components/UI/layout/Header.vue` | `<UILayoutHeader>` |
+
+`UI` is capitalized exactly like that (not `Ui`) because the folder itself is named `UI` — a
+lowercase `ui` folder would instead register as `<Ui...>`. When in doubt, check
+`.nuxt/components.d.ts` rather than guessing; a casing mismatch fails silently (the tag just
+doesn't render, no build error).
+
+### The fullpage-scroll + carousel system
+
+Three composables cooperate and are easiest to understand together:
+- `useFullpageScroll.ts` creates GSAP `Observer`s on `window` for wheel/touch, plus a keyboard
+  handler, all calling `store.next()`/`store.prev()`; a `watch` on `store.currentIndex` drives
+  the actual `gsap.to(window, { scrollTo: ... })` snap animation. Both Observers set
+  `ignore: '[data-carousel]'` so gestures starting on a mobile card carousel are left alone.
+- `useCarouselSectionSwipe.ts` fills the gap that `ignore` creates: it attaches its own native
+  `touchstart`/`touchmove`/`touchend` listeners directly on a `[data-carousel]` element (passed
+  in as a `Ref`), and if a touch drag inside the carousel turns out to be vertical (not the
+  carousel's own horizontal swipe), it calls `store.next()`/`store.prev()` directly — independent
+  of GSAP's `Observer` internals.
+- `useCarouselDragHint.ts` plays a one-shot GSAP `scrollLeft` wiggle on a carousel the first time
+  its section becomes active on mobile, to hint that it's swipeable.
+
+`experience/Section.vue` and `projects/Section.vue` both wire these together identically:
+```ts
+const { carouselRef } = useCarouselDragHint('experiencias')
+useCarouselSectionSwipe(carouselRef)
+```
+with `carouselRef` bound to the mobile `<ul data-carousel>`.
+
+## i18n
+
+Locale files live at repo-root `i18n/locales/{pt,en}.json` — **not** under `app/`, because
+`langDir` resolves against `rootDir`. Both files must stay structurally identical (same nested
+keys); components read them with `useI18n()`'s `t()` and `useLocaleHead()` (used once, in
+`app.vue`, for `<html lang>`/SEO tags).
+
+Locale is picked automatically (`nuxt.config.ts`'s `i18n.detectBrowserLanguage`): any Portuguese
+browser-language variant (`pt-BR`, `pt-PT`, ...) maps to `pt`, everything else falls back to
+`en`. A manual pick from `<LanguageSwitch>` overwrites the `i18n_redirected` cookie and takes
+priority over auto-detection on later visits. `strategy: 'no_prefix'` means there is no
+`/en`/`/pt` URL prefix — both locales are served at the same routes.
 
 ## Code Style & Conventions
 
@@ -147,7 +221,7 @@ Prisma is installed but not yet configured. If implementing database features:
   otherwise), no inline `style` attributes. See `.claude/rules/coding.md` for the full rule and
   the rare, documented exception.
 - `<template>` must come before `<script setup lang="ts">` in every `.vue` file — see
-  `app/components/SectionNavButtons.vue` for the expected order.
+  `app/components/contact/Card.vue` for the expected order.
 
 ## CI/CD Pipeline
 
