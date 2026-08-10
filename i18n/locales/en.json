@@ -41,10 +41,10 @@
     "viewCode": "View code on GitHub",
     "items": [
       {
-        "description": "A study agent using agentic RAG, with a vector database, embeddings and, if you want, even the LLM, to turn your study materials into real context for your questions."
+        "description": "A platform to end invisible money leaks: it centralizes active subscriptions (Netflix, AWS, Vercel, gyms, etc.) and prevents payments for forgotten services or unexpected renewals."
       },
       {
-        "description": "A platform to end invisible money leaks: it centralizes active subscriptions (Netflix, AWS, Vercel, gyms, etc.) and prevents payments for forgotten services or unexpected renewals."
+        "description": "A study agent using agentic RAG, with a vector database, embeddings and, if you want, even the LLM, to turn your study materials into real context for your questions."
       },
       {
         "description": "A mobile Augmented Reality app that uses the device's camera and the TEACCH method to create a structured, inclusive environment, supporting the independence of people with ASD."

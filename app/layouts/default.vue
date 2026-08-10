@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UIAmbientBackground />
+    <UILayoutBackground />
     <slot />
   </div>
 </template>

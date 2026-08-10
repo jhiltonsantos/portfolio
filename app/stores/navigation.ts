@@ -33,5 +33,15 @@ export const useNavigationStore = defineStore('navigation', () => {
     goTo(currentIndex.value - 1)
   }
 
-  return { sections, currentIndex, isAnimating, isFirst, isLast, goTo, goToId, next, prev }
+  return {
+    sections,
+    currentIndex,
+    isAnimating,
+    isFirst,
+    isLast,
+    goTo,
+    goToId,
+    next,
+    prev
+  }
 })

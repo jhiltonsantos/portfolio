@@ -54,14 +54,6 @@ const { t } = useI18n()
 
 const stackRows = [
   [
-    { name: 'Python', icon: 'i-simple-icons-python' },
-    { name: 'FastAPI', icon: 'i-simple-icons-fastapi' },
-    { name: 'Django', icon: 'i-simple-icons-django' },
-    { name: 'Docker', icon: 'i-simple-icons-docker' },
-    { name: 'Kubernetes', icon: 'i-simple-icons-kubernetes' },
-    { name: 'AWS', icon: 'i-simple-icons-amazonwebservices' }
-  ],
-  [
     { name: 'JavaScript', icon: 'i-simple-icons-javascript' },
     { name: 'TypeScript', icon: 'i-simple-icons-typescript' },
     { name: 'React', icon: 'i-simple-icons-react' },
@@ -70,6 +62,16 @@ const stackRows = [
     { name: 'Nuxt', icon: 'i-simple-icons-nuxt' },
     { name: 'Angular', icon: 'i-simple-icons-angular' },
     { name: 'Node.js', icon: 'i-simple-icons-nodedotjs' }
+  ],
+  [
+    { name: 'Python', icon: 'i-simple-icons-python' },
+    { name: 'FastAPI', icon: 'i-simple-icons-fastapi' },
+    { name: 'Django', icon: 'i-simple-icons-django' },
+    { name: 'PostgreSQL', icon: 'i-simple-icons-postgresql' },
+    { name: 'MongoDB', icon: 'i-simple-icons-mongodb' },
+    { name: 'Docker', icon: 'i-simple-icons-docker' },
+    { name: 'Kubernetes', icon: 'i-simple-icons-kubernetes' },
+    { name: 'AWS', icon: 'i-simple-icons-amazonwebservices' }
   ]
 ]
 </script>

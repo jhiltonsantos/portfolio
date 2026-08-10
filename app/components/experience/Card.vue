@@ -7,13 +7,7 @@
       <p class="text-label-caps uppercase text-on-surface-variant">
         {{ experience.company }} · {{ experience.period }}
       </p>
-    </div>
-
-    <div class="flex flex-col gap-3 md:w-2/3">
-      <p class="text-body-md text-on-surface-variant">
-        {{ experience.description }}
-      </p>
-      <div class="flex flex-wrap gap-2">
+      <div class="flex flex-wrap gap-2 pt-1">
         <UTooltip
           v-for="tag in experience.tags"
           :key="tag.name"
@@ -27,6 +21,12 @@
           />
         </UTooltip>
       </div>
+    </div>
+
+    <div class="flex flex-col gap-3 md:w-2/3">
+      <p class="text-body-md text-on-surface-variant">
+        {{ experience.description }}
+      </p>
     </div>
   </div>
 </template>

@@ -41,10 +41,10 @@
     "viewCode": "Ver código no GitHub",
     "items": [
       {
-        "description": "Um agente de estudos, utilizando RAG agentico, com banco vetorial, embeddings e, se você quiser, até o LLM, pra transformar seus materiais de estudo em contexto real pras suas perguntas."
+        "description": "Plataforma para acabar com o vazamento de dinheiro invisível: centraliza assinaturas ativas (Netflix, AWS, Vercel, academias etc.) e evita pagamentos por serviços esquecidos ou renovações inesperadas."
       },
       {
-        "description": "Plataforma para acabar com o vazamento de dinheiro invisível: centraliza assinaturas ativas (Netflix, AWS, Vercel, academias etc.) e evita pagamentos por serviços esquecidos ou renovações inesperadas."
+        "description": "Um agente de estudos, utilizando RAG agentico, com banco vetorial, embeddings e, se você quiser, até o LLM, pra transformar seus materiais de estudo em contexto real pras suas perguntas."
       },
       {
         "description": "App móvel de Realidade Aumentada que usa a câmera do dispositivo e o método TEACCH para criar um ambiente estruturado e inclusivo, apoiando a independência de pessoas com TEA."

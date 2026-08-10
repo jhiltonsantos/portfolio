@@ -1,5 +1,5 @@
 <template>
-  <div class="pointer-events-none fixed inset-0 z-[100] hidden md:block">
+  <div class="pointer-events-none fixed inset-0 z-100 hidden md:block">
     <div
       ref="cursorDot"
       class="fixed left-0 top-0 size-2 rounded-full bg-primary"

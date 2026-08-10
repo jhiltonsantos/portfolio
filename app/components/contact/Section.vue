@@ -21,35 +21,7 @@
             :key="contact.label"
             class="flex items-stretch gap-2"
           >
-            <UButton
-              :to="contact.href"
-              :target="contact.external ? '_blank' : undefined"
-              :rel="contact.external ? 'noopener noreferrer' : undefined"
-              :icon="contact.icon"
-              variant="outline"
-              color="neutral"
-              size="xl"
-              class="min-w-0 flex-1 justify-start gap-4 border-outline-variant bg-transparent text-on-surface hover:border-primary hover:text-primary hover:bg-on-primary-fixed-variant/20"
-            >
-              <slot name="contact-icon">
-                <div class="flex w-full min-w-0 flex-row items-center justify-between">
-                  <div class="flex min-w-0 flex-1 flex-col items-start">
-                    <span class="text-label-caps uppercase text-on-surface-variant">{{ contact.label }}</span>
-                    <span class="w-full truncate text-body-md">{{ contact.value }}</span>
-                  </div>
-                  <UButton
-                    icon="i-lucide-copy"
-                    variant="outline"
-                    color="neutral"
-                    size="sm"
-                    square
-                    class="ml-2 shrink-0 border-outline-variant bg-transparent text-on-surface-variant hover:border-primary hover:text-primary"
-                    :aria-label="t('contact.copy')"
-                    @click="copyValue(contact.value)"
-                  />
-                </div>
-              </slot>
-            </UButton>
+            <ContactCard :contact="contact" />
           </li>
         </ul>
       </div>
@@ -96,17 +68,6 @@ const contacts = computed<ContactEntry[]>(() => [
   { label: 'GitHub', value: 'github.com/jhiltonsantos', href: 'https://github.com/jhiltonsantos', icon: 'i-simple-icons-github', external: true },
   { label: 'LinkedIn', value: 'linkedin.com/in/hiltonsantos9', href: 'https://linkedin.com/in/hiltonsantos9', icon: 'i-simple-icons-linkedin', external: true }
 ])
-
-const toast = useToast()
-
-async function copyValue(value: string) {
-  try {
-    await navigator.clipboard.writeText(value)
-    toast.add({ title: t('contact.copied'), icon: 'i-lucide-check', color: 'success' })
-  } catch {
-    toast.add({ title: t('contact.copyError'), icon: 'i-lucide-x', color: 'error' })
-  }
-}
 
 const store = useNavigationStore()
 const photoRef = ref<HTMLImageElement>()
