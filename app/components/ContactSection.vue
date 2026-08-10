@@ -29,13 +29,13 @@
               variant="outline"
               color="neutral"
               size="xl"
-              class="flex-1 justify-start gap-4 border-outline-variant bg-transparent text-on-surface hover:border-primary hover:text-primary hover:bg-on-primary-fixed-variant/20"
+              class="min-w-0 flex-1 justify-start gap-4 border-outline-variant bg-transparent text-on-surface hover:border-primary hover:text-primary hover:bg-on-primary-fixed-variant/20"
             >
               <slot name="contact-icon">
-                <div class="flex flex-row items-center justify-between w-full">
-                  <div class="flex flex-col items-start">
+                <div class="flex w-full min-w-0 flex-row items-center justify-between">
+                  <div class="flex min-w-0 flex-1 flex-col items-start">
                     <span class="text-label-caps uppercase text-on-surface-variant">{{ contact.label }}</span>
-                    <span class="text-body-md">{{ contact.value }}</span>
+                    <span class="w-full truncate text-body-md">{{ contact.value }}</span>
                   </div>
                   <UButton
                     icon="i-lucide-copy"
@@ -43,7 +43,7 @@
                     color="neutral"
                     size="sm"
                     square
-                    class="border-outline-variant bg-transparent text-on-surface-variant hover:border-primary hover:text-primary"
+                    class="ml-2 shrink-0 border-outline-variant bg-transparent text-on-surface-variant hover:border-primary hover:text-primary"
                     :aria-label="t('contact.copy')"
                     @click="copyValue(contact.value)"
                   />

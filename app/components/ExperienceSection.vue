@@ -21,6 +21,7 @@
       </ul>
 
       <ul
+        ref="carouselRef"
         data-carousel
         class="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-5 pb-2 md:hidden"
       >
@@ -52,6 +53,7 @@ interface ExperienceMeta {
 }
 
 const { t } = useI18n()
+const { carouselRef } = useCarouselDragHint('experiencias')
 
 const experienceMeta: ExperienceMeta[] = [
   {

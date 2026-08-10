@@ -20,8 +20,9 @@
       </div>
 
       <ul
+        ref="carouselRef"
         data-carousel
-        class="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-5 pb-2 md:hidden"
+        class="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-5 py-2 md:hidden"
       >
         <li
           v-for="project in projects"
@@ -52,20 +53,9 @@ interface ProjectMeta {
 }
 
 const { t } = useI18n()
+const { carouselRef } = useCarouselDragHint('projetos')
 
 const projectsMeta: ProjectMeta[] = [
-  {
-    title: 'Retriever',
-    tags: [
-      { name: 'FastAPI', icon: 'i-simple-icons-fastapi' },
-      { name: 'Python', icon: 'i-simple-icons-python' },
-      { name: 'LangChain', icon: 'i-simple-icons-langchain' },
-      { name: 'ChromaDB', icon: 'i-lucide-database' },
-      { name: 'Svelte', icon: 'i-simple-icons-svelte' },
-      { name: 'TypeScript', icon: 'i-simple-icons-typescript' }
-    ],
-    github: 'https://github.com/jhiltonsantos/retriever'
-  },
   {
     title: 'Subscrip',
     tags: [
@@ -78,6 +68,18 @@ const projectsMeta: ProjectMeta[] = [
     ],
     link: 'https://www.subscrip.com.br/',
     github: 'https://github.com/jhiltonsantos/subscrip'
+  },
+  {
+    title: 'Retriever',
+    tags: [
+      { name: 'FastAPI', icon: 'i-simple-icons-fastapi' },
+      { name: 'Python', icon: 'i-simple-icons-python' },
+      { name: 'LangChain', icon: 'i-simple-icons-langchain' },
+      { name: 'ChromaDB', icon: 'i-lucide-database' },
+      { name: 'Svelte', icon: 'i-simple-icons-svelte' },
+      { name: 'TypeScript', icon: 'i-simple-icons-typescript' }
+    ],
+    github: 'https://github.com/jhiltonsantos/retriever'
   },
   {
     title: 'Acompanhar RA',

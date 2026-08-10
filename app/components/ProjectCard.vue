@@ -1,6 +1,6 @@
 <template>
   <UCard
-    class="flex h-full flex-col bg-surface-container ring-outline-variant"
+    class="flex h-full flex-col bg-surface-container ring-outline-variant p-1"
     :ui="{ body: 'flex h-full flex-col gap-3' }"
   >
     <p class="text-body-lg font-semibold text-on-surface">
