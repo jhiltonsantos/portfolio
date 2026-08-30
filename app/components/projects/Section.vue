@@ -141,6 +141,11 @@ type Project = (typeof projects.value)[number]
 const isModalOpen = ref(false)
 const selectedProject = ref<Project | null>(null)
 
+const navigationStore = useNavigationStore()
+watch(isModalOpen, (value) => {
+  navigationStore.isLocked = value
+})
+
 function openProject(project: Project) {
   selectedProject.value = project
   isModalOpen.value = true

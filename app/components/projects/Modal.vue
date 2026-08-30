@@ -7,7 +7,7 @@
       header: 'p-5 sm:p-6',
       body: 'p-5 sm:p-6',
       footer: 'p-5 sm:p-6',
-      title: 'text-2xl font-semibold text-on-surface text-primary',
+      title: 'text-2xl font-semibold text-on-surface text-primary px-3',
       description: 'text-on-surface-variant',
       close: 'top-5 end-5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
     }"
@@ -15,7 +15,7 @@
     <template #body>
       <div
         v-if="project"
-        class="grid gap-6 md:grid-cols-2"
+        class="grid gap-6 md:grid-cols-2 pb-10 px-3"
       >
         <div
           :inert="lightboxOpen"
