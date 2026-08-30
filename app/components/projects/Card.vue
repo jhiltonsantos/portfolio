@@ -1,7 +1,12 @@
 <template>
   <UCard
-    class="flex h-full flex-col bg-surface-container ring-outline-variant p-1"
+    role="button"
+    tabindex="0"
+    class="flex h-full cursor-pointer flex-col bg-surface-container p-1 ring-outline-variant transition-colors hover:ring-primary focus-visible:outline-2 focus-visible:outline-primary"
     :ui="{ body: 'flex h-full flex-col gap-3' }"
+    @click="emit('select')"
+    @keydown.enter="emit('select')"
+    @keydown.space.prevent="emit('select')"
   >
     <p class="text-body-lg font-semibold text-on-surface">
       {{ project.title }}
@@ -37,6 +42,7 @@
         variant="link"
         color="primary"
         class="w-fit px-0"
+        @click.stop
       />
       <div class="flex justify-end ml-auto">
         <UButton
@@ -48,6 +54,7 @@
           variant="ghost"
           color="primary"
           square
+          @click.stop
         />
       </div>
     </div>
@@ -63,6 +70,8 @@ interface ProjectTag {
 interface Project {
   title: string
   description: string
+  longDescription: string
+  images: string[]
   tags: ProjectTag[]
   link?: string
   github: string
@@ -70,6 +79,10 @@ interface Project {
 
 defineProps<{
   project: Project
+}>()
+
+const emit = defineEmits<{
+  select: []
 }>()
 
 const { t } = useI18n()

@@ -16,6 +16,7 @@
           v-for="project in projects"
           :key="project.title"
           :project="project"
+          @select="openProject(project)"
         />
       </div>
 
@@ -32,10 +33,16 @@
           <ProjectsCard
             :project="project"
             class="h-full"
+            @select="openProject(project)"
           />
         </li>
       </ul>
     </div>
+
+    <ProjectsModal
+      v-model:open="isModalOpen"
+      :project="selectedProject"
+    />
   </section>
 </template>
 
@@ -48,6 +55,8 @@ interface ProjectTag {
 interface ProjectMeta {
   title: string
   tags: ProjectTag[]
+  // TODO: add screenshots to public/image/projects/<slug>/ and list their paths here
+  images: string[]
   link?: string
   github: string
 }
@@ -67,6 +76,7 @@ const projectsMeta: ProjectMeta[] = [
       { name: 'Prisma ORM', icon: 'i-simple-icons-prisma' },
       { name: 'GSAP', icon: 'i-simple-icons-gsap' }
     ],
+    images: [],
     link: 'https://www.subscrip.com.br/',
     github: 'https://github.com/jhiltonsantos/subscrip'
   },
@@ -80,6 +90,7 @@ const projectsMeta: ProjectMeta[] = [
       { name: 'Svelte', icon: 'i-simple-icons-svelte' },
       { name: 'TypeScript', icon: 'i-simple-icons-typescript' }
     ],
+    images: [],
     github: 'https://github.com/jhiltonsantos/retriever'
   },
   {
@@ -89,6 +100,7 @@ const projectsMeta: ProjectMeta[] = [
       { name: 'C#', icon: 'i-simple-icons-csharp' },
       { name: 'ARCore', icon: 'i-lucide-scan' }
     ],
+    images: [],
     link: 'https://jhiltonsantos.itch.io/acompanhar-ra',
     github: 'https://github.com/jhiltonsantos/ACOMPANHAR-RA'
   }
@@ -96,8 +108,19 @@ const projectsMeta: ProjectMeta[] = [
 
 const projects = computed(() => projectsMeta.map((meta, index) => ({
   ...meta,
-  description: t(`projects.items.${index}.description`)
+  description: t(`projects.items.${index}.description`),
+  longDescription: t(`projects.items.${index}.longDescription`)
 })))
+
+type Project = (typeof projects.value)[number]
+
+const isModalOpen = ref(false)
+const selectedProject = ref<Project | null>(null)
+
+function openProject(project: Project) {
+  selectedProject.value = project
+  isModalOpen.value = true
+}
 </script>
 
 <style scoped>

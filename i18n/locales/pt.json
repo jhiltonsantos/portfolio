@@ -41,13 +41,16 @@
     "viewCode": "Ver código no GitHub",
     "items": [
       {
-        "description": "Plataforma para acabar com o vazamento de dinheiro invisível: centraliza assinaturas ativas (Netflix, AWS, Vercel, academias etc.) e evita pagamentos por serviços esquecidos ou renovações inesperadas."
+        "description": "Plataforma para acabar com o vazamento de dinheiro invisível: centraliza assinaturas ativas (Netflix, AWS, Vercel, academias etc.) e evita pagamentos por serviços esquecidos ou renovações inesperadas.",
+        "longDescription": "O Subscrip nasceu de um problema real: perder dinheiro com assinaturas esquecidas. A plataforma centraliza todas as assinaturas ativas do usuário — de serviços de streaming a ferramentas de trabalho — em um só painel, com alertas antes de cada renovação. O backend foi construído com Node.js e Prisma ORM sobre um banco relacional, enquanto o front-end em Next.js e React garante uma experiência rápida e responsiva, com animações em GSAP para reforçar a sensação de controle financeiro."
       },
       {
-        "description": "Um agente de estudos, utilizando RAG agentico, com banco vetorial, embeddings e, se você quiser, até o LLM, pra transformar seus materiais de estudo em contexto real pras suas perguntas."
+        "description": "Um agente de estudos, utilizando RAG agentico, com banco vetorial, embeddings e, se você quiser, até o LLM, pra transformar seus materiais de estudo em contexto real pras suas perguntas.",
+        "longDescription": "O Retriever é um agente de estudos que aplica RAG agêntico para transformar PDFs, anotações e outros materiais em contexto real para suas perguntas. O pipeline usa embeddings e um banco vetorial (ChromaDB) para recuperar os trechos mais relevantes antes de acionar o LLM, reduzindo alucinações e mantendo as respostas ancoradas no material original. A API foi construída em FastAPI e Python, com um front-end em Svelte e TypeScript para uma interface leve de consulta."
       },
       {
-        "description": "App móvel de Realidade Aumentada que usa a câmera do dispositivo e o método TEACCH para criar um ambiente estruturado e inclusivo, apoiando a independência de pessoas com TEA."
+        "description": "App móvel de Realidade Aumentada que usa a câmera do dispositivo e o método TEACCH para criar um ambiente estruturado e inclusivo, apoiando a independência de pessoas com TEA.",
+        "longDescription": "Acompanhar RA é um aplicativo móvel de Realidade Aumentada que usa a câmera do dispositivo para sobrepor rotinas visuais ao ambiente real, aplicando o método TEACCH para criar um ambiente estruturado e previsível. O objetivo é apoiar a independência e a comunicação de pessoas com Transtorno do Espectro Autista no dia a dia. O projeto foi desenvolvido em Unity3D com C# e ARCore, e está publicado no itch.io."
       }
     ]
   },
