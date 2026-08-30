@@ -40,12 +40,14 @@ onMounted(() => {
     isHovering.value = !!(event.target as HTMLElement).closest('a, button, [role="button"]')
   }
 
-  window.addEventListener('mousemove', onMouseMove)
-  window.addEventListener('pointerover', onPointerOver)
+  // Capture phase so a stopPropagation() from a descendant (e.g. Reka UI's
+  // Dialog internals) can't stop this listener from firing while a modal is open.
+  window.addEventListener('mousemove', onMouseMove, { capture: true })
+  window.addEventListener('pointerover', onPointerOver, { capture: true })
 
   onUnmounted(() => {
-    window.removeEventListener('mousemove', onMouseMove)
-    window.removeEventListener('pointerover', onPointerOver)
+    window.removeEventListener('mousemove', onMouseMove, { capture: true })
+    window.removeEventListener('pointerover', onPointerOver, { capture: true })
   })
 })
 </script>

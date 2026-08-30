@@ -39,6 +39,11 @@
     "heading": "Projetos selecionados",
     "viewProject": "Ver projeto",
     "viewCode": "Ver código no GitHub",
+    "lightbox": {
+      "close": "Fechar",
+      "previous": "Imagem anterior",
+      "next": "Próxima imagem"
+    },
     "items": [
       {
         "description": "Plataforma para acabar com o vazamento de dinheiro invisível: centraliza assinaturas ativas (Netflix, AWS, Vercel, academias etc.) e evita pagamentos por serviços esquecidos ou renovações inesperadas.",

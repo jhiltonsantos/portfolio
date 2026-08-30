@@ -39,6 +39,11 @@
     "heading": "Selected projects",
     "viewProject": "View project",
     "viewCode": "View code on GitHub",
+    "lightbox": {
+      "close": "Close",
+      "previous": "Previous image",
+      "next": "Next image"
+    },
     "items": [
       {
         "description": "A platform to end invisible money leaks: it centralizes active subscriptions (Netflix, AWS, Vercel, gyms, etc.) and prevents payments for forgotten services or unexpected renewals.",
