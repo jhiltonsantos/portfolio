@@ -106,6 +106,7 @@ const projectsMeta: ProjectMeta[] = [
       '/image/projects/retriever/3.webp',
       '/image/projects/retriever/4.webp'
     ],
+    link: 'https://github.com/jhiltonsantos/retriever/blob/main/README.md',
     github: 'https://github.com/jhiltonsantos/retriever'
   },
   {
