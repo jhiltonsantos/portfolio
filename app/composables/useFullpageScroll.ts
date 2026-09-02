@@ -50,6 +50,17 @@ export function useFullpageScroll() {
 
     window.addEventListener('keydown', onKeydown)
 
+    // Reka UI's dialog scroll lock sets `overflow: hidden` on <body>, but this
+    // page's scrolling element is <html> (document.scrollingElement), which it
+    // never touches — so native wheel/touch scrolling of the page keeps working
+    // underneath an open modal even though our own Observers above never see
+    // those events (Reka stops their propagation before they reach window).
+    // Lock the actual scrolling element ourselves, driven by the same
+    // store.isLocked flag that guards goTo().
+    const stopLockWatch = watch(() => store.isLocked, (locked) => {
+      document.documentElement.classList.toggle('overflow-hidden', locked)
+    })
+
     const stopWatch = watch(() => store.currentIndex, (index) => {
       const section = store.sections[index]
       const target = section && document.getElementById(section.id)
@@ -71,6 +82,8 @@ export function useFullpageScroll() {
       touchObserver.kill()
       window.removeEventListener('keydown', onKeydown)
       stopWatch()
+      stopLockWatch()
+      document.documentElement.classList.remove('overflow-hidden')
       gsap.killTweensOf(window)
     })
   })

@@ -1,15 +1,17 @@
 <template>
-  <div class="pointer-events-none fixed inset-0 z-100 hidden md:block">
-    <div
-      ref="cursorDot"
-      class="fixed left-0 top-0 size-2 rounded-full bg-primary"
-    />
-    <div
-      ref="cursorRing"
-      class="fixed left-0 top-0 rounded-full border border-primary shadow-glow-primary transition-[width,height] duration-200"
-      :class="isHovering ? 'size-12' : 'size-8'"
-    />
-  </div>
+  <Teleport to="body">
+    <div class="pointer-events-none fixed inset-0 z-[9999] hidden md:block">
+      <div
+        ref="cursorDot"
+        class="fixed left-0 top-0 size-2 rounded-full bg-primary"
+      />
+      <div
+        ref="cursorRing"
+        class="fixed left-0 top-0 rounded-full border border-primary shadow-glow-primary transition-[width,height] duration-200"
+        :class="isHovering ? 'size-12' : 'size-8'"
+      />
+    </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -40,12 +42,14 @@ onMounted(() => {
     isHovering.value = !!(event.target as HTMLElement).closest('a, button, [role="button"]')
   }
 
-  window.addEventListener('mousemove', onMouseMove)
-  window.addEventListener('pointerover', onPointerOver)
+  // Capture phase so a stopPropagation() from a descendant (e.g. Reka UI's
+  // Dialog internals) can't stop this listener from firing while a modal is open.
+  window.addEventListener('mousemove', onMouseMove, { capture: true })
+  window.addEventListener('pointerover', onPointerOver, { capture: true })
 
   onUnmounted(() => {
-    window.removeEventListener('mousemove', onMouseMove)
-    window.removeEventListener('pointerover', onPointerOver)
+    window.removeEventListener('mousemove', onMouseMove, { capture: true })
+    window.removeEventListener('pointerover', onPointerOver, { capture: true })
   })
 })
 </script>

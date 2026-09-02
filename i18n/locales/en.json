@@ -39,15 +39,23 @@
     "heading": "Selected projects",
     "viewProject": "View project",
     "viewCode": "View code on GitHub",
+    "lightbox": {
+      "close": "Close",
+      "previous": "Previous image",
+      "next": "Next image"
+    },
     "items": [
       {
-        "description": "A platform to end invisible money leaks: it centralizes active subscriptions (Netflix, AWS, Vercel, gyms, etc.) and prevents payments for forgotten services or unexpected renewals."
+        "description": "A platform to end invisible money leaks: it centralizes active subscriptions (Netflix, AWS, Vercel, gyms, etc.) and prevents payments for forgotten services or unexpected renewals.",
+        "longDescription": "Subscrip was born from a real problem: losing money to forgotten subscriptions. The platform centralizes every active subscription — from streaming services to work tools — in a single dashboard, with alerts before each renewal. The backend runs on Node.js and Prisma ORM over a relational database, while the Next.js and React front-end delivers a fast, responsive experience, with GSAP animations reinforcing the sense of financial control."
       },
       {
-        "description": "A study agent using agentic RAG, with a vector database, embeddings and, if you want, even the LLM, to turn your study materials into real context for your questions."
+        "description": "A study agent using agentic RAG, with a vector database, embeddings and, if you want, even the LLM, to turn your study materials into real context for your questions.",
+        "longDescription": "Retriever is a study agent that applies agentic RAG to turn PDFs, notes, and other materials into real context for your questions. The pipeline uses embeddings and a vector database (ChromaDB) to retrieve the most relevant passages before calling the LLM, reducing hallucinations and keeping answers grounded in the source material. The API is built with FastAPI and Python, with a Svelte and TypeScript front-end for a lightweight query interface."
       },
       {
-        "description": "A mobile Augmented Reality app that uses the device's camera and the TEACCH method to create a structured, inclusive environment, supporting the independence of people with ASD."
+        "description": "A mobile Augmented Reality app that uses the device's camera and the TEACCH method to create a structured, inclusive environment, supporting the independence of people with ASD.",
+        "longDescription": "Acompanhar RA is a mobile Augmented Reality app that uses the device's camera to overlay visual routines onto the real environment, applying the TEACCH method to create a structured, predictable setting. Its goal is to support the independence and communication of people with Autism Spectrum Disorder in everyday life. The project was built with Unity3D, C#, and ARCore, and is published on itch.io."
       }
     ]
   },
