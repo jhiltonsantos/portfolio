@@ -3,7 +3,7 @@
     v-model:open="open"
     :title="project?.title"
     :ui="{
-      content: 'bg-background ring ring-outline-variant divide-y-0 w-[calc(100vw-2rem)] sm:max-w-3xl min-h-[400px] max-h-[min(85dvh,640px)]',
+      content: modalContentClass,
       header: 'p-5 sm:p-6',
       body: 'p-5 sm:p-6',
       footer: 'p-5 sm:p-6',
@@ -180,6 +180,9 @@ const images = computed(() => props.project?.images.length ? props.project.image
 const carouselIndex = ref(0)
 const lightboxIndex = ref<number | null>(null)
 const lightboxOpen = computed(() => lightboxIndex.value !== null)
+const modalContentClass = computed(() => lightboxOpen.value
+  ? 'bg-background ring ring-outline-variant divide-y-0 w-[calc(100vw-2rem)] h-[calc(100dvh-2rem)] max-w-none transition-[width,height,max-width] duration-200'
+  : 'bg-background ring ring-outline-variant divide-y-0 w-[calc(100vw-2rem)] sm:max-w-3xl min-h-[400px] max-h-[min(85dvh,640px)] transition-[width,height,max-width] duration-200')
 
 function openLightbox() {
   lightboxIndex.value = carouselIndex.value
