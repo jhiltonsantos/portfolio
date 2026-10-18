@@ -1,6 +1,5 @@
 <template>
   <UApp>
-    <UICustomCursor />
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>

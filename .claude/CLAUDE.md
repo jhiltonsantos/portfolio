@@ -55,7 +55,7 @@ app/
 │   │                             # grid/list, once in a mobile carousel (see below).
 │   ├── hero/RoleCallout.vue      # The little role-label callout anchored to the hero name
 │   └── UI/                       # Cross-section shared components
-│       ├── AppLogo.vue, CustomCursor.vue, LanguageSwitch.vue
+│       ├── AppLogo.vue, LanguageSwitch.vue
 │       └── layout/Background.vue, Header.vue, Footer.vue
 ├── composables/
 │   ├── useFullpageScroll.ts        # GSAP Observer wheel/touch/keyboard → navigation store → scrollTo
@@ -97,7 +97,6 @@ casing of a folder name is significant and must be typed exactly as registered:
 | --- | --- |
 | `components/hero/Section.vue` | `<HeroSection>` |
 | `components/experience/Card.vue` | `<ExperienceCard>` |
-| `components/UI/CustomCursor.vue` | `<UICustomCursor>` |
 | `components/UI/layout/Header.vue` | `<UILayoutHeader>` |
 
 `UI` is capitalized exactly like that (not `Ui`) because the folder itself is named `UI` — a
