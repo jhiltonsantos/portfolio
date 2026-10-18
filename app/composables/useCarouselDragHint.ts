@@ -7,7 +7,7 @@ export function useCarouselDragHint(sectionId: string) {
 
   watch(isActive, (active) => {
     const el = carouselRef.value
-    if (!active || !el || window.innerWidth >= 768) return
+    if (!active || !el || window.innerWidth >= 768 || prefersReducedMotion()) return
 
     gsap.fromTo(
       el,

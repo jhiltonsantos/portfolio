@@ -77,6 +77,17 @@ typography:
     fontSize: 16px
     fontWeight: '400'
     lineHeight: 24px
+  display-xl:
+    fontFamily: Mona Sans
+    fontSize: clamp(72px, 12vw, 200px)
+    fontWeight: '700'
+    lineHeight: 0.9
+    letterSpacing: -0.04em
+  label-mono:
+    fontFamily: Mona Sans Mono
+    fontSize: 14px
+    fontWeight: '480'
+    lineHeight: 20px
   label-caps:
     fontFamily: Mona Sans Mono
     fontSize: 12px
@@ -99,6 +110,7 @@ spacing:
   stack-sm: 16px
   stack-md: 32px
   stack-lg: 80px
+  cell: 24px
 ---
 
 ## Brand & Style
@@ -151,3 +163,14 @@ The shape language is **Soft (0.25rem)**. This slight rounding provides a profes
 - **Inputs:** Dark fields (`#0B0B0B`) with a bottom-border only, or a subtle 1px outline. The focus state must use a glowing green border.
 - **Lists:** Use custom bullet points (small green squares or "code-style" arrows `->`) instead of standard browser dots.
 - **Project Navigation:** Implement a "Next Project" footer at the bottom of case studies that uses the `display-lg` typography for a bold, immersive transition.
+
+## Layout & Grid
+The page is a grid of 1px-bordered cells (`outline-variant` at 60%), with square corners and no shadows or glows on blocks. Cells touch (`-ml-px -mt-px`) instead of using gaps; internal padding is `--spacing-cell` (24px, 16px on mobile). Section frames always span the full viewport height so the outer border is identical across Hero, Experience, Projects and Contact. Interactive cells turn their border `primary` on hover and show a `primary` focus outline.
+
+Technology icons are borderless, `primary`-colored glyphs that scale up on hover and reveal their name in a tooltip. Links and buttons use lowercase labels.
+
+## Component library mapping
+Nuxt UI's semantic variables (`--ui-bg`, `--ui-text`, `--ui-border`, `--ui-primary`, ...) are remapped to the palette above in `app/assets/css/variables.css` so library components (tooltip, dropdown, modal) inherit the design system instead of Nuxt UI's default slate/blue.
+
+## Motion
+GSAP drives the fullpage scroll, section glows, the hero role callout loop and the carousel swipe hint. Every animation checks `prefers-reduced-motion` and is skipped or made instantaneous when the user asks for reduced motion.

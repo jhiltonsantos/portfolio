@@ -1,10 +1,10 @@
 <template>
   <section
     id="contato"
-    class="relative z-10 flex min-h-dvh flex-col"
+    class="relative z-10 flex min-h-dvh flex-col md:h-dvh"
   >
-    <div class="mx-auto flex w-full max-w-(--spacing-container-max) flex-1 flex-col justify-center px-5 py-6 md:px-16 md:py-6">
-      <UIGrid>
+    <div class="mx-auto flex w-full max-w-(--spacing-container-max) flex-1 flex-col justify-center px-5 py-6 md:min-h-0 md:px-16 md:py-6">
+      <UIGrid class="min-h-0 md:flex-1 md:grid-rows-[auto_minmax(0,1fr)_auto]">
         <UIGridCell
           :span="8"
           class="flex flex-col gap-2"
@@ -38,11 +38,11 @@
           </div>
         </UIGridCell>
 
-        <ul class="col-span-12 flex flex-col md:col-span-8">
+        <ul class="col-span-12 flex min-h-0 flex-col md:col-span-8 md:grid md:grid-rows-5">
           <li
             v-for="contact in contacts"
             :key="contact.label"
-            class="flex"
+            class="flex md:min-h-0"
           >
             <ContactCard :contact="contact" />
           </li>
@@ -70,7 +70,9 @@ const { t } = useI18n()
 const contacts = computed<ContactEntry[]>(() => [
   { label: t('contact.emailLabel'), value: 'jhilton930@gmail.com', href: 'mailto:jhilton930@gmail.com', icon: 'i-lucide-mail', external: false },
   { label: 'GitHub', value: 'github.com/jhiltonsantos', href: 'https://github.com/jhiltonsantos', icon: 'i-simple-icons-github', external: true },
-  { label: 'LinkedIn', value: 'linkedin.com/in/hiltonsantos9', href: 'https://linkedin.com/in/hiltonsantos9', icon: 'i-simple-icons-linkedin', external: true }
+  { label: 'LinkedIn', value: 'linkedin.com/in/hiltonsantos9', href: 'https://linkedin.com/in/hiltonsantos9', icon: 'i-simple-icons-linkedin', external: true },
+  { label: 'Substack', value: 'hiltonsantos.substack.com', href: 'https://hiltonsantos.substack.com/', icon: 'i-simple-icons-substack', external: true },
+  { label: 'Instagram', value: 'instagram.com/hilton_santtos', href: 'https://www.instagram.com/hilton_santtos/', icon: 'i-simple-icons-instagram', external: true }
 ])
 
 const store = useNavigationStore()
@@ -79,7 +81,7 @@ const photoGlowRef = ref<HTMLDivElement>()
 const isActive = computed(() => store.sections[store.currentIndex]?.id === 'contato')
 
 watch(isActive, (active) => {
-  if (!active || !photoRef.value) return
+  if (!active || !photoRef.value || prefersReducedMotion()) return
   gsap.fromTo(
     photoRef.value,
     { opacity: 0, y: 24, scale: 0.94 },
@@ -88,7 +90,7 @@ watch(isActive, (active) => {
 })
 
 function onPhotoHover(hovering: boolean) {
-  if (!photoGlowRef.value) return
+  if (!photoGlowRef.value || prefersReducedMotion()) return
   gsap.to(photoGlowRef.value, {
     opacity: hovering ? 0.6 : 0.3,
     scale: hovering ? 1.15 : 0.9,

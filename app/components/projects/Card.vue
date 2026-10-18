@@ -12,18 +12,19 @@
       :items="project.images.length ? project.images : [null]"
       :autoplay="{ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true }"
       :watch-drag="false"
-      class="overflow-hidden"
+      class="overflow-hidden md:min-h-0 md:flex-1"
+      :ui="{ viewport: 'md:h-full', container: 'md:h-full', item: 'md:h-full' }"
     >
       <template #default="{ item }">
         <img
           v-if="item"
           :src="item"
           :alt="project.title"
-          class="aspect-video w-full object-cover"
+          class="aspect-video w-full object-cover md:aspect-auto md:h-full"
         >
         <div
           v-else
-          class="flex aspect-video w-full items-center justify-center bg-surface-container-high text-on-surface-variant"
+          class="flex aspect-video w-full items-center justify-center bg-surface-container-high text-on-surface-variant md:aspect-auto md:h-full"
         >
           <UIcon
             name="i-lucide-image"

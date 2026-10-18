@@ -68,7 +68,7 @@ export function useFullpageScroll() {
 
       store.isAnimating = true
       gsap.to(window, {
-        duration: 1,
+        duration: prefersReducedMotion() ? 0 : 1,
         ease: 'power2.inOut',
         scrollTo: { y: target, autoKill: false },
         onComplete: () => {

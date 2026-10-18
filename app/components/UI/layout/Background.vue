@@ -96,6 +96,13 @@ watch(() => store.currentIndex, (next, prev) => {
   const incomingTransition = TRANSITIONS[next]
   const incomingAnchor = ANCHORS[next]
 
+  // Reduced motion: swap the glow layers instantly, no travelling glow
+  if (prefersReducedMotion()) {
+    if (outgoing) gsap.set(outgoing, { opacity: 0, scale: 1 })
+    if (incoming) gsap.set(incoming, { opacity: 1, scale: 1 })
+    return
+  }
+
   if (outgoing && outgoingTransition) {
     gsap.killTweensOf(outgoing)
     gsap.to(outgoing, outgoingTransition.exit)

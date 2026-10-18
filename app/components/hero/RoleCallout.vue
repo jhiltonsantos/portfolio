@@ -41,7 +41,7 @@ const arrowEl = ref<SVGSVGElement | null>(null)
 let timeline: gsap.core.Timeline | undefined
 
 onMounted(() => {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  if (prefersReducedMotion()) return
 
   // The arrow slides in along its own diagonal, then the roles rise in one by
   // one; after a hold everything fades out (arrow continues up-right) and the

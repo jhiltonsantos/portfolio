@@ -5,7 +5,7 @@
     :ui="{
       content: modalContentClass,
       header: 'p-5 sm:p-6',
-      body: 'p-5 sm:p-6',
+      body: 'p-0 sm:p-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
       footer: 'p-5 sm:p-6',
       title: 'text-2xl font-semibold text-on-surface px-3',
       description: 'text-on-surface-variant',
@@ -22,48 +22,62 @@
     <template #body>
       <div
         v-if="project"
-        class="grid gap-6 md:grid-cols-2 pb-10 px-3"
+        class="relative"
       >
-        <div
+        <UIGrid
           :inert="lightboxOpen"
-          class="flex flex-col gap-4 flex-3/4"
+          class="-m-px w-[calc(100%+2px)] max-w-none"
         >
-          <UCarousel
-            :key="project.title"
-            :items="images"
-            :arrows="images.length > 1"
-            :dots="images.length > 1"
-            :autoplay="{ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true }"
-            class="group overflow-hidden"
-            :ui="{ arrows: 'opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100' }"
-            @select="carouselIndex = $event"
-          >
-            <template #default="{ item }">
-              <button
-                v-if="item"
-                type="button"
-                class="block aspect-video w-full overflow-hidden"
-                @click="openLightbox"
-              >
-                <img
-                  :src="item"
-                  :alt="project.title"
-                  class="size-full object-cover"
+          <UIGridCell :span="7">
+            <UCarousel
+              :key="project.title"
+              :items="images"
+              :arrows="images.length > 1"
+              :dots="images.length > 1"
+              :autoplay="{ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true }"
+              class="group overflow-hidden"
+              :ui="{ arrows: 'opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100' }"
+              @select="carouselIndex = $event"
+            >
+              <template #default="{ item }">
+                <button
+                  v-if="item"
+                  type="button"
+                  class="block aspect-video w-full cursor-zoom-in overflow-hidden focus-visible:outline-2 focus-visible:outline-primary"
+                  @click="openLightbox"
                 >
-              </button>
-              <div
-                v-else
-                class="flex aspect-video w-full items-center justify-center bg-surface-container text-on-surface-variant"
-              >
-                <UIcon
-                  name="i-lucide-image"
-                  class="size-8"
-                />
-              </div>
-            </template>
-          </UCarousel>
+                  <img
+                    :src="item"
+                    :alt="project.title"
+                    class="size-full object-cover"
+                  >
+                </button>
+                <div
+                  v-else
+                  class="flex aspect-video w-full items-center justify-center bg-surface-container text-on-surface-variant"
+                >
+                  <UIcon
+                    name="i-lucide-image"
+                    class="size-8"
+                  />
+                </div>
+              </template>
+            </UCarousel>
+          </UIGridCell>
 
-          <div class="flex flex-wrap gap-2">
+          <UIGridCell
+            :span="5"
+            class="md:row-span-2"
+          >
+            <p class="text-sm text-on-surface-variant min-[1400px]:text-body-md">
+              {{ project.longDescription }}
+            </p>
+          </UIGridCell>
+
+          <UIGridCell
+            :span="7"
+            class="flex flex-wrap items-center gap-3"
+          >
             <UTooltip
               v-for="tag in project.tags"
               :key="tag.name"
@@ -77,40 +91,52 @@
                 class="size-6 cursor-default text-primary transition-transform duration-200 ease-out hover:scale-125"
               />
             </UTooltip>
-          </div>
+          </UIGridCell>
 
-          <div class="flex items-center justify-between gap-2">
-            <UButton
-              v-if="project.link"
-              :to="project.link"
+          <UIGridCell
+            v-if="project.link"
+            :span="6"
+            interactive
+            class="relative p-0 hover:z-10 md:p-0"
+          >
+            <a
+              :href="project.link"
               target="_blank"
               rel="noopener noreferrer"
-              :label="t('projects.viewProject')"
-              icon="i-lucide-arrow-up-right"
-              trailing
-              variant="link"
-              color="primary"
-              class="w-fit px-0 lowercase"
-            />
-            <UButton
-              :to="project.github"
+              class="flex items-center justify-between gap-2 p-4 text-body-md lowercase text-primary focus-visible:outline-2 focus-visible:outline-primary md:p-(--spacing-cell)"
+            >
+              {{ t('projects.viewProject') }}
+              <UIcon
+                name="i-lucide-arrow-up-right"
+                class="size-5"
+              />
+            </a>
+          </UIGridCell>
+
+          <UIGridCell
+            :span="project.link ? 6 : 12"
+            interactive
+            class="relative p-0 hover:z-10 md:p-0"
+          >
+            <a
+              :href="project.github"
               target="_blank"
               rel="noopener noreferrer"
-              icon="i-simple-icons-github"
               :aria-label="t('projects.viewCode')"
-              variant="ghost"
-              color="primary"
-              square
-            />
-          </div>
-        </div>
-
-        <p
-          :inert="lightboxOpen"
-          class="text-body-md text-on-surface-variant"
-        >
-          {{ project.longDescription }}
-        </p>
+              class="flex items-center justify-between gap-2 p-4 text-body-md lowercase text-primary focus-visible:outline-2 focus-visible:outline-primary md:p-(--spacing-cell)"
+            >
+              <UIcon
+                name="i-simple-icons-github"
+                class="size-5"
+              />
+              github
+              <UIcon
+                name="i-lucide-arrow-up-right"
+                class="size-5"
+              />
+            </a>
+          </UIGridCell>
+        </UIGrid>
 
         <div
           v-if="lightboxOpen"
@@ -190,7 +216,7 @@ const lightboxIndex = ref<number | null>(null)
 const lightboxOpen = computed(() => lightboxIndex.value !== null)
 const modalContentClass = computed(() => lightboxOpen.value
   ? 'rounded-none bg-background border border-outline-variant/60 ring-0 divide-y-0 w-[calc(100vw-2rem)] h-[calc(100dvh-2rem)] max-w-none transition-[width,height,max-width] duration-200'
-  : 'rounded-none bg-background border border-outline-variant/60 ring-0 divide-y-0 w-[calc(100vw-2rem)] sm:max-w-3xl min-h-[400px] max-h-[min(85dvh,640px)] transition-[width,height,max-width] duration-200')
+  : 'rounded-none bg-background border border-outline-variant/60 ring-0 divide-y-0 w-[calc(100vw-2rem)] sm:max-w-4xl min-h-[400px] max-h-[min(92dvh,800px)] transition-[width,height,max-width] duration-200')
 
 function openLightbox() {
   lightboxIndex.value = carouselIndex.value

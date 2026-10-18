@@ -56,11 +56,13 @@ app/
 │   ├── hero/RoleCallout.vue      # The little role-label callout anchored to the hero name
 │   └── UI/                       # Cross-section shared components
 │       ├── AppLogo.vue, LanguageSwitch.vue
-│       └── layout/Background.vue, Header.vue, Footer.vue
+│       ├── grid/Grid.vue, Cell.vue, Label.vue   # <UIGrid>/<UIGridCell>/<UIGridLabel> cell primitives
+│       └── layout/Background.vue, Header.vue, Footer.vue   # Header/Footer are grid rows (col-span-12)
 ├── composables/
 │   ├── useFullpageScroll.ts        # GSAP Observer wheel/touch/keyboard → navigation store → scrollTo
 │   ├── useCarouselSectionSwipe.ts  # Vertical-swipe-over-a-mobile-carousel → same navigation store
-│   └── useCarouselDragHint.ts      # One-shot GSAP wiggle hinting a mobile carousel is swipeable
+│   ├── useCarouselDragHint.ts      # One-shot GSAP wiggle hinting a mobile carousel is swipeable
+│   └── usePrefersReducedMotion.ts  # prefersReducedMotion(): every GSAP animation checks it first
 ├── stores/navigation.ts          # Pinia store: section list, currentIndex, isAnimating, goTo/next/prev
 ├── plugins/pinia.ts               # Manual Pinia install (see State Management)
 └── assets/css/
@@ -80,7 +82,8 @@ must match the section root element's `id`).
 
 **Header/Footer are not in the layout.** `layouts/default.vue` only renders the animated
 background (`UILayoutBackground`) and calls `useFullpageScroll()` — `<UILayoutHeader>` is
-rendered inside `hero/Section.vue` and `<UILayoutFooter>` inside `contact/Section.vue`. Don't
+rendered inside `hero/Section.vue` and `<UILayoutFooter>` inside `contact/Section.vue` (both are
+`col-span-12` rows of a `<UIGrid>`, so they only work inside one). Don't
 assume a conventional header-in-layout/footer-in-layout structure when tracing header/footer
 behavior; go to those two section files instead. Also note `<NuxtPage>` **must** stay wrapped in
 `<NuxtLayout>` in `app.vue` — without that wrapper, `definePageMeta({ layout: 'default' })` on
@@ -210,6 +213,31 @@ Prisma is installed but not yet configured. If implementing database features:
 2. Run `pnpm prisma migrate dev --name <migration-name>`
 3. Use Prisma client in API routes (`server/api/`)
 4. Never hand-edit generated `.sql` migration files — always go through Prisma Migrate.
+
+## Design system conventions ("grid of cells")
+
+The site follows a Universe-style grid of 1px-bordered cells (ADRs in `docs/adr/`, tokens in
+`docs/design-system/tokens.md`). When adding or changing UI:
+
+- **Layout**: compose sections from `<UIGrid>` / `<UIGridCell>` / `<UIGridLabel>`
+  (`app/components/UI/grid/`). Cells touch via `-ml-px -mt-px`; no rounded blocks, no `ring`/glow
+  shadows. Hero, Experience, Projects and Contact are `md:h-dvh` sections whose grid fills the
+  viewport (`grid-rows-[auto_minmax(0,1fr)]`), so every section has the same outer frame.
+- **Typography**: Mona Sans (text) and Mona Sans Mono (labels). Section eyebrows are mono lowercase
+  `dev.*()` strings (identical in `pt`/`en`, not translated); titles/long text are translated.
+  Text of links and buttons is `lowercase` (apply the class — `button` resets `text-transform`).
+- **Colors**: only design-system tokens (`bg-surface`, `text-on-surface-variant`,
+  `border-outline-variant/60`, `text-primary`). Nuxt UI's `--ui-*` semantic variables are remapped
+  to these tokens at the end of `variables.css`, so Nuxt UI components never show the default
+  slate/blue; the tooltip is styled in `app.config.ts`.
+- **Tech icons** (stack/tags) are borderless `UIcon size-6 text-primary` wrapped in
+  `UTooltip :delay-duration="0" :content="{ side: 'top' }"` with `hover:scale-125`; no `UBadge`.
+- **Interactive cells** use `hover:border-primary` (+ `relative hover:z-10`) and
+  `focus-visible:outline-2 focus-visible:outline-primary`.
+- **Motion**: guard any GSAP animation with `prefersReducedMotion()`
+  (`app/composables/usePrefersReducedMotion.ts`).
+- **Responsive typography**: card titles/descriptions use `text-2xl min-[1400px]:text-headline-md`
+  and `text-sm min-[1400px]:text-body-md` so 4-card grids do not overflow short viewports.
 
 ## Styling
 

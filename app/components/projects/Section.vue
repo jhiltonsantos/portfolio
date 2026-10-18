@@ -1,10 +1,10 @@
 <template>
   <section
     id="projetos"
-    class="relative z-10 min-h-dvh"
+    class="relative z-10 min-h-dvh md:h-dvh"
   >
-    <div class="mx-auto flex min-h-dvh max-w-(--spacing-container-max) flex-col justify-center px-5 py-6 md:px-16 md:py-6">
-      <UIGrid>
+    <div class="mx-auto flex min-h-dvh max-w-(--spacing-container-max) flex-col justify-center px-5 py-6 md:h-full md:min-h-0 md:px-16 md:py-6">
+      <UIGrid class="min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)]">
         <UIGridCell class="flex flex-col gap-2">
           <UIGridLabel>{{ t('projects.eyebrow') }}</UIGridLabel>
           <h2 class="text-headline-md text-on-surface">
@@ -12,7 +12,7 @@
           </h2>
         </UIGridCell>
 
-        <div class="col-span-12 hidden md:grid md:grid-cols-3">
+        <div class="col-span-12 hidden min-h-0 md:grid md:grid-cols-3">
           <ProjectsCard
             v-for="project in projects"
             :key="project.title"
@@ -24,7 +24,7 @@
         <ul
           ref="carouselRef"
           data-carousel
-          class="col-span-12 flex touch-pan-x snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth md:hidden"
+          class="col-span-12 flex min-h-0 touch-pan-x snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth md:hidden"
         >
           <li
             v-for="project in projects"

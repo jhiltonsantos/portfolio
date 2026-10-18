@@ -5,10 +5,10 @@
     :rel="contact.external ? 'noopener noreferrer' : undefined"
     variant="ghost"
     color="neutral"
-    class="relative -ml-px -mt-px w-full min-w-0 flex-1 justify-start rounded-none border border-outline-variant/60 p-0 font-normal lowercase text-on-surface transition-colors hover:z-10 hover:border-primary hover:bg-transparent hover:text-on-surface focus-visible:outline-2 focus-visible:outline-primary"
+    class="relative -ml-px -mt-px h-full w-full min-w-0 flex-1 items-stretch justify-start rounded-none border border-outline-variant/60 p-0 font-normal lowercase text-on-surface transition-colors hover:z-10 hover:border-primary hover:bg-transparent hover:text-on-surface focus-visible:outline-2 focus-visible:outline-primary"
   >
     <slot name="contact-icon">
-      <div class="grid w-full min-w-0 grid-cols-[auto_1fr_auto] divide-x divide-outline-variant/60 md:grid-cols-[9rem_1fr_auto]">
+      <div class="grid h-full w-full min-w-0 grid-cols-[auto_1fr_auto] divide-x divide-outline-variant/60 md:grid-cols-[10rem_1fr_auto]">
         <div class="flex items-center gap-3 p-4 md:p-(--spacing-cell)">
           <UIcon
             :name="contact.icon"
