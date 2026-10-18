@@ -65,7 +65,7 @@
     ]
   },
   "contact": {
-    "eyebrow": "Let's talk",
+    "eyebrow": "dev.contact()",
     "heading": "Contact me",
     "intro": "I'm open to new opportunities and collaborations. Send a message through any of the channels below.",
     "photoAlt": "Photo of Hilton Santos",

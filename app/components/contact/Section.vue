@@ -1,52 +1,56 @@
 <template>
   <section
     id="contato"
-    class="relative z-10 flex min-h-screen flex-col"
+    class="relative z-10 flex min-h-dvh flex-col"
   >
-    <div class="mx-auto flex w-full max-w-(--spacing-container-max) flex-1 flex-col justify-center gap-10 px-5 md:flex-row md:items-center md:justify-between md:gap-12 md:px-16">
-      <div class="flex flex-col gap-10 md:w-1/2">
-        <div class="flex max-w-xl flex-col gap-2">
-          <span class="text-label-caps uppercase text-primary">{{ t('contact.eyebrow') }}</span>
+    <div class="mx-auto flex w-full max-w-(--spacing-container-max) flex-1 flex-col justify-center px-5 py-6 md:px-16 md:py-6">
+      <UIGrid>
+        <UIGridCell
+          :span="8"
+          class="flex flex-col gap-2"
+        >
+          <UIGridLabel>{{ t('contact.eyebrow') }}</UIGridLabel>
           <h2 class="text-headline-md text-on-surface">
             {{ t('contact.heading') }}
           </h2>
-          <p class="text-body-lg text-on-surface-variant">
+          <p class="max-w-xl text-body-lg text-on-surface-variant">
             {{ t('contact.intro') }}
           </p>
-        </div>
+        </UIGridCell>
 
-        <ul class="flex max-w-xl flex-col gap-3">
-          <li
-            v-for="contact in contacts"
-            :key="contact.label"
-            class="flex items-stretch gap-2"
-          >
-            <ContactCard :contact="contact" />
-          </li>
-        </ul>
-      </div>
-
-      <div class="hidden md:flex md:w-1/3 md:items-center md:justify-end items-end self-center-safe">
-        <div
-          class="relative w-full max-w-md"
+        <UIGridCell
+          :span="4"
+          class="relative isolate hidden overflow-hidden md:row-span-2 md:block"
           @mouseenter="onPhotoHover(true)"
           @mouseleave="onPhotoHover(false)"
         >
           <div
             ref="photoGlowRef"
-            class="pointer-events-none absolute inset-0 -z-10 scale-90 rounded-full bg-primary/30 opacity-60 blur-3xl"
+            class="pointer-events-none absolute inset-0 -z-10 scale-90 rounded-full bg-primary/20 opacity-30 blur-3xl"
           />
-          <img
-            ref="photoRef"
-            src="/image/me.webp"
-            :alt="t('contact.photoAlt')"
-            class="aspect-square w-full rounded-xl object-cover ring-1 ring-outline-variant shadow-glow-primary"
-          >
-        </div>
-      </div>
-    </div>
+          <div class="absolute inset-4 md:inset-(--spacing-cell)">
+            <img
+              ref="photoRef"
+              src="/image/me.webp"
+              :alt="t('contact.photoAlt')"
+              class="size-full object-cover"
+            >
+          </div>
+        </UIGridCell>
 
-    <UILayoutFooter />
+        <ul class="col-span-12 flex flex-col md:col-span-8">
+          <li
+            v-for="contact in contacts"
+            :key="contact.label"
+            class="flex"
+          >
+            <ContactCard :contact="contact" />
+          </li>
+        </ul>
+
+        <UILayoutFooter />
+      </UIGrid>
+    </div>
   </section>
 </template>
 
@@ -86,7 +90,7 @@ watch(isActive, (active) => {
 function onPhotoHover(hovering: boolean) {
   if (!photoGlowRef.value) return
   gsap.to(photoGlowRef.value, {
-    opacity: hovering ? 1 : 0.6,
+    opacity: hovering ? 0.6 : 0.3,
     scale: hovering ? 1.15 : 0.9,
     duration: 0.6,
     ease: 'power2.out'

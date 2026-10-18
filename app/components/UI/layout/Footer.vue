@@ -1,10 +1,6 @@
 <template>
-  <footer class="border-t border-outline-variant/40">
-    <div class="mx-auto flex max-w-(--spacing-container-max) flex-row items-center justify-between gap-6 px-5 py-8 md:px-16">
-      <UIAppLogo />
-      <p class="text-label-caps uppercase text-on-surface-variant">
-        {{ new Date().getFullYear() }} Hilton Santos
-      </p>
-    </div>
+  <footer class="col-span-12 -ml-px -mt-px flex items-end justify-between gap-6 border border-outline-variant/60 p-4 md:p-(--spacing-cell)">
+    <UIAppLogo />
+    <UIGridLabel>© {{ new Date().getFullYear() }} hilton santos</UIGridLabel>
   </footer>
 </template>
