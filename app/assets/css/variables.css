@@ -120,3 +120,28 @@
   --shadow-glow-primary: 0 0 20px rgba(68, 246, 151, 0.2);
   --shadow-glow-primary-strong: 0 0 30px rgba(68, 246, 151, 0.3);
 }
+
+/* Nuxt UI semantic tokens remapped to the design system so components
+   (tooltip, dropdown, modal, badge...) stop using the default slate/blue palette. */
+:root,
+.dark {
+  --ui-primary: var(--color-primary);
+
+  --ui-text-dimmed: var(--color-outline);
+  --ui-text-muted: var(--color-on-surface-variant);
+  --ui-text-toned: var(--color-on-surface-variant);
+  --ui-text: var(--color-on-surface);
+  --ui-text-highlighted: var(--color-on-surface);
+  --ui-text-inverted: var(--color-background);
+
+  --ui-bg: var(--color-surface);
+  --ui-bg-muted: var(--color-surface-container-low);
+  --ui-bg-elevated: var(--color-surface-container);
+  --ui-bg-accented: var(--color-surface-container-high);
+  --ui-bg-inverted: var(--color-inverse-surface);
+
+  --ui-border: var(--color-outline-variant);
+  --ui-border-muted: var(--color-outline-variant);
+  --ui-border-accented: var(--color-outline);
+  --ui-border-inverted: var(--color-inverse-surface);
+}

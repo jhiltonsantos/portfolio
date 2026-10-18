@@ -41,13 +41,18 @@
               :key="index"
               class="flex gap-4"
             >
-              <UIcon
+              <UTooltip
                 v-for="tech in row"
                 :key="tech.name"
-                :name="tech.icon"
-                :title="tech.name"
-                class="size-6 text-primary"
-              />
+                :text="tech.name"
+                :delay-duration="0"
+                :content="{ side: 'top' }"
+              >
+                <UIcon
+                  :name="tech.icon"
+                  class="size-6 cursor-default text-primary transition-transform duration-200 ease-out hover:scale-125"
+                />
+              </UTooltip>
             </div>
           </div>
 
