@@ -2,6 +2,22 @@
 @import "@nuxt/ui";
 @import "./variables.css";
 
+@font-face {
+  font-family: "Mona Sans";
+  src: url("/fonts/MonaSansVF-opsz-wght.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mona Sans Mono";
+  src: url("/fonts/MonaSansMonoVF-wght.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme static {
   --color-green-50: #EFFDF5;
   --color-green-100: #D9FBE8;

@@ -15,7 +15,8 @@ useHead({
     lang: () => head.value.htmlAttrs?.lang
   },
   link: [
-    { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
+    { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+    { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/MonaSansVF-opsz-wght.woff2', crossorigin: 'anonymous' }
   ]
 })
 
