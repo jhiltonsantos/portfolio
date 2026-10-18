@@ -29,6 +29,8 @@ logs
 # Claude Code local overrides (personal settings)
 .claude/settings.local.json
 
+docs/
+
 # Cache and temporary files
 .claude/cache/
 .claude/session-env/

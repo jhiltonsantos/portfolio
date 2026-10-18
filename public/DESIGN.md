@@ -50,35 +50,35 @@ colors:
   surface-variant: '#333535'
 typography:
   display-lg:
-    fontFamily: Sora
+    fontFamily: Mona Sans
     fontSize: 72px
     fontWeight: '700'
     lineHeight: 80px
     letterSpacing: -0.04em
   display-lg-mobile:
-    fontFamily: Sora
+    fontFamily: Mona Sans
     fontSize: 48px
     fontWeight: '700'
     lineHeight: 56px
     letterSpacing: -0.02em
   headline-md:
-    fontFamily: Sora
+    fontFamily: Mona Sans
     fontSize: 32px
     fontWeight: '600'
     lineHeight: 40px
     letterSpacing: -0.02em
   body-lg:
-    fontFamily: Hanken Grotesk
+    fontFamily: Mona Sans
     fontSize: 18px
     fontWeight: '400'
     lineHeight: 28px
   body-md:
-    fontFamily: Hanken Grotesk
+    fontFamily: Mona Sans
     fontSize: 16px
     fontWeight: '400'
     lineHeight: 24px
   label-caps:
-    fontFamily: JetBrains Mono
+    fontFamily: Mona Sans Mono
     fontSize: 12px
     fontWeight: '500'
     lineHeight: 16px
@@ -114,11 +114,11 @@ The palette is built on a "Void and Glow" concept. The absolute black background
 - **Content:** Pure white is reserved for high-impact headings to ensure maximum readability, while light gray (`#D0D0D0`) is used for body text to reduce eye strain and establish hierarchy.
 
 ## Typography
-The typography system uses a tri-font structure to reinforce the technical narrative. 
+The typography system uses a two-family structure to reinforce the technical narrative. 
 
-- **Sora** handles headings with its wide, geometric stance, giving the portfolio a modern, "built" feel. Use tight letter spacing for large display text.
-- **Hanken Grotesk** provides a clean, highly legible experience for long-form content and project descriptions.
-- **JetBrains Mono** is used sparingly for labels, metadata, and "code-like" details to emphasize the technical proficiency of the work.
+- **Mona Sans** (variable, self-hosted in `public/fonts/`) handles headings and body text. Use tight letter spacing for large display text and variable weights (e.g. 460 for headlines).
+- **Mona Sans Mono** is used for labels, metadata, and "code-like" details such as `dev.experience()`, in lowercase.
+- See `docs/design-system/tokens.md` for the cell-grid tokens (ADR 0001).
 
 All headings should be pure white (`#FFFFFF`). Body text should utilize the neutral light gray (`#D0D0D0`) to maintain a soft contrast ratio that remains accessible.
 
