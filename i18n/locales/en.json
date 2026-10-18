@@ -10,11 +10,12 @@
     "menu": "Open menu"
   },
   "hero": {
-    "greetingLine1": "Hi,",
-    "namePrefix": "I'm",
+    "intro": "dev.hello()",
+    "location": "Fortaleza, BR",
+    "cta": "View projects",
     "bio": "Developer focused on building high-performance digital experiences with technical precision. Specialized in modern architectures, I turn complexity into fluid, intuitive interfaces.",
     "roles": ["Developer", "Fullstack", "Front-end"],
-    "scrollHint": "Scroll to explore"
+    "scrollHint": "scroll_down()"
   },
   "experience": {
     "eyebrow": "Journey",

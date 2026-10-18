@@ -1,21 +1,17 @@
 <template>
   <span
-    ref="rootEl"
     aria-hidden="true"
-    class="absolute top-full mt-2 inline-flex items-center gap-1.5 md:mt-3 md:gap-2"
-    :class="flipped ? 'left-0 flex-row-reverse' : 'right-0 flex-row'"
+    class="inline-flex items-center gap-3 md:gap-4"
   >
     <UIcon
-      :name="flipped ? 'i-lucide-arrow-down-left' : 'i-lucide-arrow-down-right'"
-      class="size-10 shrink-0 pb-1 text-primary md:size-16 md:pb-1.5"
+      name="i-lucide-arrow-up-right"
+      class="size-16 shrink-0 text-primary md:size-24"
     />
-    <span
-      class="inline-flex flex-col gap-1 text-label-caps uppercase"
-      :class="flipped ? 'items-end' : 'items-start'"
-    >
+    <span class="inline-flex flex-col gap-1 text-xl font-medium uppercase tracking-widest md:text-3xl">
       <span
         v-for="(role, index) in roles"
         :key="role"
+        ref="roleEls"
         :class="index === 0 ? 'text-on-surface' : index === 1 ? 'text-on-surface-variant' : 'text-outline'"
       >
         {{ role }}
@@ -25,47 +21,24 @@
 </template>
 
 <script setup lang="ts">
+import { gsap } from 'gsap'
+
 const { tm, rt } = useI18n()
 
 const roles = computed(() => (tm('hero.roles') as string[]).map(role => rt(role)))
 
-const rootEl = useTemplateRef<HTMLSpanElement>('rootEl')
-const flipped = ref(false)
-
-function checkOverflow() {
-  const el = rootEl.value
-  const anchor = el?.parentElement
-  if (!el || !anchor) return
-
-  const anchorRight = anchor.getBoundingClientRect().right
-  const calloutWidth = el.getBoundingClientRect().width
-  const margin = window.innerWidth >= 768 ? 64 : 20
-
-  flipped.value = anchorRight - calloutWidth < margin
-}
-
-let observer: ResizeObserver | undefined
+const roleEls = ref<HTMLElement[]>([])
 
 onMounted(() => {
-  checkOverflow()
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-  // Only observe the stable anchor ("Hilton.", never translated so its size
-  // only changes across the md breakpoint's font jump) — not the callout's
-  // own root. Observing the element whose classes we toggle based on its
-  // own measured size risks a ResizeObserver feedback loop if flipping ever
-  // produces even a sub-pixel width difference (e.g. flex-row vs
-  // flex-row-reverse rounding).
-  const anchor = rootEl.value?.parentElement
-  if (anchor) {
-    observer = new ResizeObserver(() => checkOverflow())
-    observer.observe(anchor)
-  }
-
-  window.addEventListener('resize', checkOverflow)
-})
-
-onUnmounted(() => {
-  observer?.disconnect()
-  window.removeEventListener('resize', checkOverflow)
+  gsap.from(roleEls.value, {
+    y: 24,
+    opacity: 0,
+    duration: 0.6,
+    delay: 0.3,
+    stagger: 0.25,
+    ease: 'power3.out'
+  })
 })
 </script>
