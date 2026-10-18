@@ -41,11 +41,3 @@ html::-webkit-scrollbar-thumb {
 html::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
 }
-
-@media (min-width: 48rem) {
-  /* Overrides Tailwind/Nuxt UI's own cursor: pointer on buttons and links,
-     which otherwise wins over the inherited value above. */
-  * {
-    cursor: none !important;
-  }
-}
