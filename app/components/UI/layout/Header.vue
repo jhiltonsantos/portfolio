@@ -16,7 +16,7 @@
 
     <div class="flex-1" />
 
-    <div class="hidden h-24 items-end gap-3 p-4 md:flex">
+    <div class="flex h-24 items-end gap-3 p-4">
       <a
         v-for="social in socials"
         :key="social.name"
@@ -50,7 +50,7 @@
       />
     </button>
 
-    <div class="flex items-center px-2 md:hidden">
+    <div class="flex h-24 items-end p-4 md:hidden">
       <UDropdownMenu
         :items="menuItems"
         :content="{ align: 'end' }"
@@ -60,6 +60,8 @@
           color="neutral"
           variant="ghost"
           :aria-label="t('nav.menu')"
+          :ui="{ leadingIcon: 'size-5' }"
+          class="size-6 justify-center p-0 text-on-surface/80 hover:bg-transparent hover:text-primary"
         />
 
         <template #language>

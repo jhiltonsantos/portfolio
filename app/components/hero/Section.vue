@@ -8,8 +8,8 @@
         <UILayoutHeader cta />
 
         <UIGridCell class="overflow-hidden">
-          <h1 class="text-display-lg-mobile uppercase text-on-surface md:text-[min(12vw,20vh)] md:leading-[0.9] md:font-bold md:tracking-[-0.04em]">
-            Hilton
+          <h1 class="text-[10vw] leading-[0.9] font-medium tracking-[-0.02em] whitespace-nowrap uppercase text-on-surface md:text-[min(8.5vw,17vh)] md:font-bold md:tracking-[-0.02em] [word-spacing:0.12em]">
+            Hilton Santos
           </h1>
         </UIGridCell>
 
