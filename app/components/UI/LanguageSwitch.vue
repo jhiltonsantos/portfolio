@@ -4,15 +4,16 @@
       v-for="option in options"
       :key="option.code"
       type="button"
-      class="flex size-6 items-center justify-center overflow-hidden rounded-md ring-1 ring-outline-variant transition-opacity"
-      :class="locale === option.code ? 'opacity-100 ring-primary' : 'opacity-50 hover:opacity-90'"
+      class="flex size-6 items-center justify-center overflow-hidden rounded-md transition-[filter,opacity] focus-visible:outline-2 focus-visible:outline-primary"
+      :class="locale === option.code ? 'opacity-100' : 'opacity-40 hover:opacity-70'"
       :aria-label="option.label"
       :aria-pressed="locale === option.code"
       @click="setLocale(option.code)"
     >
       <UIcon
         :name="option.icon"
-        class="size-full"
+        class="size-full grayscale"
+        :class="locale === option.code ? 'brightness-110' : 'brightness-75'"
       />
     </button>
   </div>

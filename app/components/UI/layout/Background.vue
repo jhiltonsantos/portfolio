@@ -2,23 +2,23 @@
   <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-background">
     <div
       ref="heroGlow"
-      class="absolute inset-0 origin-top-left opacity-100 bg-[radial-gradient(ellipse_at_top_left,rgba(34,226,134,0.16),transparent_60%)]"
+      class="absolute inset-0 origin-top-left opacity-100 bg-[radial-gradient(ellipse_at_top_left,rgba(34,226,134,0.06),transparent_60%)]"
     />
     <div
       ref="experienceGlow"
-      class="absolute inset-0 origin-bottom-right opacity-0 bg-[radial-gradient(circle_at_bottom_right,rgba(0,217,126,0.14),transparent_55%)]"
+      class="absolute inset-0 origin-bottom-right opacity-0 bg-[radial-gradient(circle_at_bottom_right,rgba(0,217,126,0.05),transparent_55%)]"
     />
     <div
       ref="projectsGlow"
-      class="absolute inset-0 origin-top opacity-0 bg-[radial-gradient(ellipse_at_top,rgba(90,255,162,0.12),transparent_65%)]"
+      class="absolute inset-0 origin-top opacity-0 bg-[radial-gradient(ellipse_at_top,rgba(90,255,162,0.045),transparent_65%)]"
     />
     <div
       ref="contactGlow"
-      class="absolute inset-0 origin-center opacity-0 bg-[radial-gradient(circle_at_center,rgba(34,226,134,0.10),transparent_70%)]"
+      class="absolute inset-0 origin-center opacity-0 bg-[radial-gradient(circle_at_center,rgba(34,226,134,0.04),transparent_70%)]"
     />
     <div
       ref="travelGlow"
-      class="pointer-events-none absolute left-0 top-0 size-[46vmin] rounded-full opacity-0 blur-3xl bg-[radial-gradient(circle,rgba(34,226,134,0.22),transparent_70%)]"
+      class="pointer-events-none absolute left-0 top-0 size-[46vmin] rounded-full opacity-0 blur-3xl bg-[radial-gradient(circle,rgba(34,226,134,0.08),transparent_70%)]"
     />
   </div>
 </template>
@@ -95,6 +95,13 @@ watch(() => store.currentIndex, (next, prev) => {
   const incoming = layers[next]?.value
   const incomingTransition = TRANSITIONS[next]
   const incomingAnchor = ANCHORS[next]
+
+  // Reduced motion: swap the glow layers instantly, no travelling glow
+  if (prefersReducedMotion()) {
+    if (outgoing) gsap.set(outgoing, { opacity: 0, scale: 1 })
+    if (incoming) gsap.set(incoming, { opacity: 1, scale: 1 })
+    return
+  }
 
   if (outgoing && outgoingTransition) {
     gsap.killTweensOf(outgoing)

@@ -3,28 +3,39 @@
     :to="contact.href"
     :target="contact.external ? '_blank' : undefined"
     :rel="contact.external ? 'noopener noreferrer' : undefined"
-    :icon="contact.icon"
-    variant="outline"
+    variant="ghost"
     color="neutral"
-    size="xl"
-    class="min-w-0 flex-1 justify-start gap-4 border-outline-variant bg-transparent text-on-surface hover:border-primary hover:text-primary hover:bg-on-primary-fixed-variant/20"
+    class="relative -ml-px -mt-px h-full w-full min-w-0 flex-1 items-stretch justify-start rounded-none border border-outline-variant/60 p-0 font-normal lowercase text-on-surface transition-colors hover:z-10 hover:border-primary hover:bg-transparent hover:text-on-surface focus-visible:outline-2 focus-visible:outline-primary"
   >
     <slot name="contact-icon">
-      <div class="flex w-full min-w-0 flex-row items-center justify-between">
-        <div class="flex min-w-0 flex-1 flex-col items-start">
-          <span class="text-label-caps uppercase text-on-surface-variant">{{ contact.label }}</span>
-          <span class="w-full truncate text-body-md">{{ contact.value }}</span>
+      <div class="grid h-full w-full min-w-0 grid-cols-[auto_1fr_auto] divide-x divide-outline-variant/60 md:grid-cols-[10rem_1fr_auto]">
+        <div class="flex items-center gap-3 p-4 md:p-(--spacing-cell)">
+          <UIcon
+            :name="contact.icon"
+            class="size-5 shrink-0 text-primary"
+          />
+          <UIGridLabel class="hidden md:inline">
+            {{ contact.label }}
+          </UIGridLabel>
         </div>
-        <UButton
-          icon="i-lucide-copy"
-          variant="outline"
-          color="neutral"
-          size="sm"
-          square
-          class="ml-2 shrink-0 border-outline-variant bg-transparent text-on-surface-variant hover:border-primary hover:text-primary"
-          :aria-label="t('contact.copy')"
-          @click.stop.prevent="copyValue(contact.value)"
-        />
+
+        <div class="flex min-w-0 items-center p-4 md:p-(--spacing-cell)">
+          <span class="w-full truncate text-body-md text-on-surface">{{ contact.value }}</span>
+        </div>
+
+        <div class="flex items-center p-4 md:p-(--spacing-cell)">
+          <UButton
+            icon="i-lucide-copy"
+            variant="ghost"
+            color="neutral"
+            size="lg"
+            square
+            :ui="{ leadingIcon: 'size-5' }"
+            class="shrink-0 rounded bg-transparent text-on-surface-variant transition-all duration-200 ease-out hover:scale-125 hover:bg-transparent hover:text-primary focus-visible:outline-primary"
+            :aria-label="t('contact.copy')"
+            @click.stop.prevent="copyValue(contact.value)"
+          />
+        </div>
       </div>
     </slot>
   </UButton>

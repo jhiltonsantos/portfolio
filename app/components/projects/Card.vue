@@ -2,62 +2,61 @@
   <UCard
     role="button"
     tabindex="0"
-    class="flex h-full cursor-pointer flex-col bg-surface-container p-1 ring-outline-variant transition-colors hover:ring-primary focus-visible:outline-2 focus-visible:outline-primary"
-    :ui="{ body: 'flex h-full flex-col gap-4 p-0 sm:p-0' }"
+    class="relative -ml-px -mt-px flex h-full cursor-pointer flex-col rounded-none border border-outline-variant/60 bg-transparent shadow-none ring-0 transition-colors hover:z-10 hover:border-primary focus-visible:outline-2 focus-visible:outline-primary"
+    :ui="{ body: 'flex h-full flex-col gap-4 p-4 sm:p-4 md:p-(--spacing-cell) sm:md:p-(--spacing-cell)' }"
     @click="emit('select')"
     @keydown.enter="emit('select')"
     @keydown.space.prevent="emit('select')"
   >
-    <div class="flex px-4 pt-4">
-      <UCarousel
-        :items="project.images.length ? project.images : [null]"
-        :autoplay="{ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true }"
-        :watch-drag="false"
-        class="overflow-hidden rounded-lg"
-      >
-        <template #default="{ item }">
-          <img
-            v-if="item"
-            :src="item"
-            :alt="project.title"
-            class="aspect-video w-full object-cover"
-          >
-          <div
-            v-else
-            class="flex aspect-video w-full items-center justify-center bg-surface-container-high text-on-surface-variant"
-          >
-            <UIcon
-              name="i-lucide-image"
-              class="size-8"
-            />
-          </div>
-        </template>
-      </UCarousel>
-    </div>
+    <UCarousel
+      :items="project.images.length ? project.images : [null]"
+      :autoplay="{ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true }"
+      :watch-drag="false"
+      class="overflow-hidden md:min-h-0 md:flex-1"
+      :ui="{ viewport: 'md:h-full', container: 'md:h-full', item: 'md:h-full' }"
+    >
+      <template #default="{ item }">
+        <img
+          v-if="item"
+          :src="item"
+          :alt="project.title"
+          class="aspect-video w-full object-cover md:aspect-auto md:h-full"
+        >
+        <div
+          v-else
+          class="flex aspect-video w-full items-center justify-center bg-surface-container-high text-on-surface-variant md:aspect-auto md:h-full"
+        >
+          <UIcon
+            name="i-lucide-image"
+            class="size-8"
+          />
+        </div>
+      </template>
+    </UCarousel>
 
-    <div class="flex flex-1 flex-col gap-3 px-4 pb-4">
-      <p class="text-body-lg font-semibold text-on-surface">
+    <div class="flex flex-col gap-3">
+      <p class="text-2xl text-on-surface min-[1400px]:text-headline-md">
         {{ project.title }}
       </p>
-
-      <div class="flex flex-wrap gap-2">
-        <UTooltip
-          v-for="tag in project.tags"
-          :key="tag.name"
-          :text="tag.name"
-        >
-          <UBadge
-            :icon="tag.icon"
-            :aria-label="tag.name"
-            color="primary"
-            variant="soft"
-          />
-        </UTooltip>
-      </div>
-
-      <p class="flex-1 text-body-md text-on-surface-variant">
+      <p class="text-sm text-on-surface-variant min-[1400px]:text-body-md">
         {{ project.description }}
       </p>
+    </div>
+
+    <div class="mt-auto flex flex-wrap gap-3">
+      <UTooltip
+        v-for="tag in project.tags"
+        :key="tag.name"
+        :text="tag.name"
+        :delay-duration="0"
+        :content="{ side: 'top' }"
+      >
+        <UIcon
+          :name="tag.icon"
+          :aria-label="tag.name"
+          class="size-6 cursor-default text-primary transition-transform duration-200 ease-out hover:scale-125"
+        />
+      </UTooltip>
     </div>
   </UCard>
 </template>

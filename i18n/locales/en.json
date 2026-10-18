@@ -10,16 +10,21 @@
     "menu": "Open menu"
   },
   "hero": {
-    "greetingLine1": "Hi,",
-    "namePrefix": "I'm",
+    "intro": "dev.hello()",
+    "location": "Fortaleza, BR",
+    "cta": "View projects",
     "bio": "Developer focused on building high-performance digital experiences with technical precision. Specialized in modern architectures, I turn complexity into fluid, intuitive interfaces.",
     "roles": ["Developer", "Fullstack", "Front-end"],
-    "scrollHint": "Scroll to explore"
+    "scrollHint": "scroll_down()"
   },
   "experience": {
-    "eyebrow": "Journey",
+    "eyebrow": "dev.experience()",
     "heading": "Experience",
     "items": [
+      {
+        "role": "Fullstack Developer",
+        "description": "I build complete applications with Kotlin, Quarkus and Angular for Grupo Portfolio's clients."
+      },
       {
         "role": "Fullstack Developer",
         "description": "I build corporate learning platforms and LMS integrations. I work on API development and serverless architectures with AWS for asynchronous processing and AI features, as well as evolving the front-end with Nuxt 3 and Vue.js, focusing on high performance and SEO."
@@ -35,7 +40,7 @@
     ]
   },
   "projects": {
-    "eyebrow": "Personal",
+    "eyebrow": "dev.projects()",
     "heading": "Selected projects",
     "viewProject": "View project",
     "viewCode": "View code on GitHub",
@@ -60,7 +65,7 @@
     ]
   },
   "contact": {
-    "eyebrow": "Let's talk",
+    "eyebrow": "dev.contact()",
     "heading": "Contact me",
     "intro": "I'm open to new opportunities and collaborations. Send a message through any of the channels below.",
     "photoAlt": "Photo of Hilton Santos",

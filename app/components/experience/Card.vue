@@ -1,34 +1,39 @@
 <template>
-  <div class="flex flex-col gap-3 rounded-lg border border-outline-variant bg-surface-container p-6 md:flex-row md:items-start md:justify-between md:gap-8">
-    <div class="flex flex-col gap-1 md:w-1/3">
-      <p class="text-body-lg font-semibold text-on-surface">
-        {{ experience.role }}
-      </p>
-      <p class="text-label-caps uppercase text-on-surface-variant">
-        {{ experience.company }} · {{ experience.period }}
-      </p>
-      <div class="flex flex-wrap gap-2 pt-1">
+  <UIGridCell class="flex flex-col gap-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex flex-col gap-1">
+        <UIGridLabel>{{ experience.period }}</UIGridLabel>
+        <p class="font-mono text-label-mono lowercase text-on-surface">
+          {{ experience.company }}
+        </p>
+      </div>
+
+      <div class="flex max-w-1/2 flex-wrap justify-end gap-3">
         <UTooltip
           v-for="tag in experience.tags"
           :key="tag.name"
           :text="tag.name"
+          :delay-duration="0"
+          :content="{ side: 'top' }"
         >
-          <UBadge
-            :icon="tag.icon"
+          <UIcon
+            :name="tag.icon"
             :aria-label="tag.name"
-            color="primary"
-            variant="soft"
+            class="size-6 cursor-default text-primary transition-transform duration-200 ease-out hover:scale-125"
           />
         </UTooltip>
       </div>
     </div>
 
-    <div class="flex flex-col gap-3 md:w-2/3">
-      <p class="text-body-md text-on-surface-variant">
+    <div class="flex flex-1 flex-col gap-3 pt-6">
+      <p class="text-2xl text-on-surface min-[1400px]:text-headline-md">
+        {{ experience.role }}
+      </p>
+      <p class="text-sm text-on-surface-variant min-[1400px]:text-body-md">
         {{ experience.description }}
       </p>
     </div>
-  </div>
+  </UIGridCell>
 </template>
 
 <script setup lang="ts">

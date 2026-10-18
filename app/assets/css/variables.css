@@ -2,7 +2,8 @@
 
 @theme static {
   /* ========== FONT ========== */
-  --font-sans: "Space Grotesk", sans-serif;
+  --font-sans: "Mona Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Mona Sans Mono", ui-monospace, monospace;
 
   /* ========== COLORS - "Void and Glow" ========== */
   --color-background: #121414;
@@ -60,6 +61,12 @@
   --color-on-error-container: #ffdad6;
 
   /* ========== TYPOGRAPHY SCALE ========== */
+  /* Nome gigante do hero (ADR 0004). display-lg segue com o tamanho atual até lá. */
+  --text-display-xl: clamp(72px, 12vw, 200px);
+  --text-display-xl--line-height: 0.9;
+  --text-display-xl--letter-spacing: -0.04em;
+  --text-display-xl--font-weight: 700;
+
   --text-display-lg: 96px;
   --text-display-lg--line-height: 90px;
   --text-display-lg--letter-spacing: -0.04em;
@@ -73,7 +80,7 @@
   --text-headline-md: 32px;
   --text-headline-md--line-height: 40px;
   --text-headline-md--letter-spacing: -0.02em;
-  --text-headline-md--font-weight: 600;
+  --text-headline-md--font-weight: 460;
 
   --text-body-lg: 18px;
   --text-body-lg--line-height: 28px;
@@ -86,7 +93,13 @@
   --text-label-caps--letter-spacing: 0.1em;
   --text-label-caps--font-weight: 500;
 
+  /* Rótulos mono minúsculos, ex. dev.experience(). Substitui label-caps seção a seção (ADRs 0004-0008). */
+  --text-label-mono: 14px;
+  --text-label-mono--line-height: 20px;
+  --text-label-mono--font-weight: 480;
+
   /* ========== NAMED SPACING TOKENS ========== */
+  --spacing-cell: 24px;
   --spacing-gutter: 24px;
   --spacing-margin-mobile: 20px;
   --spacing-margin-desktop: 64px;
@@ -106,4 +119,29 @@
   /* Simulates a light-emitting interface on the primary accent */
   --shadow-glow-primary: 0 0 20px rgba(68, 246, 151, 0.2);
   --shadow-glow-primary-strong: 0 0 30px rgba(68, 246, 151, 0.3);
+}
+
+/* Nuxt UI semantic tokens remapped to the design system so components
+   (tooltip, dropdown, modal, badge...) stop using the default slate/blue palette. */
+:root,
+.dark {
+  --ui-primary: var(--color-primary);
+
+  --ui-text-dimmed: var(--color-outline);
+  --ui-text-muted: var(--color-on-surface-variant);
+  --ui-text-toned: var(--color-on-surface-variant);
+  --ui-text: var(--color-on-surface);
+  --ui-text-highlighted: var(--color-on-surface);
+  --ui-text-inverted: var(--color-background);
+
+  --ui-bg: var(--color-surface);
+  --ui-bg-muted: var(--color-surface-container-low);
+  --ui-bg-elevated: var(--color-surface-container);
+  --ui-bg-accented: var(--color-surface-container-high);
+  --ui-bg-inverted: var(--color-inverse-surface);
+
+  --ui-border: var(--color-outline-variant);
+  --ui-border-muted: var(--color-outline-variant);
+  --ui-border-accented: var(--color-outline);
+  --ui-border-inverted: var(--color-inverse-surface);
 }

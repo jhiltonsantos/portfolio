@@ -1,56 +1,90 @@
 <template>
   <section
     id="hero"
-    class="relative min-h-screen overflow-hidden"
+    class="relative min-h-dvh overflow-hidden md:h-dvh"
   >
-    <div
-      class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(34,226,134,0.16),transparent_60%)]"
-    />
+    <div class="mx-auto flex min-h-dvh max-w-(--spacing-container-max) flex-col px-5 py-6 md:h-full md:min-h-0 md:px-16 md:py-6">
+      <UIGrid class="min-h-0 flex-1 md:grid-rows-[auto_auto_auto_minmax(0,1fr)_auto]">
+        <UILayoutHeader cta />
 
-    <div class="relative mx-auto flex min-h-screen max-w-(--spacing-container-max) flex-col px-5 pt-8 md:px-16 md:pt-12">
-      <UILayoutHeader />
+        <UIGridCell class="overflow-hidden">
+          <h1 class="text-[10vw] leading-[0.9] font-medium tracking-[-0.02em] whitespace-nowrap uppercase text-on-surface md:text-[min(8.5vw,17vh)] md:font-bold md:tracking-[-0.02em] [word-spacing:0.12em]">
+            Hilton Santos
+          </h1>
+        </UIGridCell>
 
-      <div class="flex flex-col gap-6 pt-10 md:gap-4 md:pt-0">
-        <h1 class="pb-20 text-display-lg-mobile text-on-surface md:pb-0 md:text-display-lg">
-          {{ t('hero.greetingLine1') }}<br>{{ t('hero.namePrefix') }}<br class="md:hidden"> <span class="relative inline-block">Hilton.<HeroRoleCallout /></span>
-        </h1>
-      </div>
-
-      <div class="flex-1" />
-
-      <div class="flex flex-col gap-8 pb-24 pt-8 md:flex-row md:items-start md:justify-between md:gap-10 md:pb-32">
-        <p class="max-w-xl text-xl text-balance text-on-surface-variant">
-          {{ t('hero.bio') }}
-        </p>
-
-        <div class="flex w-full flex-col items-start gap-3 md:w-auto md:items-end md:self-end">
-          <div
-            v-for="(row, index) in stackRows"
-            :key="index"
-            class="flex gap-4"
-          >
-            <UIcon
-              v-for="tech in row"
-              :key="tech.name"
-              :name="tech.icon"
-              :title="tech.name"
-              class="size-6 text-primary"
-            />
+        <UIGridCell
+          :span="5"
+          class="flex flex-col justify-between gap-8 md:row-span-2"
+        >
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <UIGridLabel>{{ t('hero.intro') }}</UIGridLabel>
+            <UIGridLabel>{{ t('hero.location') }}</UIGridLabel>
           </div>
-        </div>
-      </div>
 
-      <div class="absolute inset-x-0 bottom-10 flex items-center justify-center gap-4">
-        <span class="h-px w-10 bg-primary/60" />
-        <span class="text-label-caps text-primary">{{ t('hero.scrollHint') }}</span>
-        <span class="h-px w-10 bg-primary/60" />
-      </div>
+          <HeroRoleCallout />
+        </UIGridCell>
+
+        <UIGridCell :span="7">
+          <p class="text-body-lg text-balance text-on-surface-variant">
+            {{ t('hero.bio') }}
+          </p>
+        </UIGridCell>
+
+        <UIGridCell
+          :span="7"
+          class="flex flex-col gap-6 md:flex-row md:items-end"
+        >
+          <div class="flex flex-col gap-3">
+            <div
+              v-for="(row, index) in stackRows"
+              :key="index"
+              class="flex gap-4"
+            >
+              <UTooltip
+                v-for="tech in row"
+                :key="tech.name"
+                :text="tech.name"
+                :delay-duration="0"
+                :content="{ side: 'top' }"
+              >
+                <UIcon
+                  :name="tech.icon"
+                  class="size-6 cursor-default text-primary transition-transform duration-200 ease-out hover:scale-125"
+                />
+              </UTooltip>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            class="-mx-4 -mb-4 flex h-16 items-end gap-2 whitespace-nowrap bg-primary p-4 text-body-md font-medium lowercase text-on-primary transition-colors hover:bg-primary-fixed focus-visible:outline-2 focus-visible:outline-primary md:mx-0 md:-mb-(--spacing-cell) md:-mr-(--spacing-cell) md:ml-auto md:h-24 md:w-44 md:self-end"
+            @click="store.goToId('projetos')"
+          >
+            {{ t('hero.cta') }}
+            <UIcon
+              name="i-lucide-arrow-up-right"
+              class="size-5"
+            />
+          </button>
+        </UIGridCell>
+
+        <UIGridCell class="relative flex h-16 items-end overflow-hidden md:h-20">
+          <div
+            class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgb(255_255_255/0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.06)_1px,transparent_1px)] bg-size-[24px_24px] mask-[linear-gradient(to_bottom,black,transparent)]"
+          />
+          <UIGridLabel class="relative">
+            {{ t('hero.scrollHint') }}
+          </UIGridLabel>
+        </UIGridCell>
+      </UIGrid>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 const { t } = useI18n()
+const store = useNavigationStore()
 
 const stackRows = [
   [

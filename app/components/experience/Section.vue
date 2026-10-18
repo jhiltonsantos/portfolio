@@ -1,41 +1,49 @@
 <template>
   <section
     id="experiencias"
-    class="relative z-10 min-h-screen"
+    class="relative z-10 min-h-dvh md:h-dvh"
   >
-    <div class="mx-auto flex min-h-screen max-w-(--spacing-container-max) flex-col justify-center gap-10 px-5 py-24 md:px-16">
-      <div class="flex flex-col gap-2">
-        <span class="text-label-caps uppercase text-primary">{{ t('experience.eyebrow') }}</span>
-        <h2 class="text-headline-md text-on-surface">
-          {{ t('experience.heading') }}
-        </h2>
-      </div>
+    <div class="mx-auto flex min-h-dvh max-w-(--spacing-container-max) flex-col justify-center px-5 py-6 md:h-full md:min-h-0 md:px-16 md:py-6">
+      <UIGrid class="min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)]">
+        <UIGridCell class="flex flex-col gap-2">
+          <UIGridLabel>{{ t('experience.eyebrow') }}</UIGridLabel>
+          <h2 class="text-headline-md text-on-surface">
+            {{ t('experience.heading') }}
+          </h2>
+        </UIGridCell>
 
-      <ul class="hidden flex-col gap-4 md:flex">
-        <li
-          v-for="experience in experiences"
-          :key="experience.role"
-        >
-          <ExperienceCard :experience="experience" />
-        </li>
-      </ul>
+        <ul class="col-span-12 hidden min-h-0 grid-cols-2 grid-rows-2 md:grid">
+          <li
+            v-for="experience in experiences"
+            :key="experience.role + experience.company"
+            class="flex"
+          >
+            <ExperienceCard
+              :experience="experience"
+              class="flex-1"
+            />
+          </li>
+        </ul>
 
-      <ul
-        ref="carouselRef"
-        data-carousel
-        class="-mx-5 flex touch-pan-x snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-5 pb-2 md:hidden"
-      >
-        <li
-          v-for="experience in experiences"
-          :key="experience.role"
-          class="w-[85vw] shrink-0 snap-center snap-always"
+        <ul
+          ref="carouselRef"
+          data-carousel
+          class="col-span-12 flex min-h-0 touch-pan-x snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth md:hidden"
         >
-          <ExperienceCard
-            :experience="experience"
-            class="h-full"
-          />
-        </li>
-      </ul>
+          <li
+            v-for="(pair, index) in experiencePairs"
+            :key="index"
+            class="grid w-[85vw] shrink-0 snap-center snap-always grid-rows-2"
+          >
+            <ExperienceCard
+              v-for="experience in pair"
+              :key="experience.role + experience.company"
+              :experience="experience"
+              class="min-h-72"
+            />
+          </li>
+        </ul>
+      </UIGrid>
     </div>
   </section>
 </template>
@@ -58,8 +66,17 @@ useCarouselSectionSwipe(carouselRef)
 
 const experienceMeta: ExperienceMeta[] = [
   {
+    company: 'Grupo Portfolio',
+    period: '2026 — Presente',
+    tags: [
+      { name: 'Kotlin', icon: 'i-simple-icons-kotlin' },
+      { name: 'Quarkus', icon: 'i-simple-icons-quarkus' },
+      { name: 'Angular', icon: 'i-simple-icons-angular' }
+    ]
+  },
+  {
     company: 'Defsafe/Skill5',
-    period: '2024 — Presente',
+    period: '2024 — 2026',
     tags: [
       { name: 'Vue.js', icon: 'i-simple-icons-vuedotjs' },
       { name: 'Nuxt 3', icon: 'i-simple-icons-nuxt' },
@@ -97,6 +114,13 @@ const experiences = computed(() => experienceMeta.map((meta, index) => ({
   role: t(`experience.items.${index}.role`),
   description: t(`experience.items.${index}.description`)
 })))
+
+// Mobile carousel: two stacked cards per slide, drag sideways for the other two
+const experiencePairs = computed(() => {
+  const pairs: (typeof experiences.value)[] = []
+  for (let i = 0; i < experiences.value.length; i += 2) pairs.push(experiences.value.slice(i, i + 2))
+  return pairs
+})
 </script>
 
 <style scoped>

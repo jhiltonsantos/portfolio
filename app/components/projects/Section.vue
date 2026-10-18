@@ -1,42 +1,44 @@
 <template>
   <section
     id="projetos"
-    class="relative z-10 min-h-screen"
+    class="relative z-10 min-h-dvh md:h-dvh"
   >
-    <div class="mx-auto flex min-h-screen max-w-(--spacing-container-max) flex-col justify-center gap-10 px-5 py-24 md:px-16">
-      <div class="flex flex-col gap-2">
-        <span class="text-label-caps uppercase text-primary">{{ t('projects.eyebrow') }}</span>
-        <h2 class="text-headline-md text-on-surface">
-          {{ t('projects.heading') }}
-        </h2>
-      </div>
+    <div class="mx-auto flex min-h-dvh max-w-(--spacing-container-max) flex-col justify-center px-5 py-6 md:h-full md:min-h-0 md:px-16 md:py-6">
+      <UIGrid class="min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)]">
+        <UIGridCell class="flex flex-col gap-2">
+          <UIGridLabel>{{ t('projects.eyebrow') }}</UIGridLabel>
+          <h2 class="text-headline-md text-on-surface">
+            {{ t('projects.heading') }}
+          </h2>
+        </UIGridCell>
 
-      <div class="hidden gap-4 md:grid md:grid-cols-3">
-        <ProjectsCard
-          v-for="project in projects"
-          :key="project.title"
-          :project="project"
-          @select="openProject(project)"
-        />
-      </div>
-
-      <ul
-        ref="carouselRef"
-        data-carousel
-        class="-mx-5 flex touch-pan-x snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-5 py-2 md:hidden"
-      >
-        <li
-          v-for="project in projects"
-          :key="project.title"
-          class="w-[85vw] shrink-0 snap-center snap-always"
-        >
+        <div class="col-span-12 hidden min-h-0 md:grid md:grid-cols-3">
           <ProjectsCard
+            v-for="project in projects"
+            :key="project.title"
             :project="project"
-            class="h-full"
             @select="openProject(project)"
           />
-        </li>
-      </ul>
+        </div>
+
+        <ul
+          ref="carouselRef"
+          data-carousel
+          class="col-span-12 flex min-h-0 touch-pan-x snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth md:hidden"
+        >
+          <li
+            v-for="project in projects"
+            :key="project.title"
+            class="flex w-[85vw] shrink-0 snap-center snap-always"
+          >
+            <ProjectsCard
+              :project="project"
+              class="flex-1"
+              @select="openProject(project)"
+            />
+          </li>
+        </ul>
+      </UIGrid>
     </div>
 
     <ProjectsModal
