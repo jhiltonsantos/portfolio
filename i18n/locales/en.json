@@ -18,9 +18,13 @@
     "scrollHint": "scroll_down()"
   },
   "experience": {
-    "eyebrow": "Journey",
+    "eyebrow": "dev.experience()",
     "heading": "Experience",
     "items": [
+      {
+        "role": "Fullstack Developer",
+        "description": "I build complete applications with Kotlin, Quarkus and Angular for Grupo Portfolio's clients."
+      },
       {
         "role": "Fullstack Developer",
         "description": "I build corporate learning platforms and LMS integrations. I work on API development and serverless architectures with AWS for asynchronous processing and AI features, as well as evolving the front-end with Nuxt 3 and Vue.js, focusing on high performance and SEO."

@@ -18,9 +18,13 @@
     "scrollHint": "scroll_down()"
   },
   "experience": {
-    "eyebrow": "Trajetória",
+    "eyebrow": "dev.experience()",
     "heading": "Experiência",
     "items": [
+      {
+        "role": "Desenvolvedor Fullstack",
+        "description": "Desenvolvo aplicações completas com Kotlin, Quarkus e Angular, voltadas para os clientes do Grupo Portfolio."
+      },
       {
         "role": "Desenvolvedor Fullstack",
         "description": "Desenvolvo plataformas de ensino corporativo e integrações LMS. Atuo no desenvolvimento de APIs e arquiteturas serverless com AWS para processamento assíncrono e recursos de IA, além da evolução do front-end com Nuxt 3 e Vue.js focando em alta performance e SEO."
