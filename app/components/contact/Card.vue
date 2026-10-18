@@ -26,11 +26,12 @@
         <div class="flex items-center p-4 md:p-(--spacing-cell)">
           <UButton
             icon="i-lucide-copy"
-            variant="outline"
+            variant="ghost"
             color="neutral"
-            size="sm"
+            size="lg"
             square
-            class="shrink-0 rounded border-outline-variant/60 bg-transparent text-on-surface-variant hover:border-primary hover:bg-transparent hover:text-primary"
+            :ui="{ leadingIcon: 'size-5' }"
+            class="shrink-0 rounded bg-transparent text-on-surface-variant transition-all duration-200 ease-out hover:scale-125 hover:bg-transparent hover:text-primary focus-visible:outline-primary"
             :aria-label="t('contact.copy')"
             @click.stop.prevent="copyValue(contact.value)"
           />
