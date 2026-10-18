@@ -8,7 +8,7 @@
       v-for="link in desktopLinks"
       :key="link.to"
       :to="link.to"
-      class="hidden h-24 w-40 items-end p-4 text-body-md text-on-surface/80 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-primary md:flex"
+      class="hidden h-24 w-40 items-end p-4 text-body-md lowercase text-on-surface/80 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-primary md:flex"
       @click.prevent="store.goToId(link.id)"
     >
       {{ link.label }}
@@ -40,7 +40,7 @@
     <button
       v-if="cta"
       type="button"
-      class="hidden items-end justify-start gap-2 whitespace-nowrap bg-primary p-4 text-body-md font-medium text-on-primary transition-colors hover:bg-primary-fixed focus-visible:outline-2 focus-visible:outline-primary md:flex"
+      class="hidden items-end justify-start gap-2 whitespace-nowrap bg-primary p-4 text-body-md font-medium lowercase text-on-primary transition-colors hover:bg-primary-fixed focus-visible:outline-2 focus-visible:outline-primary md:flex"
       @click="store.goToId('contato')"
     >
       {{ t('nav.contact') }}
@@ -54,6 +54,7 @@
       <UDropdownMenu
         :items="menuItems"
         :content="{ align: 'end' }"
+        :ui="{ item: 'lowercase' }"
       >
         <UButton
           icon="i-lucide-menu"

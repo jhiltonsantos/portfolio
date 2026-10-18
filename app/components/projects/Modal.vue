@@ -82,7 +82,7 @@
               trailing
               variant="link"
               color="primary"
-              class="w-fit px-0"
+              class="w-fit px-0 lowercase"
             />
             <UButton
               :to="project.github"

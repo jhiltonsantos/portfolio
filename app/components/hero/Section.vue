@@ -58,7 +58,7 @@
 
           <button
             type="button"
-            class="-mx-4 -mb-4 flex h-16 items-end gap-2 whitespace-nowrap bg-primary p-4 text-body-md font-medium text-on-primary transition-colors hover:bg-primary-fixed focus-visible:outline-2 focus-visible:outline-primary md:mx-0 md:-mb-(--spacing-cell) md:-mr-(--spacing-cell) md:ml-auto md:h-24 md:w-44 md:self-end"
+            class="-mx-4 -mb-4 flex h-16 items-end gap-2 whitespace-nowrap bg-primary p-4 text-body-md font-medium lowercase text-on-primary transition-colors hover:bg-primary-fixed focus-visible:outline-2 focus-visible:outline-primary md:mx-0 md:-mb-(--spacing-cell) md:-mr-(--spacing-cell) md:ml-auto md:h-24 md:w-44 md:self-end"
             @click="store.goToId('projetos')"
           >
             {{ t('hero.cta') }}
