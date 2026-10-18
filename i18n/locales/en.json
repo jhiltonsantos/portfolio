@@ -40,7 +40,7 @@
     ]
   },
   "projects": {
-    "eyebrow": "Personal",
+    "eyebrow": "dev.projects()",
     "heading": "Selected projects",
     "viewProject": "View project",
     "viewCode": "View code on GitHub",

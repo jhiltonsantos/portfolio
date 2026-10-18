@@ -7,11 +7,18 @@
       header: 'p-5 sm:p-6',
       body: 'p-5 sm:p-6',
       footer: 'p-5 sm:p-6',
-      title: 'text-2xl font-semibold text-on-surface text-primary px-3',
+      title: 'text-2xl font-semibold text-on-surface px-3',
       description: 'text-on-surface-variant',
       close: 'top-5 end-5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
     }"
   >
+    <template #title>
+      <div class="flex flex-col gap-1">
+        <UIGridLabel>dev.project()</UIGridLabel>
+        <span>{{ project?.title }}</span>
+      </div>
+    </template>
+
     <template #body>
       <div
         v-if="project"
@@ -27,7 +34,7 @@
             :arrows="images.length > 1"
             :dots="images.length > 1"
             :autoplay="{ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true }"
-            class="group overflow-hidden rounded-lg"
+            class="group overflow-hidden"
             :ui="{ arrows: 'opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100' }"
             @select="carouselIndex = $event"
           >
@@ -35,7 +42,7 @@
               <button
                 v-if="item"
                 type="button"
-                class="block aspect-video w-full overflow-hidden rounded-lg"
+                class="block aspect-video w-full overflow-hidden"
                 @click="openLightbox"
               >
                 <img
@@ -46,7 +53,7 @@
               </button>
               <div
                 v-else
-                class="flex aspect-video w-full items-center justify-center rounded-lg bg-surface-container text-on-surface-variant"
+                class="flex aspect-video w-full items-center justify-center bg-surface-container text-on-surface-variant"
               >
                 <UIcon
                   name="i-lucide-image"
@@ -61,12 +68,13 @@
               v-for="tag in project.tags"
               :key="tag.name"
               :text="tag.name"
+              :delay-duration="0"
+              :content="{ side: 'top' }"
             >
-              <UBadge
-                :icon="tag.icon"
+              <UIcon
+                :name="tag.icon"
                 :aria-label="tag.name"
-                color="primary"
-                variant="soft"
+                class="size-6 cursor-default text-primary transition-transform duration-200 ease-out hover:scale-125"
               />
             </UTooltip>
           </div>
@@ -112,7 +120,7 @@
           <img
             :src="images[lightboxIndex!]!"
             :alt="project.title"
-            class="max-h-full max-w-full rounded-lg object-contain"
+            class="max-h-full max-w-full object-contain"
           >
 
           <UButton
@@ -181,8 +189,8 @@ const carouselIndex = ref(0)
 const lightboxIndex = ref<number | null>(null)
 const lightboxOpen = computed(() => lightboxIndex.value !== null)
 const modalContentClass = computed(() => lightboxOpen.value
-  ? 'bg-background ring ring-outline-variant divide-y-0 w-[calc(100vw-2rem)] h-[calc(100dvh-2rem)] max-w-none transition-[width,height,max-width] duration-200'
-  : 'bg-background ring ring-outline-variant divide-y-0 w-[calc(100vw-2rem)] sm:max-w-3xl min-h-[400px] max-h-[min(85dvh,640px)] transition-[width,height,max-width] duration-200')
+  ? 'rounded-none bg-background border border-outline-variant/60 ring-0 divide-y-0 w-[calc(100vw-2rem)] h-[calc(100dvh-2rem)] max-w-none transition-[width,height,max-width] duration-200'
+  : 'rounded-none bg-background border border-outline-variant/60 ring-0 divide-y-0 w-[calc(100vw-2rem)] sm:max-w-3xl min-h-[400px] max-h-[min(85dvh,640px)] transition-[width,height,max-width] duration-200')
 
 function openLightbox() {
   lightboxIndex.value = carouselIndex.value
