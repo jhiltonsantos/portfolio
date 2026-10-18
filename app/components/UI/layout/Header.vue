@@ -1,6 +1,6 @@
 <template>
   <nav class="col-span-12 -ml-px -mt-px flex divide-x divide-outline-variant/60 border border-outline-variant/60">
-    <div class="flex items-center px-4 md:px-(--spacing-cell)">
+    <div class="flex h-24 items-end p-4">
       <UIAppLogo />
     </div>
 
@@ -16,20 +16,22 @@
 
     <div class="flex-1" />
 
-    <a
-      v-for="social in socials"
-      :key="social.name"
-      :href="social.href"
-      target="_blank"
-      rel="noopener noreferrer"
-      :aria-label="social.name"
-      class="hidden h-24 w-24 items-end p-4 text-on-surface/80 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-primary md:flex"
-    >
-      <UIcon
-        :name="social.icon"
-        class="size-6"
-      />
-    </a>
+    <div class="hidden h-24 items-end gap-3 p-4 md:flex">
+      <a
+        v-for="social in socials"
+        :key="social.name"
+        :href="social.href"
+        target="_blank"
+        rel="noopener noreferrer"
+        :aria-label="social.name"
+        class="flex size-6 items-center justify-center text-on-surface/80 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-primary"
+      >
+        <UIcon
+          :name="social.icon"
+          class="size-5"
+        />
+      </a>
+    </div>
 
     <div class="hidden items-end p-4 md:flex">
       <UILanguageSwitch />

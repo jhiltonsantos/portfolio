@@ -1,14 +1,14 @@
 <template>
   <section
     id="hero"
-    class="relative min-h-screen overflow-hidden"
+    class="relative min-h-dvh overflow-hidden md:h-dvh"
   >
-    <div class="mx-auto flex min-h-screen max-w-(--spacing-container-max) flex-col px-5 py-6 md:px-16 md:py-10">
-      <UIGrid class="flex-1 md:grid-rows-[auto_auto_auto_1fr_auto]">
+    <div class="mx-auto flex min-h-dvh max-w-(--spacing-container-max) flex-col px-5 py-6 md:h-full md:min-h-0 md:px-16 md:py-6">
+      <UIGrid class="min-h-0 flex-1 md:grid-rows-[auto_auto_auto_minmax(0,1fr)_auto]">
         <UILayoutHeader cta />
 
         <UIGridCell class="overflow-hidden">
-          <h1 class="text-display-lg-mobile uppercase text-on-surface md:text-display-xl">
+          <h1 class="text-display-lg-mobile uppercase text-on-surface md:text-[min(12vw,20vh)] md:leading-[0.9] md:font-bold md:tracking-[-0.04em]">
             Hilton
           </h1>
         </UIGridCell>
@@ -33,7 +33,7 @@
 
         <UIGridCell
           :span="7"
-          class="flex flex-col items-start justify-between gap-6"
+          class="flex flex-col gap-6 md:flex-row md:items-end"
         >
           <div class="flex flex-col gap-3">
             <div
@@ -51,17 +51,20 @@
             </div>
           </div>
 
-          <UButton
-            :label="t('hero.cta')"
-            trailing-icon="i-lucide-arrow-up-right"
-            color="primary"
-            size="xl"
-            class="rounded-none"
+          <button
+            type="button"
+            class="-mx-4 -mb-4 flex h-16 items-end gap-2 whitespace-nowrap bg-primary p-4 text-body-md font-medium text-on-primary transition-colors hover:bg-primary-fixed focus-visible:outline-2 focus-visible:outline-primary md:mx-0 md:-mb-(--spacing-cell) md:-mr-(--spacing-cell) md:ml-auto md:h-24 md:w-44 md:self-end"
             @click="store.goToId('projetos')"
-          />
+          >
+            {{ t('hero.cta') }}
+            <UIcon
+              name="i-lucide-arrow-up-right"
+              class="size-5"
+            />
+          </button>
         </UIGridCell>
 
-        <UIGridCell class="relative flex h-24 items-end overflow-hidden md:h-32">
+        <UIGridCell class="relative flex h-16 items-end overflow-hidden md:h-20">
           <div
             class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgb(255_255_255/0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.06)_1px,transparent_1px)] bg-size-[24px_24px] mask-[linear-gradient(to_bottom,black,transparent)]"
           />
