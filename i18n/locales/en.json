@@ -51,7 +51,7 @@
     },
     "items": [
       {
-        "description": "A platform to end invisible money leaks: it centralizes active subscriptions (Netflix, AWS, Vercel, gyms, etc.) and prevents payments for forgotten services or unexpected renewals.",
+        "description": "A platform to end invisible money leaks: it centralizes active subscriptions and prevents payments for forgotten services or unexpected renewals.",
         "longDescription": "Subscrip was born from a real problem: losing money to forgotten subscriptions. The platform centralizes every active subscription — from streaming services to work tools — in a single dashboard, with alerts before each renewal. The backend runs on Node.js and Prisma ORM over a relational database, while the Next.js and React front-end delivers a fast, responsive experience, with GSAP animations reinforcing the sense of financial control."
       },
       {

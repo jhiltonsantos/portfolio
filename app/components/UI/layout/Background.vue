@@ -25,6 +25,7 @@
 
 <script setup lang="ts">
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 interface GlowTransition {
   enter: { from: gsap.TweenVars, to: gsap.TweenVars }
@@ -69,6 +70,10 @@ const ANCHORS = [
   { x: 0.5, y: 0.5 }
 ]
 
+// Below md the page scrolls natively (no fullpage), so the glows follow the
+// scroll position instead of switching when the active section changes.
+const MOBILE_QUERY = '(max-width: 767px)'
+
 const SCROLL_DURATION = 1
 const SCROLL_EASE = 'power2.inOut'
 const ARRIVAL_DELAY = SCROLL_DURATION * 0.55
@@ -83,12 +88,100 @@ const travelGlow = ref<HTMLDivElement>()
 
 const layers = [heroGlow, experienceGlow, projectsGlow, contactGlow]
 
+let mm: gsap.MatchMedia | undefined
+
+function isScrollLinked() {
+  return window.matchMedia(MOBILE_QUERY).matches && !prefersReducedMotion()
+}
+
+// Snap every layer to the resting state of one section (used when switching
+// between the scroll-linked and the section-switch modes).
+function showSection(index: number) {
+  layers.forEach((layer, i) => {
+    if (layer.value) gsap.set(layer.value, { opacity: i === index ? 1 : 0, scale: 1 })
+  })
+  if (travelGlow.value) gsap.set(travelGlow.value, { opacity: 0 })
+}
+
 onMounted(() => {
-  if (!travelGlow.value) return
-  gsap.set(travelGlow.value, { xPercent: -50, yPercent: -50 })
+  const travel = travelGlow.value
+  if (!travel) return
+  gsap.registerPlugin(ScrollTrigger)
+  gsap.set(travel, { xPercent: -50, yPercent: -50 })
+
+  mm = gsap.matchMedia()
+  mm.add({ isMobile: MOBILE_QUERY, reduceMotion: '(prefers-reduced-motion: reduce)' }, (context) => {
+    const { isMobile, reduceMotion } = context.conditions as { isMobile: boolean, reduceMotion: boolean }
+    if (!isMobile || reduceMotion) {
+      showSection(store.currentIndex)
+      return
+    }
+
+    // A single ScrollTrigger derives the glow state from the scroll position.
+    // Each section boundary blends while the next section travels from the
+    // bottom of the viewport to its top (the last one until the end of the
+    // page, since it can be shorter than the viewport); scrolling up plays it
+    // backwards. Short tweens smooth the per-frame updates.
+    const smooth = { duration: 0.4, ease: 'power1.out', overwrite: 'auto' as const }
+
+    function render() {
+      const y = window.scrollY
+      const maxY = document.documentElement.scrollHeight - window.innerHeight
+      let base = 0
+      let blend: { from: number, progress: number } | null = null
+
+      for (let i = 0; i < layers.length - 1; i++) {
+        const next = document.getElementById(store.sections[i + 1]!.id)
+        if (!next) continue
+        const start = next.offsetTop - window.innerHeight
+        const end = i === layers.length - 2 ? Math.min(next.offsetTop, maxY) : next.offsetTop
+        const progress = gsap.utils.clamp(0, 1, (y - start) / Math.max(1, end - start))
+        if (progress >= 1) base = i + 1
+        else if (progress > 0 && !blend) blend = { from: i, progress }
+      }
+
+      layers.forEach((layer, i) => {
+        if (!layer.value) return
+        let opacity = i === base ? 1 : 0
+        let scale = 1
+        if (blend && i === blend.from) {
+          opacity = 1 - blend.progress
+          scale = gsap.utils.interpolate(1, TRANSITIONS[i]!.exit.scale as number, blend.progress)
+        } else if (blend && i === blend.from + 1) {
+          opacity = blend.progress
+          scale = gsap.utils.interpolate(TRANSITIONS[i]!.enter.from.scale as number, 1, blend.progress)
+        } else if (blend) {
+          opacity = 0
+        }
+        gsap.to(layer.value, { opacity, scale, ...smooth })
+      })
+
+      if (blend) {
+        const from = ANCHORS[blend.from]!
+        const to = ANCHORS[blend.from + 1]!
+        const eased = gsap.parseEase(SCROLL_EASE)(blend.progress)
+        gsap.to(travel!, {
+          x: `${gsap.utils.interpolate(from.x, to.x, eased) * 100}vw`,
+          y: `${gsap.utils.interpolate(from.y, to.y, eased) * 100}vh`,
+          opacity: blend.progress < 0.5 ? blend.progress * 2 : (1 - blend.progress) * 2,
+          ...smooth
+        })
+      } else {
+        gsap.to(travel!, { opacity: 0, ...smooth })
+      }
+    }
+
+    ScrollTrigger.create({ start: 0, end: 'max', onUpdate: render, onRefresh: render })
+    render()
+  })
 })
 
+onUnmounted(() => mm?.revert())
+
 watch(() => store.currentIndex, (next, prev) => {
+  // Mobile: the scrubbed timelines above already drive the glows
+  if (isScrollLinked()) return
+
   const outgoing = layers[prev]?.value
   const outgoingTransition = TRANSITIONS[prev]
   const outgoingAnchor = ANCHORS[prev]
@@ -102,6 +195,13 @@ watch(() => store.currentIndex, (next, prev) => {
     if (incoming) gsap.set(incoming, { opacity: 1, scale: 1 })
     return
   }
+
+  layers.forEach((layer, i) => {
+    if (layer.value && i !== prev && i !== next) {
+      gsap.killTweensOf(layer.value)
+      gsap.set(layer.value, { opacity: 0, scale: 1 })
+    }
+  })
 
   if (outgoing && outgoingTransition) {
     gsap.killTweensOf(outgoing)

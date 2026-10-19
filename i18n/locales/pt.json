@@ -51,7 +51,7 @@
     },
     "items": [
       {
-        "description": "Plataforma para acabar com o vazamento de dinheiro invisível: centraliza assinaturas ativas (Netflix, AWS, Vercel, academias etc.) e evita pagamentos por serviços esquecidos ou renovações inesperadas.",
+        "description": "Plataforma para acabar com o vazamento de dinheiro invisível: centraliza assinaturas ativas e evita pagamentos por serviços esquecidos ou renovações inesperadas.",
         "longDescription": "O Subscrip nasceu de um problema real: perder dinheiro com assinaturas esquecidas. A plataforma centraliza todas as assinaturas ativas do usuário — de serviços de streaming a ferramentas de trabalho — em um só painel, com alertas antes de cada renovação. O backend foi construído com Node.js e Prisma ORM sobre um banco relacional, enquanto o front-end em Next.js e React garante uma experiência rápida e responsiva, com animações em GSAP para reforçar a sensação de controle financeiro."
       },
       {
