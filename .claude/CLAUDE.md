@@ -227,6 +227,9 @@ The site follows a Universe-style grid of 1px-bordered cells (ADRs in `docs/adr/
   slate/blue; the tooltip is styled in `app.config.ts`.
 - **Tech icons** (stack/tags) are borderless `UIcon size-6 text-primary` wrapped in
   `UTooltip :delay-duration="0" :content="{ side: 'top' }"` with `hover:scale-125`; no `UBadge`.
+- **Section header cells** (the `dev.*()` label + title) use `<UIGridCell patterned>`: a faint 24px
+  grid drawn on `::before`, fading in from the left (same pattern as the hero's `scroll_down()` band
+  and the project modal header).
 - **Interactive cells** use `hover:border-primary` (+ `relative hover:z-10`) and
   `focus-visible:outline-2 focus-visible:outline-primary`.
 - **Motion**: guard any GSAP animation with `prefersReducedMotion()`

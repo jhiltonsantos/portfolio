@@ -6,7 +6,7 @@
     :ui="{
       content: modalContentClass,
       header: 'flex items-stretch gap-0 p-0 sm:p-0 border-b border-outline-variant/60 bg-[linear-gradient(to_right,var(--color-background)_20%,transparent),linear-gradient(to_right,rgb(255_255_255/0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.06)_1px,transparent_1px)] bg-size-[100%_100%,24px_24px,24px_24px]',
-      wrapper: 'flex min-w-0 flex-1 flex-col justify-end p-4 md:p-(--spacing-cell)',
+      wrapper: 'flex min-w-0 flex-1 flex-col justify-center p-4 md:p-(--spacing-cell)',
       body: 'p-0 sm:p-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
       footer: 'p-5 sm:p-6',
       title: 'text-2xl font-semibold text-on-surface',
@@ -15,7 +15,7 @@
     }"
   >
     <template #actions>
-      <div class="flex items-end p-4 md:p-(--spacing-cell)">
+      <div class="flex items-center p-4 md:p-(--spacing-cell)">
         <UIGridLabel>dev.project()</UIGridLabel>
       </div>
     </template>

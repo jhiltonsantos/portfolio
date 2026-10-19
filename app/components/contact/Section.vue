@@ -7,6 +7,7 @@
       <UIGrid class="min-h-0 md:flex-1 md:grid-rows-[auto_minmax(0,1fr)_auto]">
         <UIGridCell
           :span="8"
+          patterned
           class="flex flex-col gap-2"
         >
           <UIGridLabel>{{ t('contact.eyebrow') }}</UIGridLabel>
