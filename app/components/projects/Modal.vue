@@ -69,7 +69,7 @@
             :span="5"
             class="md:row-span-2"
           >
-            <p class="text-sm text-on-surface-variant min-[1400px]:text-body-md">
+            <p class="text-sm text-on-surface-variant min-[1400px]:text-body-md 2xl:text-lg">
               {{ project.longDescription }}
             </p>
           </UIGridCell>

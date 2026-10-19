@@ -26,10 +26,10 @@
     </div>
 
     <div class="flex flex-1 flex-col gap-3 pt-6">
-      <p class="text-2xl text-on-surface min-[1400px]:text-headline-md">
+      <p class="text-2xl text-on-surface min-[1400px]:text-headline-md 2xl:text-4xl">
         {{ experience.role }}
       </p>
-      <p class="text-sm text-on-surface-variant min-[1400px]:text-body-md">
+      <p class="text-sm text-on-surface-variant min-[1400px]:text-body-md 2xl:text-lg">
         {{ experience.description }}
       </p>
     </div>

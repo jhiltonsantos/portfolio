@@ -13,7 +13,7 @@
           <h2 class="text-headline-md text-on-surface">
             {{ t('contact.heading') }}
           </h2>
-          <p class="max-w-xl text-body-lg text-on-surface-variant">
+          <p class="max-w-xl text-body-lg text-on-surface-variant 2xl:max-w-2xl 2xl:text-xl">
             {{ t('contact.intro') }}
           </p>
         </UIGridCell>

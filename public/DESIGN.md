@@ -103,7 +103,7 @@ rounded:
   full: 9999px
 spacing:
   unit: 8px
-  container-max: 1280px
+  container-max: 1600px
   gutter: 24px
   margin-mobile: 20px
   margin-desktop: 64px

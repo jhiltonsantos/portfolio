@@ -7,8 +7,8 @@
       <UIGrid class="min-h-0 flex-1 md:grid-rows-[auto_auto_auto_minmax(0,1fr)_auto]">
         <UILayoutHeader cta />
 
-        <UIGridCell class="overflow-hidden">
-          <h1 class="text-[10vw] leading-[0.9] font-medium tracking-[-0.02em] whitespace-nowrap uppercase text-on-surface md:text-[min(8.5vw,17vh)] md:font-bold md:tracking-[-0.02em] [word-spacing:0.12em]">
+        <UIGridCell class="@container overflow-hidden">
+          <h1 class="text-[12.5cqw] leading-[0.9] font-medium tracking-[-0.02em] whitespace-nowrap uppercase text-on-surface md:text-[min(12.5cqw,18vh)] md:font-bold md:tracking-[-0.02em] [word-spacing:0.12em]">
             Hilton Santos
           </h1>
         </UIGridCell>
@@ -26,7 +26,7 @@
         </UIGridCell>
 
         <UIGridCell :span="7">
-          <p class="text-body-lg text-balance text-on-surface-variant">
+          <p class="text-body-lg text-balance text-on-surface-variant 2xl:text-xl">
             {{ t('hero.bio') }}
           </p>
         </UIGridCell>

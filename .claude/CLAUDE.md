@@ -236,8 +236,13 @@ The site follows a Universe-style grid of 1px-bordered cells (ADRs in `docs/adr/
   `focus-visible:outline-2 focus-visible:outline-primary`.
 - **Motion**: guard any GSAP animation with `prefersReducedMotion()`
   (`app/composables/usePrefersReducedMotion.ts`).
-- **Responsive typography**: card titles/descriptions use `text-2xl min-[1400px]:text-headline-md`
-  and `text-sm min-[1400px]:text-body-md` so 4-card grids do not overflow short viewports.
+- **Responsive typography**: card titles/descriptions use
+  `text-2xl min-[1400px]:text-headline-md 2xl:text-4xl` and
+  `text-sm min-[1400px]:text-body-md 2xl:text-lg`, so 4-card grids do not overflow short viewports
+  and still grow on large monitors. The container cap is `--spacing-container-max: 1600px`.
+- **Hero name** sizes with container-query units (`@container` on its cell,
+  `text-[min(12.5cqw,18vh)]`), never `vw`: the grid stops growing at the container cap while the
+  viewport keeps growing, so a `vw` size overflows the cell on wide screens.
 
 ## Styling
 

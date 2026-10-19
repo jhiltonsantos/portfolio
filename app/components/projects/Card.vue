@@ -12,19 +12,18 @@
       :items="project.images.length ? project.images : [null]"
       :autoplay="{ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true }"
       :watch-drag="false"
-      class="overflow-hidden md:min-h-0 md:flex-1"
-      :ui="{ viewport: 'md:h-full', container: 'md:h-full', item: 'md:h-full' }"
+      class="shrink-0 overflow-hidden"
     >
       <template #default="{ item }">
         <img
           v-if="item"
           :src="item"
           :alt="project.title"
-          class="aspect-video w-full object-cover md:aspect-auto md:h-full"
+          class="aspect-video w-full object-cover"
         >
         <div
           v-else
-          class="flex aspect-video w-full items-center justify-center bg-surface-container-high text-on-surface-variant md:aspect-auto md:h-full"
+          class="flex aspect-video w-full items-center justify-center bg-surface-container-high text-on-surface-variant"
         >
           <UIcon
             name="i-lucide-image"
@@ -35,10 +34,10 @@
     </UCarousel>
 
     <div class="flex flex-col gap-3">
-      <p class="text-2xl text-on-surface min-[1400px]:text-headline-md">
+      <p class="text-2xl text-on-surface min-[1400px]:text-headline-md 2xl:text-4xl">
         {{ project.title }}
       </p>
-      <p class="text-sm text-on-surface-variant min-[1400px]:text-body-md">
+      <p class="text-sm text-on-surface-variant min-[1400px]:text-body-md 2xl:text-lg">
         {{ project.description }}
       </p>
     </div>
