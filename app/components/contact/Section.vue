@@ -10,11 +10,19 @@
           patterned
           class="flex flex-col gap-2"
         >
-          <UIGridLabel>{{ t('contact.eyebrow') }}</UIGridLabel>
-          <h2 class="text-headline-md text-on-surface">
+          <UIGridLabel data-reveal>
+            {{ t('contact.eyebrow') }}
+          </UIGridLabel>
+          <h2
+            data-reveal
+            class="text-headline-md text-on-surface"
+          >
             {{ t('contact.heading') }}
           </h2>
-          <p class="max-w-xl text-body-lg text-on-surface-variant 2xl:max-w-2xl 2xl:text-xl">
+          <p
+            data-reveal
+            class="max-w-xl text-body-lg text-on-surface-variant 2xl:max-w-2xl 2xl:text-xl"
+          >
             {{ t('contact.intro') }}
           </p>
         </UIGridCell>
@@ -67,6 +75,7 @@ interface ContactEntry {
 }
 
 const { t } = useI18n()
+useSectionHeaderReveal('contato')
 
 const contacts = computed<ContactEntry[]>(() => [
   { label: t('contact.emailLabel'), value: 'jhilton930@gmail.com', href: 'mailto:jhilton930@gmail.com', icon: 'i-lucide-mail', external: false },

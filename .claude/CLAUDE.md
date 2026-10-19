@@ -59,7 +59,8 @@ app/
 │       └── layout/Background.vue, Header.vue, Footer.vue   # Header/Footer are grid rows (col-span-12)
 ├── composables/
 │   ├── useFullpageScroll.ts        # Desktop: GSAP Observer → store → scrollTo; mobile: native scroll + section sync
-│   └── usePrefersReducedMotion.ts  # prefersReducedMotion(): every GSAP animation checks it first
+│   ├── usePrefersReducedMotion.ts  # prefersReducedMotion(): every GSAP animation checks it first
+│   └── useSectionHeaderReveal.ts   # One-shot reveal of a section's [data-reveal] header texts
 ├── stores/navigation.ts          # Pinia store: section list, currentIndex, isAnimating, goTo/next/prev
 ├── plugins/pinia.ts               # Manual Pinia install (see State Management)
 └── assets/css/
@@ -232,6 +233,9 @@ The site follows a Universe-style grid of 1px-bordered cells (ADRs in `docs/adr/
   and the project modal header).
 - **Interactive cells** use `hover:border-primary` (+ `relative hover:z-10`) and
   `focus-visible:outline-2 focus-visible:outline-primary`.
+- **Section header reveal**: mark the `dev.*()` label/title/intro with `data-reveal` and call
+  `useSectionHeaderReveal('<section-id>')`; it plays once per page load (desktop: when the fullpage
+  lands on the section; mobile: when the header scrolls into view).
 - **Motion**: guard any GSAP animation with `prefersReducedMotion()`
   (`app/composables/usePrefersReducedMotion.ts`).
 - **Responsive typography**: card titles/descriptions use

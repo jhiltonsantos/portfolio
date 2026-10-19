@@ -9,8 +9,13 @@
           patterned
           class="flex flex-col gap-2"
         >
-          <UIGridLabel>{{ t('experience.eyebrow') }}</UIGridLabel>
-          <h2 class="text-headline-md text-on-surface">
+          <UIGridLabel data-reveal>
+            {{ t('experience.eyebrow') }}
+          </UIGridLabel>
+          <h2
+            data-reveal
+            class="text-headline-md text-on-surface"
+          >
             {{ t('experience.heading') }}
           </h2>
         </UIGridCell>
@@ -48,6 +53,7 @@ interface ExperienceMeta {
 }
 
 const { t } = useI18n()
+useSectionHeaderReveal('experiencias')
 
 const experienceMeta: ExperienceMeta[] = [
   {

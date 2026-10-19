@@ -9,8 +9,13 @@
           patterned
           class="flex flex-col gap-2"
         >
-          <UIGridLabel>{{ t('projects.eyebrow') }}</UIGridLabel>
-          <h2 class="text-headline-md text-on-surface">
+          <UIGridLabel data-reveal>
+            {{ t('projects.eyebrow') }}
+          </UIGridLabel>
+          <h2
+            data-reveal
+            class="text-headline-md text-on-surface"
+          >
             {{ t('projects.heading') }}
           </h2>
         </UIGridCell>
@@ -48,6 +53,7 @@ interface ProjectMeta {
 }
 
 const { t, locale } = useI18n()
+useSectionHeaderReveal('projetos')
 
 const projectsMeta: ProjectMeta[] = [
   {
