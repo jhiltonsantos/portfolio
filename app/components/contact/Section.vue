@@ -1,7 +1,7 @@
 <template>
   <section
     id="contato"
-    class="relative z-10 flex min-h-dvh flex-col md:h-dvh"
+    class="relative z-10 flex flex-col md:h-dvh md:min-h-dvh"
   >
     <div class="mx-auto flex w-full max-w-(--spacing-container-max) flex-1 flex-col justify-center px-5 py-6 md:min-h-0 md:px-16 md:py-6">
       <UIGrid class="min-h-0 md:flex-1 md:grid-rows-[auto_minmax(0,1fr)_auto]">

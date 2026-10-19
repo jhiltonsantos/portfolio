@@ -1,10 +1,10 @@
 <template>
   <section
     id="projetos"
-    class="relative z-10 min-h-dvh md:h-dvh"
+    class="relative z-10 md:h-dvh md:min-h-dvh"
   >
-    <div class="mx-auto flex min-h-dvh max-w-(--spacing-container-max) flex-col justify-center px-5 py-6 md:h-full md:min-h-0 md:px-16 md:py-6">
-      <UIGrid class="min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)]">
+    <div class="mx-auto flex max-w-(--spacing-container-max) flex-col justify-center px-5 py-6 md:h-full md:min-h-0 md:px-16 md:py-6">
+      <UIGrid class="min-h-0 flex-1 md:grid-rows-[auto_minmax(0,1fr)]">
         <UIGridCell class="flex flex-col gap-2">
           <UIGridLabel>{{ t('projects.eyebrow') }}</UIGridLabel>
           <h2 class="text-headline-md text-on-surface">
@@ -24,7 +24,7 @@
         <ul
           ref="carouselRef"
           data-carousel
-          class="col-span-12 flex min-h-0 touch-pan-x snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth md:hidden"
+          class="col-span-12 flex min-h-0 touch-pan-x touch-pan-y snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth md:hidden"
         >
           <li
             v-for="project in projects"
@@ -65,7 +65,6 @@ interface ProjectMeta {
 
 const { t, locale } = useI18n()
 const { carouselRef } = useCarouselDragHint('projetos')
-useCarouselSectionSwipe(carouselRef)
 
 const projectsMeta: ProjectMeta[] = [
   {

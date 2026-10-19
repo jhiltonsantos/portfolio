@@ -59,8 +59,7 @@ app/
 │       ├── grid/Grid.vue, Cell.vue, Label.vue   # <UIGrid>/<UIGridCell>/<UIGridLabel> cell primitives
 │       └── layout/Background.vue, Header.vue, Footer.vue   # Header/Footer are grid rows (col-span-12)
 ├── composables/
-│   ├── useFullpageScroll.ts        # GSAP Observer wheel/touch/keyboard → navigation store → scrollTo
-│   ├── useCarouselSectionSwipe.ts  # Vertical-swipe-over-a-mobile-carousel → same navigation store
+│   ├── useFullpageScroll.ts        # Desktop: GSAP Observer → store → scrollTo; mobile: native scroll + section sync
 │   ├── useCarouselDragHint.ts      # One-shot GSAP wiggle hinting a mobile carousel is swipeable
 │   └── usePrefersReducedMotion.ts  # prefersReducedMotion(): every GSAP animation checks it first
 ├── stores/navigation.ts          # Pinia store: section list, currentIndex, isAnimating, goTo/next/prev
@@ -109,25 +108,27 @@ doesn't render, no build error).
 
 ### The fullpage-scroll + carousel system
 
-Three composables cooperate and are easiest to understand together:
-- `useFullpageScroll.ts` creates GSAP `Observer`s on `window` for wheel/touch, plus a keyboard
-  handler, all calling `store.next()`/`store.prev()`; a `watch` on `store.currentIndex` drives
-  the actual `gsap.to(window, { scrollTo: ... })` snap animation. Both Observers set
-  `ignore: '[data-carousel]'` so gestures starting on a mobile card carousel are left alone.
-- `useCarouselSectionSwipe.ts` fills the gap that `ignore` creates: it attaches its own native
-  `touchstart`/`touchmove`/`touchend` listeners directly on a `[data-carousel]` element (passed
-  in as a `Ref`), and if a touch drag inside the carousel turns out to be vertical (not the
-  carousel's own horizontal swipe), it calls `store.next()`/`store.prev()` directly — independent
-  of GSAP's `Observer` internals.
-- `useCarouselDragHint.ts` plays a one-shot GSAP `scrollLeft` wiggle on a carousel the first time
-  its section becomes active on mobile, to hint that it's swipeable.
+Fullpage scrolling is **desktop-only** (`md+`, 768px). On mobile the page scrolls natively —
+sections taller than the device screen were unreadable when every gesture jumped a whole section.
 
-`experience/Section.vue` and `projects/Section.vue` both wire these together identically:
-```ts
-const { carouselRef } = useCarouselDragHint('experiencias')
-useCarouselSectionSwipe(carouselRef)
-```
-with `carouselRef` bound to the mobile `<ul data-carousel>`.
+- `useFullpageScroll.ts` uses `gsap.matchMedia()`:
+  - `(min-width: 768px)`: GSAP `Observer`s on `window` for wheel/touch plus an ↑/↓ keyboard
+    handler call `store.next()`/`store.prev()`; both Observers set `ignore: '[data-carousel]'`.
+    Entering this mode (e.g. resizing up from mobile) snaps to the nearest section first.
+  - `(max-width: 767px)`: no Observers; an `IntersectionObserver` keeps `store.currentIndex` on the
+    section crossing the middle of the viewport, so section-driven effects (background glows,
+    carousel drag hint) still run. A `syncingFromScroll` flag stops these updates from triggering
+    the scroll animation.
+  - A `watch` on `store.currentIndex` drives `gsap.to(window, { scrollTo })` in both modes, so
+    header/menu links (`store.goToId`) animate on mobile too.
+- `useCarouselDragHint.ts` plays a one-shot GSAP `scrollLeft` wiggle on a mobile carousel the
+  first time its section becomes active, to hint that it's swipeable.
+
+`experience/Section.vue` and `projects/Section.vue` bind `carouselRef` from
+`useCarouselDragHint('<section-id>')` to their mobile `<ul data-carousel>`, which uses
+`touch-pan-x touch-pan-y` so a vertical swipe starting on the carousel still scrolls the page.
+Below `md`, Experience/Projects/Contact have natural height (`md:min-h-dvh md:h-dvh` only on
+desktop); the Hero stays `min-h-dvh`.
 
 ## i18n
 
