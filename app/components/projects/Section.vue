@@ -3,7 +3,7 @@
     id="projetos"
     class="relative z-10 md:h-dvh md:min-h-dvh"
   >
-    <div class="mx-auto flex max-w-(--spacing-container-max) flex-col justify-center px-5 py-6 md:h-full md:min-h-0 md:px-16 md:py-6">
+    <div class="mx-auto flex max-w-container-max flex-col justify-center px-5 py-6 md:h-full md:min-h-0 md:px-16 md:py-6">
       <UIGrid class="min-h-0 flex-1 md:grid-rows-[auto_minmax(0,1fr)]">
         <UIGridCell
           patterned
@@ -15,9 +15,7 @@
           </h2>
         </UIGridCell>
 
-        <!-- Card tracks: image · empty · title · description · icons; cards use subgrid so titles
-             line up and the longest description sets the height. -->
-        <div class="col-span-12 flex flex-col md:grid md:min-h-0 md:grid-cols-3 md:grid-rows-[auto_1fr_auto_auto_auto]">
+        <div class="col-span-12 flex flex-col md:grid md:min-h-0 md:grid-cols-3 md:grid-rows-[1fr_auto_auto_auto_auto_1fr]">
           <ProjectsCard
             v-for="project in projects"
             :key="project.title"
@@ -44,7 +42,6 @@ interface ProjectTag {
 interface ProjectMeta {
   title: string
   tags: ProjectTag[]
-  // Static image list, or a per-locale map when the screenshots themselves differ by language
   images: string[] | Record<'pt' | 'en', string[]>
   link?: string
   github: string
