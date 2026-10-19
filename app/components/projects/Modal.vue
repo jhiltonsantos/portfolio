@@ -2,20 +2,21 @@
   <UModal
     v-model:open="open"
     :title="project?.title"
+    :close="{ size: 'xl', ui: { leadingIcon: 'size-8' } }"
     :ui="{
       content: modalContentClass,
-      header: 'p-5 sm:p-6',
+      header: 'flex items-stretch gap-0 p-0 sm:p-0 border-b border-outline-variant/60 bg-[linear-gradient(to_right,var(--color-background)_20%,transparent),linear-gradient(to_right,rgb(255_255_255/0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.06)_1px,transparent_1px)] bg-size-[100%_100%,24px_24px,24px_24px]',
+      wrapper: 'flex min-w-0 flex-1 flex-col justify-end p-4 md:p-(--spacing-cell)',
       body: 'p-0 sm:p-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
       footer: 'p-5 sm:p-6',
-      title: 'text-2xl font-semibold text-on-surface px-3',
+      title: 'text-2xl font-semibold text-on-surface',
       description: 'text-on-surface-variant',
-      close: 'top-5 end-5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
+      close: 'static flex size-16 shrink-0 items-center justify-center rounded-none border-l border-outline-variant/60 bg-background text-on-surface-variant hover:bg-background hover:text-primary focus-visible:outline-2 focus-visible:outline-primary md:size-20'
     }"
   >
-    <template #title>
-      <div class="flex flex-col gap-1">
+    <template #actions>
+      <div class="flex items-end p-4 md:p-(--spacing-cell)">
         <UIGridLabel>dev.project()</UIGridLabel>
-        <span>{{ project?.title }}</span>
       </div>
     </template>
 
