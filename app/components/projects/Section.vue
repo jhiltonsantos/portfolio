@@ -12,7 +12,9 @@
           </h2>
         </UIGridCell>
 
-        <div class="col-span-12 flex flex-col md:grid md:min-h-0 md:grid-cols-3">
+        <!-- Card tracks: image · empty · title · description · icons; cards use subgrid so titles
+             line up and the longest description sets the height. -->
+        <div class="col-span-12 flex flex-col md:grid md:min-h-0 md:grid-cols-3 md:grid-rows-[auto_1fr_auto_auto_auto]">
           <ProjectsCard
             v-for="project in projects"
             :key="project.title"

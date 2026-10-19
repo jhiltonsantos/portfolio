@@ -1,6 +1,6 @@
 <template>
-  <UIGridCell class="flex flex-col gap-4">
-    <div class="flex items-center justify-between gap-4">
+  <UIGridCell class="flex flex-col gap-4 md:grid md:row-span-4 md:grid-rows-subgrid">
+    <div class="flex items-center justify-between gap-4 md:row-start-1">
       <div class="flex flex-col gap-1">
         <UIGridLabel>{{ experience.period }}</UIGridLabel>
         <p class="font-mono text-label-mono lowercase text-on-surface">
@@ -25,14 +25,12 @@
       </div>
     </div>
 
-    <div class="flex flex-1 flex-col gap-3 pt-6">
-      <p class="text-2xl text-on-surface min-[1400px]:text-headline-md 2xl:text-4xl">
-        {{ experience.role }}
-      </p>
-      <p class="text-sm text-on-surface-variant min-[1400px]:text-body-md 2xl:text-lg">
-        {{ experience.description }}
-      </p>
-    </div>
+    <p class="mt-6 text-2xl text-on-surface md:row-start-3 md:mt-0 min-[1400px]:text-headline-md 2xl:text-4xl">
+      {{ experience.role }}
+    </p>
+    <p class="-mt-1 text-sm text-on-surface-variant md:row-start-4 min-[1400px]:text-body-md 2xl:text-lg">
+      {{ experience.description }}
+    </p>
   </UIGridCell>
 </template>
 

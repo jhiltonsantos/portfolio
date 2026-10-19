@@ -12,14 +12,17 @@
           </h2>
         </UIGridCell>
 
-        <ul class="col-span-12 flex flex-col md:grid md:min-h-0 md:grid-cols-2 md:grid-rows-2">
+        <!-- Each card row has 4 tracks (top · empty · title · description); cards span them with
+             subgrid so titles line up and the longest description sets the height. -->
+        <ul class="col-span-12 flex flex-col md:grid md:min-h-0 md:grid-cols-12 md:grid-rows-[auto_1fr_auto_auto_auto_1fr_auto_auto]">
           <li
             v-for="experience in experiences"
             :key="experience.role + experience.company"
-            class="flex"
+            class="flex md:contents"
           >
             <ExperienceCard
               :experience="experience"
+              :span="6"
               class="flex-1"
             />
           </li>
