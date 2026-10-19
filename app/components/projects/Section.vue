@@ -12,7 +12,7 @@
           </h2>
         </UIGridCell>
 
-        <div class="col-span-12 hidden min-h-0 md:grid md:grid-cols-3">
+        <div class="col-span-12 flex flex-col md:grid md:min-h-0 md:grid-cols-3">
           <ProjectsCard
             v-for="project in projects"
             :key="project.title"
@@ -20,24 +20,6 @@
             @select="openProject(project)"
           />
         </div>
-
-        <ul
-          ref="carouselRef"
-          data-carousel
-          class="col-span-12 flex min-h-0 touch-pan-x touch-pan-y snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth md:hidden"
-        >
-          <li
-            v-for="project in projects"
-            :key="project.title"
-            class="flex w-[85vw] shrink-0 snap-center snap-always"
-          >
-            <ProjectsCard
-              :project="project"
-              class="flex-1"
-              @select="openProject(project)"
-            />
-          </li>
-        </ul>
       </UIGrid>
     </div>
 
@@ -64,7 +46,6 @@ interface ProjectMeta {
 }
 
 const { t, locale } = useI18n()
-const { carouselRef } = useCarouselDragHint('projetos')
 
 const projectsMeta: ProjectMeta[] = [
   {
@@ -153,13 +134,3 @@ function openProject(project: Project) {
   isModalOpen.value = true
 }
 </script>
-
-<style scoped>
-[data-carousel] {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-[data-carousel]::-webkit-scrollbar {
-  display: none;
-}
-</style>

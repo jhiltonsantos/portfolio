@@ -44,7 +44,6 @@ export function useFullpageScroll() {
         type: 'wheel',
         preventDefault: true,
         tolerance: 10,
-        ignore: '[data-carousel]',
         onDown: () => store.next(),
         onUp: () => store.prev()
       })
@@ -59,7 +58,6 @@ export function useFullpageScroll() {
         type: 'touch',
         preventDefault: true,
         tolerance: 10,
-        ignore: '[data-carousel]',
         onDown: () => store.prev(),
         onUp: () => store.next()
       })
@@ -87,8 +85,8 @@ export function useFullpageScroll() {
     })
 
     // Mobile: keep store.currentIndex following the section that crosses the
-    // middle of the viewport, so section-driven effects (background glows,
-    // carousel drag hint) still run. These updates must not trigger the
+    // middle of the viewport, so section-driven effects (background glows)
+    // still run. These updates must not trigger the
     // scrollTo below, or native scrolling would be yanked to section tops.
     mm.add(MOBILE_QUERY, () => {
       const sectionObserver = new IntersectionObserver((entries) => {

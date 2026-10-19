@@ -12,7 +12,7 @@
           </h2>
         </UIGridCell>
 
-        <ul class="col-span-12 hidden min-h-0 grid-cols-2 grid-rows-2 md:grid">
+        <ul class="col-span-12 flex flex-col md:grid md:min-h-0 md:grid-cols-2 md:grid-rows-2">
           <li
             v-for="experience in experiences"
             :key="experience.role + experience.company"
@@ -21,25 +21,6 @@
             <ExperienceCard
               :experience="experience"
               class="flex-1"
-            />
-          </li>
-        </ul>
-
-        <ul
-          ref="carouselRef"
-          data-carousel
-          class="col-span-12 flex min-h-0 touch-pan-x touch-pan-y snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth md:hidden"
-        >
-          <li
-            v-for="(pair, index) in experiencePairs"
-            :key="index"
-            class="grid w-[85vw] shrink-0 snap-center snap-always grid-rows-2"
-          >
-            <ExperienceCard
-              v-for="experience in pair"
-              :key="experience.role + experience.company"
-              :experience="experience"
-              class="min-h-72"
             />
           </li>
         </ul>
@@ -61,7 +42,6 @@ interface ExperienceMeta {
 }
 
 const { t } = useI18n()
-const { carouselRef } = useCarouselDragHint('experiencias')
 
 const experienceMeta: ExperienceMeta[] = [
   {
@@ -113,21 +93,4 @@ const experiences = computed(() => experienceMeta.map((meta, index) => ({
   role: t(`experience.items.${index}.role`),
   description: t(`experience.items.${index}.description`)
 })))
-
-// Mobile carousel: two stacked cards per slide, drag sideways for the other two
-const experiencePairs = computed(() => {
-  const pairs: (typeof experiences.value)[] = []
-  for (let i = 0; i < experiences.value.length; i += 2) pairs.push(experiences.value.slice(i, i + 2))
-  return pairs
-})
 </script>
-
-<style scoped>
-[data-carousel] {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-[data-carousel]::-webkit-scrollbar {
-  display: none;
-}
-</style>

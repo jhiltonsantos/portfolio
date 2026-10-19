@@ -50,9 +50,8 @@ app/
 │   │   contact/{Section,Card}.vue
 │   │                             # One folder per fullpage-scroll section, in scroll order.
 │   │                             # experience/projects/contact each split a Section (layout +
-│   │                             # data) from a Card (single-item presentation), because
-│   │                             # sections render the same Card twice — once in a desktop
-│   │                             # grid/list, once in a mobile carousel (see below).
+│   │                             # data) from a Card (single-item presentation); each Section
+│   │                             # renders its list once: stacked on mobile, grid on md+.
 │   ├── hero/RoleCallout.vue      # The little role-label callout anchored to the hero name
 │   └── UI/                       # Cross-section shared components
 │       ├── AppLogo.vue, LanguageSwitch.vue
@@ -60,7 +59,6 @@ app/
 │       └── layout/Background.vue, Header.vue, Footer.vue   # Header/Footer are grid rows (col-span-12)
 ├── composables/
 │   ├── useFullpageScroll.ts        # Desktop: GSAP Observer → store → scrollTo; mobile: native scroll + section sync
-│   ├── useCarouselDragHint.ts      # One-shot GSAP wiggle hinting a mobile carousel is swipeable
 │   └── usePrefersReducedMotion.ts  # prefersReducedMotion(): every GSAP animation checks it first
 ├── stores/navigation.ts          # Pinia store: section list, currentIndex, isAnimating, goTo/next/prev
 ├── plugins/pinia.ts               # Manual Pinia install (see State Management)
@@ -106,29 +104,25 @@ lowercase `ui` folder would instead register as `<Ui...>`. When in doubt, check
 `.nuxt/components.d.ts` rather than guessing; a casing mismatch fails silently (the tag just
 doesn't render, no build error).
 
-### The fullpage-scroll + carousel system
+### The fullpage-scroll system
 
 Fullpage scrolling is **desktop-only** (`md+`, 768px). On mobile the page scrolls natively —
 sections taller than the device screen were unreadable when every gesture jumped a whole section.
 
 - `useFullpageScroll.ts` uses `gsap.matchMedia()`:
   - `(min-width: 768px)`: GSAP `Observer`s on `window` for wheel/touch plus an ↑/↓ keyboard
-    handler call `store.next()`/`store.prev()`; both Observers set `ignore: '[data-carousel]'`.
-    Entering this mode (e.g. resizing up from mobile) snaps to the nearest section first.
+    handler call `store.next()`/`store.prev()`. Entering this mode (e.g. resizing up from mobile)
+    snaps to the nearest section first.
   - `(max-width: 767px)`: no Observers; an `IntersectionObserver` keeps `store.currentIndex` on the
-    section crossing the middle of the viewport, so section-driven effects (background glows,
-    carousel drag hint) still run. A `syncingFromScroll` flag stops these updates from triggering
-    the scroll animation.
+    section crossing the middle of the viewport, so section-driven effects (background glows)
+    still run. A `syncingFromScroll` flag stops these updates from triggering the scroll animation.
   - A `watch` on `store.currentIndex` drives `gsap.to(window, { scrollTo })` in both modes, so
     header/menu links (`store.goToId`) animate on mobile too.
-- `useCarouselDragHint.ts` plays a one-shot GSAP `scrollLeft` wiggle on a mobile carousel the
-  first time its section becomes active, to hint that it's swipeable.
 
-`experience/Section.vue` and `projects/Section.vue` bind `carouselRef` from
-`useCarouselDragHint('<section-id>')` to their mobile `<ul data-carousel>`, which uses
-`touch-pan-x touch-pan-y` so a vertical swipe starting on the carousel still scrolls the page.
-Below `md`, Experience/Projects/Contact have natural height (`md:min-h-dvh md:h-dvh` only on
-desktop); the Hero stays `min-h-dvh`.
+There are no horizontal carousels: on mobile, Experience and Projects stack their cards vertically
+(one list per section, `flex flex-col` below `md`, grid on `md+`). Below `md`,
+Experience/Projects/Contact have natural height (`md:min-h-dvh md:h-dvh` only on desktop); the
+Hero stays `min-h-dvh`.
 
 ## i18n
 
